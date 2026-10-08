@@ -148,3 +148,30 @@ test('TDD: Hero bio has text-align justify, availability badge removed, and cont
   );
 });
 
+test('TDD: Experience and Education cards include organization logos with proper CSS styling', () => {
+  const expSectionMatch = htmlContent.match(/<section id="experience"[^>]*>([\s\S]*?)<\/section>/);
+  assert.ok(expSectionMatch, 'Experience section must exist');
+  const expSection = expSectionMatch[1];
+
+  const expLogoMatches = expSection.match(/<img[^>]+class=["'][^"']*org-logo[^"']*["']/g) || [];
+  assert.equal(expLogoMatches.length, 5, 'All 5 experience cards must include an .org-logo image');
+  assert.ok(expSection.includes('assets/logo_ksm_iot.png'), 'Experience section must reference logo_ksm_iot.png');
+  assert.ok(expSection.includes('assets/logo_upnvj.png'), 'Experience section must reference logo_upnvj.png');
+  assert.ok(expSection.includes('assets/logo_hmte.png'), 'Experience section must reference logo_hmte.png');
+  assert.ok(expSection.includes('assets/logo_sman12.png'), 'Experience section must reference logo_sman12.png');
+
+  const eduSectionMatch = htmlContent.match(/<section id="education"[^>]*>([\s\S]*?)<\/section>/);
+  assert.ok(eduSectionMatch, 'Education section must exist');
+  const eduSection = eduSectionMatch[1];
+
+  const eduLogoMatches = eduSection.match(/<img[^>]+class=["'][^"']*org-logo[^"']*["']/g) || [];
+  assert.equal(eduLogoMatches.length, 2, 'Both education cards must include an .org-logo image');
+  assert.ok(eduSection.includes('assets/logo_upnvj.png'), 'Education section must reference logo_upnvj.png');
+  assert.ok(eduSection.includes('assets/logo_sman12.png'), 'Education section must reference logo_sman12.png');
+
+  const orgLogoBlock = cssContent.match(/\.org-logo\s*\{([^}]+)\}/);
+  assert.ok(orgLogoBlock, '.org-logo rule must exist in style.css');
+  assert.match(orgLogoBlock[1], /object-fit:\s*contain/, '.org-logo must use object-fit: contain');
+});
+
+
