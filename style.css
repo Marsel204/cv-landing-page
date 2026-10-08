@@ -536,10 +536,17 @@ a {
 }
 
 .category-title {
-  font-size: 1.15rem;
+  font-size: 1.08rem;
   font-weight: 700;
   margin-bottom: 1.1rem;
   color: var(--text-primary);
+}
+
+.category-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-bottom: 1rem;
 }
 
 .pill-list {
