@@ -348,24 +348,32 @@
             <div class="cert-footer">
               <span class="link-placeholder">Schematic & Panel Layout Complete &check;</span>
             </div>
+          </div>
         </div>
 
-        <!-- GitHub Repositories Sub-Section -->
+        <!-- GitHub Repositories Sub-Section (Sideways Scrollable Carousel) -->
         <div class="section-subheader-row">
-          <div>
+          <div class="subheader-text">
             <h3 class="subsection-title">GitHub Repositories & Open Source</h3>
-            <p class="section-subtitle">Real-world repositories, firmware engines, and edge systems synced from GitHub</p>
+            <p class="section-subtitle">Scroll sideways to explore live repositories, firmware engines, and edge systems from GitHub</p>
           </div>
-          <div class="github-filter-bar" id="repo-filter-bar">
-            <button class="filter-btn active" data-filter="All">All</button>
-            <button class="filter-btn" data-filter="Python">Python</button>
-            <button class="filter-btn" data-filter="Embedded">Embedded & IoT</button>
-            <button class="filter-btn" data-filter="AI">AI & Vision</button>
-            <button class="filter-btn" data-filter="Web">Web & Tools</button>
+          <div class="subheader-actions">
+            <div class="github-filter-bar" id="repo-filter-bar">
+              <button class="filter-btn active" data-filter="All">All</button>
+              <button class="filter-btn" data-filter="Python">Python</button>
+              <button class="filter-btn" data-filter="Embedded">Embedded & IoT</button>
+              <button class="filter-btn" data-filter="AI">AI & Vision</button>
+              <button class="filter-btn" data-filter="Web">Web & Tools</button>
+            </div>
+            <div class="carousel-nav-arrows">
+              <button id="repo-scroll-left" class="carousel-nav-btn" aria-label="Scroll left">&larr;</button>
+              <button id="repo-scroll-right" class="carousel-nav-btn" aria-label="Scroll right">&rarr;</button>
+            </div>
           </div>
         </div>
 
-        <div id="github-projects-grid" class="projects-grid github-grid">
+        <div class="github-carousel-wrapper">
+          <div id="github-projects-grid" class="github-carousel-track">
           <!-- DeployATSC -->
           <div class="card repo-card" data-repo-name="DeployATSC">
             <div class="card-top">
@@ -528,7 +536,8 @@
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
     <!-- Certifications Section -->
     <section id="certifications" class="section">

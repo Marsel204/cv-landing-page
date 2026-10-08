@@ -123,3 +123,32 @@ test('index.html: contains GitHub repositories section, filter bar, and loads gi
   assert.ok(indexHtml.includes('data-filter="Embedded"'), 'Must have Embedded filter button');
   assert.ok(indexHtml.includes('github.js'), 'index.html must reference github.js script');
 });
+
+test('sideways scroll: HTML structure properly closes featured projects and provides sideways carousel controls', () => {
+  const indexHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf8');
+  
+  // Featured projects grid must be properly closed before the subheader row
+  const featuredGridIndex = indexHtml.indexOf('<div class="projects-grid">');
+  const subheaderIndex = indexHtml.indexOf('<div class="section-subheader-row">');
+  assert.ok(featuredGridIndex !== -1 && subheaderIndex !== -1, 'Both elements must exist');
+  
+  const between = indexHtml.slice(featuredGridIndex, subheaderIndex);
+  // Count opening and closing divs between them
+  const openDivs = (between.match(/<div(\s|>)/g) || []).length;
+  const closeDivs = (between.match(/<\/div>/g) || []).length;
+  assert.equal(openDivs, closeDivs, 'Featured projects container must be balanced and closed before GitHub section');
+
+  // Must have sideways scroll buttons for intuitive navigation
+  assert.ok(indexHtml.includes('id="repo-scroll-left"'), 'Must have left scroll button');
+  assert.ok(indexHtml.includes('id="repo-scroll-right"'), 'Must have right scroll button');
+  assert.ok(indexHtml.includes('github-carousel-track'), 'Track must have sideways carousel track class');
+});
+
+test('sideways scroll: CSS contains horizontal scroll track styling with scroll snap', () => {
+  const css = fs.readFileSync(path.join(rootDir, 'style.css'), 'utf8');
+  assert.ok(css.includes('.github-carousel-track'), 'Must contain .github-carousel-track selector');
+  assert.ok(css.includes('overflow-x'), 'Must configure overflow-x for horizontal scroll');
+  assert.ok(css.includes('scroll-snap-type'), 'Must support CSS scroll-snap');
+  assert.ok(css.includes('.carousel-nav-btn'), 'Must style carousel navigation buttons');
+});
+

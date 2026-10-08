@@ -236,21 +236,80 @@ export function initGithubSection() {
   const filterBar = document.getElementById('repo-filter-bar');
   if (!container) return;
 
+  const scrollLeftBtn = document.getElementById('repo-scroll-left');
+  const scrollRightBtn = document.getElementById('repo-scroll-right');
+
   let allRepos = [];
   let currentFilter = 'All';
+
+  function updateScrollButtons() {
+    if (!scrollLeftBtn || !scrollRightBtn) return;
+    const maxScrollLeft = container.scrollWidth - container.clientWidth;
+    scrollLeftBtn.disabled = container.scrollLeft <= 4;
+    scrollRightBtn.disabled = container.scrollLeft >= maxScrollLeft - 4;
+  }
 
   function render(reposToRender) {
     if (!reposToRender.length) {
       container.innerHTML = `
-        <div class="no-repos-notice" style="grid-column: 1 / -1; text-align: center; padding: 2.5rem; color: var(--text-muted);">
+        <div class="no-repos-notice" style="flex: 1 0 100%; text-align: center; padding: 2.5rem; color: var(--text-muted);">
           No repositories found for this category.
         </div>
       `;
+      updateScrollButtons();
       return;
     }
     container.innerHTML = reposToRender.map(renderRepoCard).join('\n');
+    container.scrollTo({ left: 0, behavior: 'smooth' });
+    setTimeout(updateScrollButtons, 150);
   }
 
+  // Sideways navigation buttons
+  if (scrollLeftBtn) {
+    scrollLeftBtn.addEventListener('click', () => {
+      container.scrollBy({ left: -360, behavior: 'smooth' });
+    });
+  }
+
+  if (scrollRightBtn) {
+    scrollRightBtn.addEventListener('click', () => {
+      container.scrollBy({ left: 360, behavior: 'smooth' });
+    });
+  }
+
+  container.addEventListener('scroll', updateScrollButtons, { passive: true });
+  window.addEventListener('resize', updateScrollButtons, { passive: true });
+
+  // Mouse drag-to-scroll on desktop
+  let isDown = false;
+  let startX = 0;
+  let scrollStart = 0;
+
+  container.addEventListener('mousedown', (e) => {
+    // Ignore clicks on links or buttons
+    if (e.target.closest('a') || e.target.closest('button')) return;
+    isDown = true;
+    startX = e.pageX - container.offsetLeft;
+    scrollStart = container.scrollLeft;
+  });
+
+  window.addEventListener('mouseup', () => {
+    isDown = false;
+  });
+
+  container.addEventListener('mouseleave', () => {
+    isDown = false;
+  });
+
+  container.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - container.offsetLeft;
+    const walk = (x - startX) * 1.4;
+    container.scrollLeft = scrollStart - walk;
+  });
+
+  // Filter selection
   if (filterBar) {
     filterBar.addEventListener('click', (e) => {
       const target = e.target.closest('.filter-btn');
@@ -261,6 +320,8 @@ export function initGithubSection() {
       render(filterRepos(allRepos, currentFilter));
     });
   }
+
+  updateScrollButtons();
 
   fetchGithubProjects('Marsel204').then(repos => {
     allRepos = repos;

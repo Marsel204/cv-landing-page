@@ -847,6 +847,119 @@ a {
   vertical-align: middle;
 }
 
+/* Sideways Horizontal Carousel Track & Navigation */
+.subheader-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.carousel-nav-arrows {
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.carousel-nav-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1.5px solid var(--glass-border);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-spring);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.carousel-nav-btn:hover {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+  transform: translateY(-1px) scale(1.06);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+.carousel-nav-btn:active {
+  transform: translateY(0) scale(0.96);
+}
+
+.carousel-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.github-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.github-carousel-track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: 0.5rem 0.25rem 1.75rem;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124, 58, 237, 0.45) rgba(255, 255, 255, 0.2);
+}
+
+.github-carousel-track:active {
+  cursor: grabbing;
+}
+
+.github-carousel-track::-webkit-scrollbar {
+  height: 8px;
+}
+
+.github-carousel-track::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: var(--radius-full);
+}
+
+.github-carousel-track::-webkit-scrollbar-thumb {
+  background: rgba(124, 58, 237, 0.35);
+  border-radius: var(--radius-full);
+  transition: background 0.2s ease;
+}
+
+.github-carousel-track::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 58, 237, 0.75);
+}
+
+.github-carousel-track .repo-card {
+  flex: 0 0 350px;
+  width: 350px;
+  min-width: 320px;
+  max-width: 85vw;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 640px) {
+  .github-carousel-track .repo-card {
+    flex: 0 0 85vw;
+    width: 85vw;
+  }
+}
+
+
 
 /* ==========================================================================
    Contact Section & Footer
