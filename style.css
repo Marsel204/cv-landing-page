@@ -357,6 +357,7 @@ a {
   font-size: 1.05rem;
   max-width: 620px;
   line-height: 1.65;
+  text-align: justify;
 }
 
 .hero-meta {
