@@ -47,7 +47,7 @@ test('filterRepos: filters repositories by active category or returns all non-fo
     { name: 'fuzzylogic-tft', language: 'C', fork: false, tags: ['C', 'Embedded'], categories: ['Embedded'] },
     { name: 'IoT-Face-Detection-Sytem', language: 'C++', fork: false, tags: ['C++', 'Embedded'], categories: ['Embedded'] },
     { name: 'clock-dashboard', language: 'JavaScript', fork: false, tags: ['Web', 'JavaScript'], categories: ['Web & Tools'] },
-    { name: 'antigravity-agentic-kit', language: 'HTML', fork: false, tags: ['SDLC', 'TDD'], categories: ['Web & Tools'] },
+    { name: 'antigravity-agentic-kit', language: 'HTML', fork: false, tags: ['SDLC', 'TDD', 'Agentic Workflows'], categories: ['Agentic Engineering', 'Agentic'] },
     { name: 'Dataset', language: null, fork: true, tags: [] }
   ];
 
@@ -66,8 +66,61 @@ test('filterRepos: filters repositories by active category or returns all non-fo
   assert.equal(aiRepos[0].name, 'DeployATSC');
 
   const webRepos = githubModule.filterRepos(sampleRepos, 'Web');
-  assert.equal(webRepos.length, 2);
+  assert.equal(webRepos.length, 1);
+
+  // Support full button labels
+  const embeddedIoT = githubModule.filterRepos(sampleRepos, 'Embedded & IoT');
+  assert.equal(embeddedIoT.length, 2, 'Embedded & IoT must match embedded projects');
+
+  const aiVision = githubModule.filterRepos(sampleRepos, 'AI & Vision');
+  assert.equal(aiVision.length, 1, 'AI & Vision must match DeployATSC');
+
+  const webTools = githubModule.filterRepos(sampleRepos, 'Web & Tools');
+  assert.equal(webTools.length, 1, 'Web & Tools must match Web and Tools projects');
+
+  const agenticEng = githubModule.filterRepos(sampleRepos, 'Agentic Engineering');
+  assert.equal(agenticEng.length, 1, 'Agentic Engineering must match antigravity-agentic-kit');
+  assert.equal(agenticEng[0].name, 'antigravity-agentic-kit');
 });
+
+test('TDD: REPO_METADATA and FEATURED_ENGINEERING_PROJECTS correctly group projects into categories', () => {
+  const metadata = githubModule.REPO_METADATA;
+  assert.ok(metadata, 'REPO_METADATA must be exported');
+
+  // IndustrialRCA must belong to Industrial & CAD
+  assert.ok(
+    metadata['IndustrialRCA'].category.some(c => c.toLowerCase().includes('industrial') || c.toLowerCase().includes('cad')),
+    'IndustrialRCA must be grouped into Industrial & CAD'
+  );
+
+  // IoT-Face-Detection-Sytem must belong to AI & Vision
+  assert.ok(
+    metadata['IoT-Face-Detection-Sytem'].category.some(c => c.toLowerCase().includes('ai') || c.toLowerCase().includes('vision')),
+    'IoT-Face-Detection-Sytem face recognition biometrics must be grouped into AI & Vision'
+  );
+
+  // antigravity-agentic-kit and antigravity-embedded-suite must belong to Agentic Engineering
+  assert.ok(
+    metadata['antigravity-agentic-kit'].category.some(c => c.toLowerCase().includes('agentic')),
+    'antigravity-agentic-kit must be grouped into Agentic Engineering'
+  );
+  assert.ok(
+    metadata['antigravity-embedded-suite'].category.some(c => c.toLowerCase().includes('agentic')),
+    'antigravity-embedded-suite must be grouped into Agentic Engineering'
+  );
+});
+
+test('TDD: project cards in index.html contain data-categories for grouping and matching panel buttons', () => {
+  const indexHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf8');
+  
+  // Repo cards must have data-categories attributes for instant client-side grouping
+  assert.ok(indexHtml.includes('data-categories='), 'Repo cards in index.html must have data-categories attributes');
+  assert.ok(indexHtml.includes('data-categories="Industrial & CAD'), 'Industrial projects must have Industrial & CAD data-categories');
+  assert.ok(indexHtml.includes('data-categories="Embedded & IoT'), 'Embedded projects must have Embedded & IoT data-categories');
+  assert.ok(indexHtml.includes('data-categories="Agentic Engineering'), 'Agentic projects must have Agentic Engineering data-categories');
+  assert.ok(indexHtml.includes('data-categories="Web & Tools'), 'Web projects must have Web & Tools data-categories');
+});
+
 
 test('renderRepoCard: produces safe and styled HTML card markup with XSS escaping', () => {
   const repo = {
@@ -106,9 +159,13 @@ test('fetchGithubProjects: falls back to curated offline repositories when fetch
     assert.ok(Array.isArray(repos), 'Must return an array of repositories');
     assert.ok(repos.length > 0, 'Must contain fallback repositories');
     const repoNames = repos.map(r => r.name);
-    assert.ok(repoNames.includes('DeployATSC'), 'Fallback must contain DeployATSC');
+    assert.ok(repoNames.includes('DeploySkripsi') || repoNames.includes('DeployATSC'), 'Fallback must contain DeploySkripsi or DeployATSC');
     assert.ok(repoNames.includes('fuzzylogic-tft'), 'Fallback must contain fuzzylogic-tft');
     assert.ok(repoNames.includes('IndustrialRCA'), 'Fallback must contain IndustrialRCA');
+    assert.ok(!repoNames.includes('IoT-Face-Detection-Sytem'), 'Fallback must not contain deleted IoT-Face-Detection-Sytem');
+    assert.ok(!repoNames.includes('clock-dashboard'), 'Fallback must not contain deleted clock-dashboard');
+    assert.ok(!repoNames.includes('Fuzzy-Inference-System'), 'Fallback must not contain deleted Fuzzy-Inference-System');
+    assert.ok(!repoNames.includes('Dataset'), 'Fallback must not contain deleted Dataset');
   } finally {
     globalThis.fetch = originalFetch;
   }
@@ -137,7 +194,7 @@ test('combined single sweep: all featured and GitHub projects live in one single
   const trackHtml = indexHtml.slice(trackIndex);
   assert.ok(trackHtml.includes('PLC-Based Elevator Simulation'), 'Elevator simulation must be in the single sweep track');
   assert.ok(trackHtml.includes('Direct On Line (DOL) Motor Starter'), 'DOL Motor Starter must be in the single sweep track');
-  assert.ok(trackHtml.includes('DeployATSC'), 'DeployATSC must be in the single sweep track');
+  assert.ok(trackHtml.includes('DeploySkripsi') || trackHtml.includes('DeployATSC'), 'DeploySkripsi must be in the single sweep track');
   assert.ok(trackHtml.includes('fuzzylogic-tft'), 'fuzzylogic-tft must be in the single sweep track');
 
   // Sideways navigation arrows must be present
@@ -176,5 +233,101 @@ test('picture thumbnail: repo cards in index.html and renderRepoCard contain car
   assert.ok(indexHtml.includes('assets/proj_fuzzylogic_tft.png'), 'index.html must include fuzzylogic-tft image');
   assert.ok(indexHtml.includes('assets/proj_industrial_rca.png'), 'index.html must include IndustrialRCA image');
 });
+
+test('TDD: project panel filter groups correctly map to project cards in index.html', () => {
+  const indexHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf8');
+  
+  // Extract all cards with their data-categories
+  const cardRegex = /<div class="card repo-card"[^>]*data-repo-name="([^"]+)"[^>]*data-categories="([^"]+)"/g;
+  let match;
+  const cards = [];
+  while ((match = cardRegex.exec(indexHtml)) !== null) {
+    cards.push({ name: match[1], categories: match[2].toLowerCase() });
+  }
+
+  assert.equal(cards.length, 13, 'Must have exactly 13 projects in index.html after deleting the 5 requested projects');
+
+  assert.ok(indexHtml.includes('Agentic Engineering'), 'index.html must include Agentic Engineering filter button');
+  assert.ok(indexHtml.includes('data-filter="Agentic'), 'Filter button must have Agentic data-filter');
+
+  const agentic = cards.filter(c => c.categories.includes('agentic'));
+  assert.equal(agentic.length, 2, 'Agentic Engineering must match 2 projects (antigravity-embedded-suite and antigravity-agentic-kit)');
+  const agenticNames = agentic.map(c => c.name);
+  assert.ok(agenticNames.includes('antigravity-agentic-kit'), 'Agentic Engineering must match antigravity-agentic-kit');
+  assert.ok(agenticNames.includes('antigravity-embedded-suite'), 'Agentic Engineering must match antigravity-embedded-suite');
+
+  // Verify group counts
+  const industrial = cards.filter(c => c.categories.includes('industrial') || c.categories.includes('cad'));
+  assert.equal(industrial.length, 3, 'Industrial & CAD must match 3 projects');
+
+  const embedded = cards.filter(c => c.categories.includes('embedded') || c.categories.includes('iot'));
+  assert.equal(embedded.length, 4, 'Embedded & IoT must match 4 projects');
+
+  const ai = cards.filter(c => c.categories.includes('ai') || c.categories.includes('vision'));
+  assert.equal(ai.length, 6, 'AI & Vision must match 6 projects');
+
+  const python = cards.filter(c => c.categories.includes('python'));
+  assert.equal(python.length, 7, 'Python must match 7 projects');
+
+  const web = cards.filter(c => (c.categories.includes('web') || c.categories.includes('tools')) && !c.categories.includes('agentic'));
+  assert.equal(web.length, 3, 'Web & Tools must match remaining 3 projects');
+});
+
+test('TDD: Agentic Engineering filter panel exists and groups the skills and embedded suite repos', () => {
+  const indexHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf8');
+  assert.ok(indexHtml.includes('Agentic Engineering'), 'Filter bar must include Agentic Engineering button');
+  assert.ok(indexHtml.includes('data-filter="Agentic'), 'Filter button must have Agentic data-filter attribute');
+  
+  // Verify antigravity-agentic-kit card has Agentic Engineering category
+  const agenticCardRegex = /<div class="card repo-card"[^>]*data-repo-name="antigravity-agentic-kit"[^>]*data-categories="([^"]+)"/;
+  const match = agenticCardRegex.exec(indexHtml);
+  assert.ok(match, 'antigravity-agentic-kit card must exist');
+  assert.ok(match[1].toLowerCase().includes('agentic'), 'antigravity-agentic-kit card must have agentic category');
+
+  // Verify antigravity-embedded-suite card also has Agentic Engineering category
+  const embeddedSuiteRegex = /<div class="card repo-card"[^>]*data-repo-name="antigravity-embedded-suite"[^>]*data-categories="([^"]+)"/;
+  const matchEmbedded = embeddedSuiteRegex.exec(indexHtml);
+  assert.ok(matchEmbedded, 'antigravity-embedded-suite card must exist');
+  assert.ok(matchEmbedded[1].toLowerCase().includes('agentic'), 'antigravity-embedded-suite card must have agentic category');
+});
+
+test('TDD: REPO_METADATA contains active repositories from Marsel204', () => {
+  const metadata = githubModule.REPO_METADATA;
+  const activeRepos = [
+    'DeploySkripsi',
+    'LangPlayeExt',
+    'LangPlay',
+    'frieren-theme',
+    'cv-landing-page'
+  ];
+
+  for (const name of activeRepos) {
+    assert.ok(metadata[name], `REPO_METADATA must contain metadata for ${name}`);
+    assert.ok(metadata[name].title && metadata[name].title.length > 5, `${name} must have a title`);
+    assert.ok(metadata[name].description && metadata[name].description.length > 15, `${name} must have a description`);
+    assert.ok(Array.isArray(metadata[name].tags) && metadata[name].tags.length > 0, `${name} must have tags`);
+    assert.ok(Array.isArray(metadata[name].category) && metadata[name].category.length > 0, `${name} must have categories`);
+  }
+});
+
+test('TDD: index.html has deleted the 5 requested projects and retains remaining repositories', () => {
+  const indexHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf8');
+  
+  // Assert deleted project cards are NOT present
+  assert.ok(!indexHtml.includes('data-repo-name="DeployATSC"'), 'DeployATSC card must be deleted');
+  assert.ok(!indexHtml.includes('data-repo-name="IoT-Face-Detection-Sytem"'), 'IoT-Face-Detection-Sytem card must be deleted');
+  assert.ok(!indexHtml.includes('data-repo-name="clock-dashboard"'), 'clock-dashboard card must be deleted');
+  assert.ok(!indexHtml.includes('data-repo-name="Fuzzy-Inference-System"'), 'Fuzzy-Inference-System card must be deleted');
+  assert.ok(!indexHtml.includes('data-repo-name="Dataset"'), 'Dataset card must be deleted');
+
+  // Retain active repositories
+  assert.ok(indexHtml.includes('data-repo-name="DeploySkripsi"'), 'index.html must include DeploySkripsi');
+  assert.ok(indexHtml.includes('data-repo-name="LangPlayeExt"'), 'index.html must include LangPlayeExt');
+  assert.ok(indexHtml.includes('data-repo-name="frieren-theme"'), 'index.html must include frieren-theme');
+  assert.ok(indexHtml.includes('data-repo-name="cv-landing-page"'), 'index.html must include cv-landing-page');
+});
+
+
+
 
 
