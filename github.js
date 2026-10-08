@@ -7,60 +7,70 @@ export const REPO_METADATA = {
   'DeployATSC': {
     title: 'DeployATSC (Adaptive Traffic Signal Control)',
     description: 'Production edge deployment runtime for Adaptive Traffic Signal Control on NVIDIA Jetson. Coordinates YOLO11 multi-object tracking, Sugeno ANFIS fuzzy inference, and RS-485 fail-safe actuation.',
+    image: 'assets/proj_traffic.png',
     category: ['Python', 'AI', 'Embedded'],
     tags: ['Python', 'NVIDIA Jetson', 'YOLO11', 'Sugeno ANFIS', 'RS-485', 'FastAPI']
   },
   'fuzzylogic-tft': {
     title: 'fuzzylogic-tft (MBG Food Freshness & TFT GUI)',
     description: 'Indonesian MBG food freshness research prototype with C99 and Python fuzzy inference engines and a light interactive touchscreen UI for GUITION JC2432W328C and ESP32-S3.',
+    image: 'assets/proj_fuzzylogic_tft.png',
     category: ['Embedded', 'C/C++'],
     tags: ['C', 'ESP32-S3', 'GUITION TFT', 'C99', 'Fuzzy Logic', 'Arduino CLI']
   },
   'IndustrialRCA': {
     title: 'Industrial Root Cause Analysis (RCA) System',
     description: 'Production-grade industrial RCA system built with LangGraph and DeepSeek AI, grounded in ISA-95 asset hierarchies, ISO 14224/FMEA taxonomies, and Modbus RTU telemetry streaming.',
+    image: 'assets/proj_industrial_rca.png',
     category: ['Python', 'AI'],
     tags: ['Python', 'LangGraph', 'DeepSeek AI', 'ISA-95', 'Modbus RTU', 'ISO 14224']
   },
   'antigravity-embedded-suite': {
     title: 'Antigravity Embedded Engineering Suite',
     description: '4-pillar agentic development framework for microcontrollers (ESP32, Arduino, RP2040): KiCad schematic generation, headless compilation/flashing, sensor calibration, and crash triage.',
+    image: 'assets/proj_embedded_suite.png',
     category: ['Python', 'Embedded'],
     tags: ['Python', 'ESP32', 'Arduino', 'KiCad', 'Sensor Calibration', 'Triage']
   },
   'IoT-Face-Detection-Sytem': {
     title: 'ESP32-CAM Biometric Safe Firmware',
     description: 'Standalone biometric face-recognition safe controller running locally on ESP32-CAM (AI-Thinker) with OV2640 image acquisition, face enrollment, and physical solenoid actuation.',
+    image: 'assets/proj_iot_face.png',
     category: ['Embedded', 'C/C++'],
     tags: ['C++', 'ESP32-CAM', 'Biometrics', 'OV2640', 'FreeRTOS', 'IoT']
   },
   'antigravity-agentic-kit': {
     title: 'Antigravity Agentic Engineering Kit',
     description: 'High-discipline SDLC skills, TDD enforcement, token-efficient action formatting, interactive architecture generation, persistent memory, and parallel worktree management.',
+    image: 'assets/proj_embedded_suite.png',
     category: ['Web & Tools'],
     tags: ['SDLC', 'TDD', 'Agentic Workflows', 'Worktree Automation', 'Shell']
   },
   'clock-dashboard': {
     title: 'SYS.TIME — Live Clock Developer Dashboard',
     description: 'Minimalist real-time developer dashboard digital clock with drift-free wall-clock synchronization, timezone detection, and zero CPU leakage on background tabs.',
+    image: 'assets/proj_clock_dashboard.png',
     category: ['Web & Tools'],
     tags: ['JavaScript', 'HTML5', 'Performance', 'A11y', 'Tabular Telemetry']
   },
   'VisionLabs': {
     title: 'VisionLabs Computer Vision Lab',
     description: 'Computer vision research and experimentation repository exploring real-time deep learning model benchmarks, object detection, and edge camera calibration pipelines.',
+    image: 'assets/proj_traffic.png',
     category: ['Python', 'AI'],
     tags: ['Python', 'OpenCV', 'PyTorch', 'Computer Vision']
   },
   'Fuzzy-Inference-System': {
     title: 'Fuzzy Inference System Core Engine',
     description: 'Mamdani and Sugeno fuzzy inference system implementations with customizable membership functions and defuzzification algorithms for embedded control.',
+    image: 'assets/proj_fuzzylogic_tft.png',
     category: ['Python', 'AI'],
     tags: ['Python', 'Fuzzy Logic', 'Mamdani', 'Sugeno', 'Control Systems']
   },
   'Yolo-Inference': {
     title: 'YOLO Inference Real-Time Pipeline',
     description: 'High-throughput YOLO inference pipelines optimized for low-latency vehicle and object detection in edge computing environments.',
+    image: 'assets/proj_traffic.png',
     category: ['Python', 'AI'],
     tags: ['Python', 'YOLO', 'Object Detection', 'TensorRT']
   }
@@ -73,6 +83,7 @@ export function formatRepoData(rawRepo) {
   const meta = REPO_METADATA[rawRepo.name] || {};
   const rawDesc = rawRepo.description && rawRepo.description.trim().length > 0 ? rawRepo.description.trim() : null;
   const description = rawDesc || meta.description || `Open source project ${rawRepo.name} by Marsel204 on GitHub.`;
+  const image = rawRepo.image || meta.image || null;
   
   let tags = meta.tags ? [...meta.tags] : [];
   if (tags.length === 0) {
@@ -91,6 +102,7 @@ export function formatRepoData(rawRepo) {
     name: rawRepo.name,
     displayName: meta.title || rawRepo.name,
     description: description,
+    image: image,
     url: rawRepo.html_url || `https://github.com/Marsel204/${rawRepo.name}`,
     language: rawRepo.language || (tags[0] || 'Code'),
     stars: rawRepo.stargazers_count ?? 0,
@@ -154,8 +166,14 @@ export function renderRepoCard(repo) {
       ${repo.forks}
     </span>` : '';
 
+  const thumbElement = repo.image ? `
+      <div class="card-thumb-wrap">
+        <img src="${escapeHtml(repo.image)}" alt="${escapeHtml(repo.displayName || repo.name)}" class="card-thumb">
+      </div>` : '';
+
   return `
     <div class="card repo-card" data-repo-name="${escapeHtml(repo.name)}">
+      ${thumbElement}
       <div class="card-top">
         <span class="project-tag">${escapeHtml(repo.language || 'Repository')}</span>
         <div class="repo-meta-right">
@@ -215,6 +233,7 @@ export async function fetchGithubProjects(username = 'Marsel204') {
         name: name,
         displayName: meta.title,
         description: meta.description,
+        image: meta.image || null,
         url: `https://github.com/${username}/${name}`,
         language: meta.tags[0] || 'Python',
         stars: 0,

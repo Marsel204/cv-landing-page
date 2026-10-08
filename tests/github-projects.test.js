@@ -152,3 +152,28 @@ test('sideways scroll: CSS contains horizontal scroll track styling with scroll 
   assert.ok(css.includes('.carousel-nav-btn'), 'Must style carousel navigation buttons');
 });
 
+test('picture thumbnail: repo cards in index.html and renderRepoCard contain card-thumb-wrap and card-thumb', () => {
+  const repoWithImage = {
+    name: 'DeployATSC',
+    displayName: 'DeployATSC',
+    description: 'Production Edge Runtime',
+    url: 'https://github.com/Marsel204/DeployATSC',
+    language: 'Python',
+    image: 'assets/proj_traffic.png',
+    stars: 5,
+    forks: 2,
+    tags: ['Python', 'NVIDIA Jetson'],
+    updatedYear: '2026'
+  };
+
+  const cardHtml = githubModule.renderRepoCard(repoWithImage);
+  assert.ok(cardHtml.includes('card-thumb-wrap'), 'Rendered card must include card-thumb-wrap');
+  assert.ok(cardHtml.includes('card-thumb'), 'Rendered card must include card-thumb');
+  assert.ok(cardHtml.includes('assets/proj_traffic.png'), 'Rendered card must include image source');
+
+  const indexHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf8');
+  assert.ok(indexHtml.includes('assets/proj_fuzzylogic_tft.png'), 'index.html must include fuzzylogic-tft image');
+  assert.ok(indexHtml.includes('assets/proj_industrial_rca.png'), 'index.html must include IndustrialRCA image');
+});
+
+
