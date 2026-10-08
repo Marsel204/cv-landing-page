@@ -123,3 +123,28 @@ test('TDD: .card-status badge does not wrap awkwardly and .card-top handles alig
   );
 });
 
+test('TDD: Hero bio has text-align justify, availability badge removed, and contact details included', () => {
+  // .hero-bio must have text-align: justify
+  const heroBioBlock = cssContent.match(/\.hero-bio\s*\{([^}]+)\}/);
+  assert.ok(heroBioBlock, '.hero-bio rule must exist in style.css');
+  assert.match(
+    heroBioBlock[1],
+    /text-align:\s*justify/,
+    '.hero-bio must have text-align: justify'
+  );
+
+  // Availability badge should be removed
+  assert.ok(
+    !htmlContent.includes('Available for IoT, Firmware & Engineering Roles'),
+    'Availability badge should be removed from hero section'
+  );
+
+  // Contact info verification
+  assert.ok(htmlContent.includes('Tangerang, Indonesia'), 'Domisili Tangerang, Indonesia must be present');
+  assert.ok(htmlContent.includes('0895343371256'), 'Phone number 0895343371256 must be present');
+  assert.ok(
+    htmlContent.includes('linkedin.com/in/marselinus-nugraha-699b29272'),
+    'LinkedIn profile link must be present'
+  );
+});
+
