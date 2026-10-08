@@ -3,76 +3,126 @@
  * Fetches public repositories for Marsel204 with curated fallbacks and language filtering.
  */
 
+export const EXCLUDED_REPOS = new Set([
+  'DeployATSC',
+  'IoT-Face-Detection-Sytem',
+  'clock-dashboard',
+  'Fuzzy-Inference-System',
+  'Dataset'
+]);
+
 export const REPO_METADATA = {
   'DeployATSC': {
     title: 'DeployATSC (Adaptive Traffic Signal Control)',
     description: 'Production edge deployment runtime for Adaptive Traffic Signal Control on NVIDIA Jetson. Coordinates YOLO11 multi-object tracking, Sugeno ANFIS fuzzy inference, and RS-485 fail-safe actuation.',
     image: 'assets/proj_traffic.png',
-    category: ['Python', 'AI', 'Embedded'],
+    category: ['Python', 'AI & Vision', 'Embedded & IoT', 'AI', 'Embedded'],
     tags: ['Python', 'NVIDIA Jetson', 'YOLO11', 'Sugeno ANFIS', 'RS-485', 'FastAPI']
   },
   'fuzzylogic-tft': {
     title: 'fuzzylogic-tft (MBG Food Freshness & TFT GUI)',
     description: 'Indonesian MBG food freshness research prototype with C99 and Python fuzzy inference engines and a light interactive touchscreen UI for GUITION JC2432W328C and ESP32-S3.',
     image: 'assets/proj_fuzzylogic_tft.png',
-    category: ['Embedded', 'C/C++'],
+    category: ['Embedded & IoT', 'Embedded', 'C/C++'],
     tags: ['C', 'ESP32-S3', 'GUITION TFT', 'C99', 'Fuzzy Logic', 'Arduino CLI']
   },
   'IndustrialRCA': {
     title: 'Industrial Root Cause Analysis (RCA) System',
     description: 'Production-grade industrial RCA system built with LangGraph and DeepSeek AI, grounded in ISA-95 asset hierarchies, ISO 14224/FMEA taxonomies, and Modbus RTU telemetry streaming.',
     image: 'assets/proj_industrial_rca.png',
-    category: ['Python', 'AI'],
-    tags: ['Python', 'LangGraph', 'DeepSeek AI', 'ISA-95', 'Modbus RTU', 'ISO 14224']
+    category: ['Industrial & CAD', 'Industrial', 'AI & Vision', 'AI', 'Python'],
+    tags: ['Python', 'LangGraph', 'DeepSeek AI', 'ISA-95', 'Modbus RTU', 'ISO 14224', 'Industrial']
   },
   'antigravity-embedded-suite': {
     title: 'Antigravity Embedded Engineering Suite',
     description: '4-pillar agentic development framework for microcontrollers (ESP32, Arduino, RP2040): KiCad schematic generation, headless compilation/flashing, sensor calibration, and crash triage.',
     image: 'assets/proj_embedded_suite.png',
-    category: ['Python', 'Embedded'],
+    category: ['Agentic Engineering', 'Agentic', 'Embedded & IoT', 'Embedded', 'Python'],
     tags: ['Python', 'ESP32', 'Arduino', 'KiCad', 'Sensor Calibration', 'Triage']
   },
   'IoT-Face-Detection-Sytem': {
     title: 'ESP32-CAM Biometric Safe Firmware',
     description: 'Standalone biometric face-recognition safe controller running locally on ESP32-CAM (AI-Thinker) with OV2640 image acquisition, face enrollment, and physical solenoid actuation.',
     image: 'assets/proj_iot_face.png',
-    category: ['Embedded', 'C/C++'],
+    category: ['Embedded & IoT', 'Embedded', 'AI & Vision', 'AI', 'C/C++'],
     tags: ['C++', 'ESP32-CAM', 'Biometrics', 'OV2640', 'FreeRTOS', 'IoT']
   },
   'antigravity-agentic-kit': {
     title: 'Antigravity Agentic Engineering Kit',
     description: 'High-discipline SDLC skills, TDD enforcement, token-efficient action formatting, interactive architecture generation, persistent memory, and parallel worktree management.',
     image: 'assets/proj_embedded_suite.png',
-    category: ['Web & Tools'],
+    category: ['Agentic Engineering', 'Agentic'],
     tags: ['SDLC', 'TDD', 'Agentic Workflows', 'Worktree Automation', 'Shell']
   },
   'clock-dashboard': {
     title: 'SYS.TIME — Live Clock Developer Dashboard',
     description: 'Minimalist real-time developer dashboard digital clock with drift-free wall-clock synchronization, timezone detection, and zero CPU leakage on background tabs.',
     image: 'assets/proj_clock_dashboard.png',
-    category: ['Web & Tools'],
+    category: ['Web & Tools', 'Web', 'Tools'],
     tags: ['JavaScript', 'HTML5', 'Performance', 'A11y', 'Tabular Telemetry']
   },
   'VisionLabs': {
     title: 'VisionLabs Computer Vision Lab',
     description: 'Computer vision research and experimentation repository exploring real-time deep learning model benchmarks, object detection, and edge camera calibration pipelines.',
     image: 'assets/proj_traffic.png',
-    category: ['Python', 'AI'],
+    category: ['AI & Vision', 'AI', 'Python'],
     tags: ['Python', 'OpenCV', 'PyTorch', 'Computer Vision']
   },
   'Fuzzy-Inference-System': {
     title: 'Fuzzy Inference System Core Engine',
     description: 'Mamdani and Sugeno fuzzy inference system implementations with customizable membership functions and defuzzification algorithms for embedded control.',
     image: 'assets/proj_fuzzylogic_tft.png',
-    category: ['Python', 'AI'],
+    category: ['AI & Vision', 'AI', 'Python'],
     tags: ['Python', 'Fuzzy Logic', 'Mamdani', 'Sugeno', 'Control Systems']
   },
   'Yolo-Inference': {
     title: 'YOLO Inference Real-Time Pipeline',
     description: 'High-throughput YOLO inference pipelines optimized for low-latency vehicle and object detection in edge computing environments.',
     image: 'assets/proj_traffic.png',
-    category: ['Python', 'AI'],
+    category: ['AI & Vision', 'AI', 'Python'],
     tags: ['Python', 'YOLO', 'Object Detection', 'TensorRT']
+  },
+  'DeploySkripsi': {
+    title: 'DeploySkripsi (ATSC Edge Runtime on Jetson)',
+    description: 'Undergraduate thesis production edge runtime for Adaptive Traffic Signal Control on NVIDIA Jetson Orin Nano with YOLO11 tracking, Sugeno ANFIS control, and RS-485 actuation.',
+    image: 'assets/proj_deploy_atsc.jpg',
+    category: ['Python', 'AI & Vision', 'Embedded & IoT', 'AI', 'Embedded'],
+    tags: ['Python', 'NVIDIA Jetson', 'YOLO11', 'Sugeno ANFIS', 'RS-485']
+  },
+  'LangPlayeExt': {
+    title: 'LinguaPlay — Japanese AI Immersion Player & Extension',
+    description: 'AI-enhanced Japanese language immersion video player and YouTube subtitle companion featuring Kuromoji tokenization, multi-provider LLM explanations (Gemini & DeepSeek), and Anki sync.',
+    image: 'assets/proj_embedded_suite.png',
+    category: ['Web & Tools', 'AI & Vision', 'Python', 'Web', 'Tools', 'AI'],
+    tags: ['JavaScript', 'HTML5', 'Kuromoji', 'DeepSeek', 'Gemini AI', 'Anki Sync']
+  },
+  'LangPlay': {
+    title: 'LangPlay — AI Language Immersion Web Runtime',
+    description: 'Full-stack language immersion media runtime with interactive romaji-to-kanji parsing, sentence tokenization engine, and multi-model AI grammar pedagogical breakdowns.',
+    image: 'assets/proj_clock_dashboard.png',
+    category: ['Web & Tools', 'Python', 'AI & Vision', 'Web', 'Tools'],
+    tags: ['Python', 'HTML5', 'NLP', 'Parsing', 'AI Pedagogy']
+  },
+  'frieren-theme': {
+    title: 'Frieren Omarchy Theme',
+    description: 'Minimalist desktop aesthetic theme inspired by Frieren for Omarchy Linux environments, with custom palette styling, status bar colors, and UI assets.',
+    image: 'assets/proj_clock_dashboard.png',
+    category: ['Web & Tools', 'Web', 'Tools'],
+    tags: ['CSS', 'Omarchy', 'Linux', 'Theme', 'Styling']
+  },
+  'Dataset': {
+    title: 'ATSC Computer Vision Traffic Dataset',
+    description: 'Curated and annotated traffic perception dataset with bounding box labels for vehicle detection, queue length estimation, and edge model fine-tuning.',
+    image: 'assets/proj_traffic.png',
+    category: ['AI & Vision', 'Python', 'AI'],
+    tags: ['Dataset', 'Computer Vision', 'Annotations', 'YOLO', 'Traffic']
+  },
+  'cv-landing-page': {
+    title: 'Interactive CV & Engineering Portfolio',
+    description: 'Modern, high-performance responsive CV and engineering portfolio landing page built with pure CSS holographic iridescent theme and single-sweep project carousel.',
+    image: 'assets/profile.png',
+    category: ['Web & Tools', 'Web', 'Tools'],
+    tags: ['HTML5', 'CSS3', 'JavaScript', 'Holographic UI', 'Performance']
   }
 };
 
@@ -135,13 +185,13 @@ export const FEATURED_ENGINEERING_PROJECTS = [
     displayName: 'Prototype Fuzzy Traffic Controller',
     description: 'Designed an intelligent adaptive traffic light management system pairing computer vision (YOLO) for vehicle queue density detection with a Fuzzy Logic Controller executed on an ESP32 to adjust green light intervals in real time.',
     image: 'assets/proj_traffic.png',
-    url: 'https://github.com/Marsel204/DeployATSC',
+    url: 'https://github.com/Marsel204/DeploySkripsi',
     language: 'AI & Embedded IoT',
     stars: 0,
     forks: 0,
     fork: false,
     tags: ['ESP32', 'YOLO Vision', 'Python', 'Fuzzy Logic'],
-    categories: ['Embedded', 'AI', 'Embedded & IoT', 'AI & Vision'],
+    categories: ['Embedded', 'AI', 'Embedded & IoT', 'AI & Vision', 'Python'],
     updatedYear: '2025',
     footerStatus: 'Tested with Vehicle Detection \u2713'
   },
@@ -169,31 +219,60 @@ export function filterRepos(repos, filter = 'All') {
   const nonForks = repos.filter(r => !r.fork);
   if (!filter || filter === 'All') return nonForks;
 
-  const f = filter.toLowerCase();
+  const f = filter.toLowerCase().trim();
   return nonForks.filter(r => {
-    if (f === 'industrial' || f === 'industrial & cad') {
-      return (r.categories && r.categories.some(c => c.toLowerCase().includes('industrial') || c.toLowerCase().includes('cad'))) ||
-             (r.tags && r.tags.some(t => ['industrial automation', 'electrical cad', 'siemens tia portal', 'autocad electrical', 'factory i/o', 'ladder logic (plc)'].includes(t.toLowerCase())));
+    // Check explicit categories
+    if (r.categories && Array.isArray(r.categories)) {
+      for (const cat of r.categories) {
+        const c = cat.toLowerCase();
+        if (c === f) return true;
+        if ((f === 'agentic' || f === 'agentic engineering') && c.includes('agentic')) return true;
+        if ((f === 'industrial' || f === 'industrial & cad') && (c.includes('industrial') || c.includes('cad'))) return true;
+        if ((f === 'embedded' || f === 'embedded & iot') && (c.includes('embedded') || c.includes('iot'))) return true;
+        if ((f === 'ai' || f === 'ai & vision') && (c.includes('ai') || c.includes('vision'))) return true;
+        if (f === 'python' && c.includes('python')) return true;
+        if ((f === 'web' || f === 'tools' || f === 'web & tools') && (c.includes('web') || c.includes('tools'))) return true;
+      }
     }
-    if (f === 'python') {
-      return (r.language && r.language.toLowerCase() === 'python') ||
-             (r.tags && r.tags.some(t => t.toLowerCase() === 'python'));
+
+    // Check tags
+    if (r.tags && Array.isArray(r.tags)) {
+      const lowerTags = r.tags.map(t => t.toLowerCase());
+      if ((f === 'agentic' || f === 'agentic engineering') &&
+          lowerTags.some(t => ['agentic', 'agentic workflows', 'sdlc', 'tdd', 'skills', 'worktree automation'].includes(t))) {
+        return true;
+      }
+      if ((f === 'industrial' || f === 'industrial & cad') &&
+          lowerTags.some(t => ['industrial automation', 'electrical cad', 'siemens tia portal', 'autocad electrical', 'factory i/o', 'ladder logic (plc)', 'plc', 'cad', 'industrial'].includes(t))) {
+        return true;
+      }
+      if ((f === 'embedded' || f === 'embedded & iot') &&
+          lowerTags.some(t => ['embedded', 'esp32', 'iot', 'c', 'c++', 'esp32-s3', 'esp32-cam', 'freertos', 'arduino', 'arduino cli'].includes(t))) {
+        return true;
+      }
+      if ((f === 'ai' || f === 'ai & vision') &&
+          lowerTags.some(t => ['ai', 'vision', 'yolo', 'yolo11', 'fuzzy logic', 'deepseek ai', 'computer vision', 'sugeno anfis', 'biometrics'].includes(t))) {
+        return true;
+      }
+      if (f === 'python' && lowerTags.includes('python')) {
+        return true;
+      }
+      if ((f === 'web' || f === 'tools' || f === 'web & tools') &&
+          lowerTags.some(t => ['javascript', 'html', 'css', 'web', 'tools'].includes(t))) {
+        return true;
+      }
     }
-    if (f === 'embedded' || f === 'c/c++') {
-      return (r.language && ['c', 'c++'].includes(r.language.toLowerCase())) ||
-             (r.tags && r.tags.some(t => ['embedded', 'esp32', 'iot', 'c', 'c++'].includes(t.toLowerCase()))) ||
-             (r.categories && r.categories.some(c => ['embedded', 'c/c++'].includes(c.toLowerCase())));
+
+    // Check primary language (only as fallback if explicit categories not provided)
+    if (r.language && (!r.categories || r.categories.length === 0)) {
+      const lang = r.language.toLowerCase();
+      if (f === 'python' && lang === 'python') return true;
+      if ((f === 'embedded' || f === 'embedded & iot') && ['c', 'c++'].includes(lang)) return true;
+      if ((f === 'web' || f === 'tools' || f === 'web & tools') && ['javascript', 'html', 'css', 'typescript'].includes(lang)) return true;
+      if (lang === f) return true;
     }
-    if (f === 'ai' || f === 'ai & vision') {
-      return (r.tags && r.tags.some(t => ['ai', 'yolo', 'fuzzy logic', 'deepseek ai', 'computer vision', 'sugeno anfis'].includes(t.toLowerCase()))) ||
-             (r.categories && r.categories.some(c => c.toLowerCase() === 'ai'));
-    }
-    if (f === 'web' || f === 'tools') {
-      return (r.language && ['javascript', 'html', 'css'].includes(r.language.toLowerCase())) ||
-             (r.tags && r.tags.some(t => ['javascript', 'html', 'sdlc', 'tdd'].includes(t.toLowerCase()))) ||
-             (r.categories && r.categories.some(c => c.toLowerCase().includes('web')));
-    }
-    return r.language && r.language.toLowerCase() === f;
+
+    return false;
   });
 }
 
@@ -235,8 +314,10 @@ export function renderRepoCard(repo) {
         </a>
       </div>`;
 
+  const categoryAttr = escapeHtml((repo.categories || []).join(', '));
+
   return `
-    <div class="card repo-card" data-repo-name="${escapeHtml(repo.name)}">
+    <div class="card repo-card" data-repo-name="${escapeHtml(repo.name)}" data-categories="${categoryAttr}">
       ${thumbElement}
       <div class="card-top">
         <span class="project-tag">${escapeHtml(repo.language || 'Project')}</span>
@@ -282,29 +363,33 @@ export async function fetchGithubProjects(username = 'Marsel204') {
     if (!Array.isArray(data)) {
       throw new Error('Invalid response structure from GitHub API');
     }
-    const fetched = data.map(formatRepoData);
+    const fetched = data
+      .filter(r => !EXCLUDED_REPOS.has(r.name))
+      .map(formatRepoData);
     // Combine featured offline engineering projects with fetched GitHub repositories
     return [...FEATURED_ENGINEERING_PROJECTS, ...fetched];
   } catch (err) {
     console.warn('[GitHub Projects] API fetch failed or rate-limited, utilizing curated offline repos:', err.message);
     // Return curated offline repositories so UI never fails
-    const curated = Object.keys(REPO_METADATA).map(name => {
-      const meta = REPO_METADATA[name];
-      return {
-        name: name,
-        displayName: meta.title,
-        description: meta.description,
-        image: meta.image || null,
-        url: `https://github.com/${username}/${name}`,
-        language: meta.tags[0] || 'Python',
-        stars: 0,
-        forks: 0,
-        fork: false,
-        tags: meta.tags,
-        categories: meta.category,
-        updatedYear: '2026'
-      };
-    });
+    const curated = Object.keys(REPO_METADATA)
+      .filter(name => !EXCLUDED_REPOS.has(name))
+      .map(name => {
+        const meta = REPO_METADATA[name];
+        return {
+          name: name,
+          displayName: meta.title,
+          description: meta.description,
+          image: meta.image || null,
+          url: `https://github.com/${username}/${name}`,
+          language: meta.tags[0] || 'Python',
+          stars: 0,
+          forks: 0,
+          fork: false,
+          tags: meta.tags,
+          categories: meta.category,
+          updatedYear: '2026'
+        };
+      });
     return [...FEATURED_ENGINEERING_PROJECTS, ...curated];
   }
 }
@@ -320,7 +405,26 @@ export function initGithubSection() {
   const scrollLeftBtn = document.getElementById('repo-scroll-left');
   const scrollRightBtn = document.getElementById('repo-scroll-right');
 
-  let allRepos = [];
+  const curatedFallback = Object.keys(REPO_METADATA)
+    .filter(name => !EXCLUDED_REPOS.has(name))
+    .map(name => {
+      const meta = REPO_METADATA[name];
+      return {
+        name: name,
+        displayName: meta.title,
+        description: meta.description,
+        image: meta.image || null,
+        url: `https://github.com/Marsel204/${name}`,
+        language: meta.tags[0] || 'Python',
+        stars: 0,
+        forks: 0,
+        fork: false,
+        tags: meta.tags,
+        categories: meta.category,
+        updatedYear: '2026'
+      };
+    });
+  let allRepos = [...FEATURED_ENGINEERING_PROJECTS, ...curatedFallback];
   let currentFilter = 'All';
 
   function updateScrollButtons() {
