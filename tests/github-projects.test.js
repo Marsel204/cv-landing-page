@@ -124,24 +124,25 @@ test('index.html: contains GitHub repositories section, filter bar, and loads gi
   assert.ok(indexHtml.includes('github.js'), 'index.html must reference github.js script');
 });
 
-test('sideways scroll: HTML structure properly closes featured projects and provides sideways carousel controls', () => {
+test('combined single sweep: all featured and GitHub projects live in one single sideways carousel track', () => {
   const indexHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf8');
   
-  // Featured projects grid must be properly closed before the subheader row
-  const featuredGridIndex = indexHtml.indexOf('<div class="projects-grid">');
-  const subheaderIndex = indexHtml.indexOf('<div class="section-subheader-row">');
-  assert.ok(featuredGridIndex !== -1 && subheaderIndex !== -1, 'Both elements must exist');
-  
-  const between = indexHtml.slice(featuredGridIndex, subheaderIndex);
-  // Count opening and closing divs between them
-  const openDivs = (between.match(/<div(\s|>)/g) || []).length;
-  const closeDivs = (between.match(/<\/div>/g) || []).length;
-  assert.equal(openDivs, closeDivs, 'Featured projects container must be balanced and closed before GitHub section');
+  // Must NOT have a separate subheader row dividing the projects into two sections
+  assert.ok(!indexHtml.includes('class="section-subheader-row"'), 'Should not have a separate subheader divider; projects should be combined');
 
-  // Must have sideways scroll buttons for intuitive navigation
+  // Both offline engineering projects and GitHub projects must be in the same carousel track
+  const trackIndex = indexHtml.indexOf('class="github-carousel-track"');
+  assert.ok(trackIndex !== -1, 'Track must exist');
+  
+  const trackHtml = indexHtml.slice(trackIndex);
+  assert.ok(trackHtml.includes('PLC-Based Elevator Simulation'), 'Elevator simulation must be in the single sweep track');
+  assert.ok(trackHtml.includes('Direct On Line (DOL) Motor Starter'), 'DOL Motor Starter must be in the single sweep track');
+  assert.ok(trackHtml.includes('DeployATSC'), 'DeployATSC must be in the single sweep track');
+  assert.ok(trackHtml.includes('fuzzylogic-tft'), 'fuzzylogic-tft must be in the single sweep track');
+
+  // Sideways navigation arrows must be present
   assert.ok(indexHtml.includes('id="repo-scroll-left"'), 'Must have left scroll button');
   assert.ok(indexHtml.includes('id="repo-scroll-right"'), 'Must have right scroll button');
-  assert.ok(indexHtml.includes('github-carousel-track'), 'Track must have sideways carousel track class');
 });
 
 test('sideways scroll: CSS contains horizontal scroll track styling with scroll snap', () => {

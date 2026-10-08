@@ -114,6 +114,54 @@ export function formatRepoData(rawRepo) {
   };
 }
 
+export const FEATURED_ENGINEERING_PROJECTS = [
+  {
+    name: 'PLC-Based Elevator Simulation',
+    displayName: 'PLC-Based Elevator Simulation',
+    description: 'Engineered a multi-floor industrial elevator controller using Siemens TIA Portal integrated with Factory I/O 3D simulation. Implemented call request sequencing, position encoders, safety interlocks, and motor direction controls.',
+    image: 'assets/proj_elevator.png',
+    url: '#projects',
+    language: 'Industrial Automation',
+    stars: 0,
+    forks: 0,
+    fork: false,
+    tags: ['Siemens TIA Portal', 'Factory I/O', 'Ladder Logic (PLC)'],
+    categories: ['Industrial', 'Industrial & CAD'],
+    updatedYear: '2025',
+    footerStatus: 'Simulated & Verified \u2713'
+  },
+  {
+    name: 'Prototype Fuzzy Traffic Controller',
+    displayName: 'Prototype Fuzzy Traffic Controller',
+    description: 'Designed an intelligent adaptive traffic light management system pairing computer vision (YOLO) for vehicle queue density detection with a Fuzzy Logic Controller executed on an ESP32 to adjust green light intervals in real time.',
+    image: 'assets/proj_traffic.png',
+    url: 'https://github.com/Marsel204/DeployATSC',
+    language: 'AI & Embedded IoT',
+    stars: 0,
+    forks: 0,
+    fork: false,
+    tags: ['ESP32', 'YOLO Vision', 'Python', 'Fuzzy Logic'],
+    categories: ['Embedded', 'AI', 'Embedded & IoT', 'AI & Vision'],
+    updatedYear: '2025',
+    footerStatus: 'Tested with Vehicle Detection \u2713'
+  },
+  {
+    name: 'Direct On Line (DOL) Motor Starter & Panel Diagram',
+    displayName: 'Direct On Line (DOL) Motor Starter & Panel Diagram',
+    description: 'Designed complete schematic wiring and physical industrial panel layout in AutoCAD Electrical. Included power and control circuits, contactor & thermal overload sizing, terminal strip numbering, and automated Bill of Materials (BOM).',
+    image: 'assets/proj_cad.png',
+    url: '#projects',
+    language: 'Electrical CAD',
+    stars: 0,
+    forks: 0,
+    fork: false,
+    tags: ['AutoCAD Electrical', 'DOL Motor Starter', 'Panel Layout', 'BOM Generation'],
+    categories: ['Industrial', 'Industrial & CAD'],
+    updatedYear: '2025',
+    footerStatus: 'Schematic & Panel Layout Complete \u2713'
+  }
+];
+
 /**
  * Filter repository list by category
  */
@@ -123,6 +171,10 @@ export function filterRepos(repos, filter = 'All') {
 
   const f = filter.toLowerCase();
   return nonForks.filter(r => {
+    if (f === 'industrial' || f === 'industrial & cad') {
+      return (r.categories && r.categories.some(c => c.toLowerCase().includes('industrial') || c.toLowerCase().includes('cad'))) ||
+             (r.tags && r.tags.some(t => ['industrial automation', 'electrical cad', 'siemens tia portal', 'autocad electrical', 'factory i/o', 'ladder logic (plc)'].includes(t.toLowerCase())));
+    }
     if (f === 'python') {
       return (r.language && r.language.toLowerCase() === 'python') ||
              (r.tags && r.tags.some(t => t.toLowerCase() === 'python'));
@@ -171,11 +223,23 @@ export function renderRepoCard(repo) {
         <img src="${escapeHtml(repo.image)}" alt="${escapeHtml(repo.displayName || repo.name)}" class="card-thumb">
       </div>` : '';
 
+  const footerElement = repo.footerStatus ? `
+      <div class="cert-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+        <span class="link-placeholder">${escapeHtml(repo.footerStatus)}</span>
+        ${repo.url && repo.url.startsWith('http') ? `<a href="${escapeHtml(repo.url)}" target="_blank" rel="noopener noreferrer" class="project-gh-link">View Repo &nearr;</a>` : ''}
+      </div>` : `
+      <div class="cert-footer">
+        <a href="${escapeHtml(repo.url)}" target="_blank" rel="noopener noreferrer" class="project-gh-link">
+          <span>View on GitHub</span>
+          &nearr;
+        </a>
+      </div>`;
+
   return `
     <div class="card repo-card" data-repo-name="${escapeHtml(repo.name)}">
       ${thumbElement}
       <div class="card-top">
-        <span class="project-tag">${escapeHtml(repo.language || 'Repository')}</span>
+        <span class="project-tag">${escapeHtml(repo.language || 'Project')}</span>
         <div class="repo-meta-right">
           ${starsBadge}
           ${forksBadge}
@@ -187,12 +251,7 @@ export function renderRepoCard(repo) {
       <div class="pill-list" style="margin-bottom: 1.25rem;">
         ${pillElements}
       </div>
-      <div class="cert-footer">
-        <a href="${escapeHtml(repo.url)}" target="_blank" rel="noopener noreferrer" class="project-gh-link">
-          <span>View on GitHub</span>
-          &nearr;
-        </a>
-      </div>
+      ${footerElement}
     </div>
   `.trim();
 }
@@ -211,7 +270,7 @@ function escapeHtml(str) {
 }
 
 /**
- * Fetch repositories from GitHub API with fallback
+ * Fetch repositories from GitHub API with fallback, prepending core featured projects
  */
 export async function fetchGithubProjects(username = 'Marsel204') {
   try {
@@ -223,11 +282,13 @@ export async function fetchGithubProjects(username = 'Marsel204') {
     if (!Array.isArray(data)) {
       throw new Error('Invalid response structure from GitHub API');
     }
-    return data.map(formatRepoData);
+    const fetched = data.map(formatRepoData);
+    // Combine featured offline engineering projects with fetched GitHub repositories
+    return [...FEATURED_ENGINEERING_PROJECTS, ...fetched];
   } catch (err) {
     console.warn('[GitHub Projects] API fetch failed or rate-limited, utilizing curated offline repos:', err.message);
     // Return curated offline repositories so UI never fails
-    return Object.keys(REPO_METADATA).map(name => {
+    const curated = Object.keys(REPO_METADATA).map(name => {
       const meta = REPO_METADATA[name];
       return {
         name: name,
@@ -244,6 +305,7 @@ export async function fetchGithubProjects(username = 'Marsel204') {
         updatedYear: '2026'
       };
     });
+    return [...FEATURED_ENGINEERING_PROJECTS, ...curated];
   }
 }
 
