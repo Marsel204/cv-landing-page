@@ -790,6 +790,204 @@ a {
   text-decoration: underline;
 }
 
+/* GitHub Repositories Sub-Section & Filter */
+.section-subheader-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed rgba(124, 58, 237, 0.2);
+}
+
+.subsection-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.github-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-btn {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--glass-border);
+  padding: 0.4rem 0.95rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-spring);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: var(--accent-highlight);
+  color: var(--accent-highlight);
+  transform: translateY(-1px);
+}
+
+.filter-btn.active {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.repo-card .project-description {
+  flex-grow: 1;
+}
+
+.repo-meta-right {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.repo-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.stat-icon {
+  fill: currentColor;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Sideways Horizontal Carousel Track & Navigation */
+.subheader-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.carousel-nav-arrows {
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.carousel-nav-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1.5px solid var(--glass-border);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-spring);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.carousel-nav-btn:hover {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+  transform: translateY(-1px) scale(1.06);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+.carousel-nav-btn:active {
+  transform: translateY(0) scale(0.96);
+}
+
+.carousel-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.github-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.github-carousel-track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: 0.5rem 0.25rem 1.75rem;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124, 58, 237, 0.45) rgba(255, 255, 255, 0.2);
+}
+
+.github-carousel-track:active {
+  cursor: grabbing;
+}
+
+.github-carousel-track::-webkit-scrollbar {
+  height: 8px;
+}
+
+.github-carousel-track::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: var(--radius-full);
+}
+
+.github-carousel-track::-webkit-scrollbar-thumb {
+  background: rgba(124, 58, 237, 0.35);
+  border-radius: var(--radius-full);
+  transition: background 0.2s ease;
+}
+
+.github-carousel-track::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 58, 237, 0.75);
+}
+
+.github-carousel-track .repo-card {
+  flex: 0 0 350px;
+  width: 350px;
+  min-width: 320px;
+  max-width: 85vw;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 640px) {
+  .github-carousel-track .repo-card {
+    flex: 0 0 85vw;
+    width: 85vw;
+  }
+}
+
+
+
 /* ==========================================================================
    Contact Section & Footer
    ========================================================================== */
