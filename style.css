@@ -763,6 +763,91 @@ a {
   text-decoration: underline;
 }
 
+/* GitHub Repositories Sub-Section & Filter */
+.section-subheader-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed rgba(124, 58, 237, 0.2);
+}
+
+.subsection-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.github-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-btn {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--glass-border);
+  padding: 0.4rem 0.95rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-spring);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: var(--accent-highlight);
+  color: var(--accent-highlight);
+  transform: translateY(-1px);
+}
+
+.filter-btn.active {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.repo-card .project-description {
+  flex-grow: 1;
+}
+
+.repo-meta-right {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.repo-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.stat-icon {
+  fill: currentColor;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
 /* ==========================================================================
    Contact Section & Footer
    ========================================================================== */

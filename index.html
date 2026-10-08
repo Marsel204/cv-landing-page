@@ -320,8 +320,9 @@
               <span class="pill-sm">Python</span>
               <span class="pill-sm">Fuzzy Logic</span>
             </div>
-            <div class="cert-footer">
+            <div class="cert-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
               <span class="link-placeholder">Tested with Vehicle Detection &check;</span>
+              <a href="https://github.com/Marsel204/DeployATSC" target="_blank" rel="noopener noreferrer" class="project-gh-link">View Repo &nearr;</a>
             </div>
           </div>
 
@@ -346,6 +347,183 @@
             </div>
             <div class="cert-footer">
               <span class="link-placeholder">Schematic & Panel Layout Complete &check;</span>
+            </div>
+        </div>
+
+        <!-- GitHub Repositories Sub-Section -->
+        <div class="section-subheader-row">
+          <div>
+            <h3 class="subsection-title">GitHub Repositories & Open Source</h3>
+            <p class="section-subtitle">Real-world repositories, firmware engines, and edge systems synced from GitHub</p>
+          </div>
+          <div class="github-filter-bar" id="repo-filter-bar">
+            <button class="filter-btn active" data-filter="All">All</button>
+            <button class="filter-btn" data-filter="Python">Python</button>
+            <button class="filter-btn" data-filter="Embedded">Embedded & IoT</button>
+            <button class="filter-btn" data-filter="AI">AI & Vision</button>
+            <button class="filter-btn" data-filter="Web">Web & Tools</button>
+          </div>
+        </div>
+
+        <div id="github-projects-grid" class="projects-grid github-grid">
+          <!-- DeployATSC -->
+          <div class="card repo-card" data-repo-name="DeployATSC">
+            <div class="card-top">
+              <span class="project-tag">Python</span>
+              <div class="repo-meta-right">
+                <span class="year-badge">2026</span>
+              </div>
+            </div>
+            <h3 class="project-title">DeployATSC (Adaptive Traffic Signal Control)</h3>
+            <p class="project-description">
+              Production edge deployment runtime for Adaptive Traffic Signal Control on NVIDIA Jetson. Coordinates YOLO11 multi-object tracking, Sugeno ANFIS fuzzy inference, and RS-485 fail-safe actuation.
+            </p>
+            <div class="pill-list" style="margin-bottom: 1.25rem;">
+              <span class="pill-sm">Python</span>
+              <span class="pill-sm">NVIDIA Jetson</span>
+              <span class="pill-sm">YOLO11</span>
+              <span class="pill-sm">Sugeno ANFIS</span>
+              <span class="pill-sm">RS-485</span>
+            </div>
+            <div class="cert-footer">
+              <a href="https://github.com/Marsel204/DeployATSC" target="_blank" rel="noopener noreferrer" class="project-gh-link">
+                <span>View on GitHub</span>
+                &nearr;
+              </a>
+            </div>
+          </div>
+
+          <!-- fuzzylogic-tft -->
+          <div class="card repo-card" data-repo-name="fuzzylogic-tft">
+            <div class="card-top">
+              <span class="project-tag">C</span>
+              <div class="repo-meta-right">
+                <span class="year-badge">2026</span>
+              </div>
+            </div>
+            <h3 class="project-title">fuzzylogic-tft (MBG Food Freshness & TFT GUI)</h3>
+            <p class="project-description">
+              Indonesian MBG food freshness research prototype with C99 and Python fuzzy inference engines and a light interactive touchscreen UI for GUITION JC2432W328C and ESP32-S3.
+            </p>
+            <div class="pill-list" style="margin-bottom: 1.25rem;">
+              <span class="pill-sm">C</span>
+              <span class="pill-sm">ESP32-S3</span>
+              <span class="pill-sm">GUITION TFT</span>
+              <span class="pill-sm">C99</span>
+              <span class="pill-sm">Fuzzy Logic</span>
+            </div>
+            <div class="cert-footer">
+              <a href="https://github.com/Marsel204/fuzzylogic-tft" target="_blank" rel="noopener noreferrer" class="project-gh-link">
+                <span>View on GitHub</span>
+                &nearr;
+              </a>
+            </div>
+          </div>
+
+          <!-- IndustrialRCA -->
+          <div class="card repo-card" data-repo-name="IndustrialRCA">
+            <div class="card-top">
+              <span class="project-tag">Python</span>
+              <div class="repo-meta-right">
+                <span class="year-badge">2026</span>
+              </div>
+            </div>
+            <h3 class="project-title">Industrial Root Cause Analysis (RCA) System</h3>
+            <p class="project-description">
+              Production-grade industrial RCA system built with LangGraph and DeepSeek AI, grounded in ISA-95 asset hierarchies, ISO 14224/FMEA taxonomies, and Modbus RTU telemetry streaming.
+            </p>
+            <div class="pill-list" style="margin-bottom: 1.25rem;">
+              <span class="pill-sm">Python</span>
+              <span class="pill-sm">LangGraph</span>
+              <span class="pill-sm">DeepSeek AI</span>
+              <span class="pill-sm">ISA-95</span>
+              <span class="pill-sm">Modbus RTU</span>
+            </div>
+            <div class="cert-footer">
+              <a href="https://github.com/Marsel204/IndustrialRCA" target="_blank" rel="noopener noreferrer" class="project-gh-link">
+                <span>View on GitHub</span>
+                &nearr;
+              </a>
+            </div>
+          </div>
+
+          <!-- antigravity-embedded-suite -->
+          <div class="card repo-card" data-repo-name="antigravity-embedded-suite">
+            <div class="card-top">
+              <span class="project-tag">Python</span>
+              <div class="repo-meta-right">
+                <span class="year-badge">2026</span>
+              </div>
+            </div>
+            <h3 class="project-title">Antigravity Embedded Engineering Suite</h3>
+            <p class="project-description">
+              4-pillar agentic development framework for microcontrollers (ESP32, Arduino, RP2040): KiCad schematic generation, headless compilation/flashing, sensor calibration, and crash triage.
+            </p>
+            <div class="pill-list" style="margin-bottom: 1.25rem;">
+              <span class="pill-sm">Python</span>
+              <span class="pill-sm">ESP32</span>
+              <span class="pill-sm">Arduino</span>
+              <span class="pill-sm">KiCad</span>
+              <span class="pill-sm">Sensor Calibration</span>
+            </div>
+            <div class="cert-footer">
+              <a href="https://github.com/Marsel204/antigravity-embedded-suite" target="_blank" rel="noopener noreferrer" class="project-gh-link">
+                <span>View on GitHub</span>
+                &nearr;
+              </a>
+            </div>
+          </div>
+
+          <!-- IoT-Face-Detection-Sytem -->
+          <div class="card repo-card" data-repo-name="IoT-Face-Detection-Sytem">
+            <div class="card-top">
+              <span class="project-tag">C++</span>
+              <div class="repo-meta-right">
+                <span class="year-badge">2026</span>
+              </div>
+            </div>
+            <h3 class="project-title">ESP32-CAM Biometric Safe Firmware</h3>
+            <p class="project-description">
+              Standalone biometric face-recognition safe controller running locally on ESP32-CAM (AI-Thinker) with OV2640 image acquisition, face enrollment, and physical solenoid actuation.
+            </p>
+            <div class="pill-list" style="margin-bottom: 1.25rem;">
+              <span class="pill-sm">C++</span>
+              <span class="pill-sm">ESP32-CAM</span>
+              <span class="pill-sm">Biometrics</span>
+              <span class="pill-sm">OV2640</span>
+              <span class="pill-sm">FreeRTOS</span>
+            </div>
+            <div class="cert-footer">
+              <a href="https://github.com/Marsel204/IoT-Face-Detection-Sytem" target="_blank" rel="noopener noreferrer" class="project-gh-link">
+                <span>View on GitHub</span>
+                &nearr;
+              </a>
+            </div>
+          </div>
+
+          <!-- clock-dashboard -->
+          <div class="card repo-card" data-repo-name="clock-dashboard">
+            <div class="card-top">
+              <span class="project-tag">JavaScript</span>
+              <div class="repo-meta-right">
+                <span class="year-badge">2026</span>
+              </div>
+            </div>
+            <h3 class="project-title">SYS.TIME — Live Clock Developer Dashboard</h3>
+            <p class="project-description">
+              Minimalist real-time developer dashboard digital clock with drift-free wall-clock synchronization, timezone detection, and zero CPU leakage on background tabs.
+            </p>
+            <div class="pill-list" style="margin-bottom: 1.25rem;">
+              <span class="pill-sm">JavaScript</span>
+              <span class="pill-sm">HTML5</span>
+              <span class="pill-sm">Performance</span>
+              <span class="pill-sm">A11y</span>
+            </div>
+            <div class="cert-footer">
+              <a href="https://github.com/Marsel204/clock-dashboard" target="_blank" rel="noopener noreferrer" class="project-gh-link">
+                <span>View on GitHub</span>
+                &nearr;
+              </a>
             </div>
           </div>
         </div>
@@ -482,5 +660,7 @@
       <a href="#hero" class="back-to-top">Back to top &uarr;</a>
     </div>
   </footer>
+  <!-- GitHub Projects Fetcher & Interactive Filter -->
+  <script type="module" src="github.js"></script>
 </body>
 </html>
