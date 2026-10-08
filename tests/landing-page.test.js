@@ -148,3 +148,28 @@ test('TDD: Hero bio has text-align justify, availability badge removed, and cont
   );
 });
 
+test('TDD: About Me section highlights agentic AI engineering (RAG, LangGraph) and removes Siemens/TIA Portal specifics', () => {
+  const currentHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf-8');
+  const aboutSectionMatch = currentHtml.match(/<section id="about"[^>]*>([\s\S]*?)<\/section>/);
+  assert.ok(aboutSectionMatch, 'About section must exist');
+  const aboutText = aboutSectionMatch[1];
+
+  assert.doesNotMatch(aboutText, /Siemens/i, 'About section should not specify Siemens');
+  assert.doesNotMatch(aboutText, /TIA Portal/i, 'About section should not specify TIA Portal');
+  assert.match(aboutText, /LangGraph/i, 'About section should describe LangGraph');
+  assert.match(aboutText, /RAG/i, 'About section should describe RAG');
+  assert.match(aboutText, /agentic/i, 'About section should mention agentic engineering/AI');
+});
+
+test('TDD: Hero bio highlights agentic AI (RAG, LangGraph) and removes PLC/TIA Portal specifics', () => {
+  const currentHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf-8');
+  const heroBioMatch = currentHtml.match(/<p class="hero-bio">([\s\S]*?)<\/p>/);
+  assert.ok(heroBioMatch, 'Hero bio must exist');
+  const heroBioText = heroBioMatch[1];
+
+  assert.doesNotMatch(heroBioText, /TIA Portal/i, 'Hero bio should not specify TIA Portal');
+  assert.match(heroBioText, /LangGraph/i, 'Hero bio should describe LangGraph');
+  assert.match(heroBioText, /RAG/i, 'Hero bio should describe RAG');
+  assert.match(heroBioText, /agentic/i, 'Hero bio should mention agentic AI/systems');
+});
+
