@@ -310,6 +310,13 @@ export async function fetchGithubProjects(username = 'Marsel204') {
 }
 
 /**
+ * Apple Design: Exponential momentum projection from WWDC 2018 "Designing Fluid Interfaces"
+ */
+export function project(initialVelocity, decelerationRate = 0.995) {
+  return (initialVelocity / 1000) * decelerationRate / (1 - decelerationRate);
+}
+
+/**
  * Initialize dynamic GitHub projects grid in DOM if present
  */
 export function initGithubSection() {
@@ -361,34 +368,123 @@ export function initGithubSection() {
   container.addEventListener('scroll', updateScrollButtons, { passive: true });
   window.addEventListener('resize', updateScrollButtons, { passive: true });
 
-  // Mouse drag-to-scroll on desktop
-  let isDown = false;
+  // Apple Design: Direct Manipulation with Pointer Events & Velocity Momentum
+  let isPointerDown = false;
   let startX = 0;
   let scrollStart = 0;
+  let velocityHistory = [];
+  let momentumAnimId = null;
+  let hasDragged = false;
+  const DRAG_THRESHOLD = 6;
 
-  container.addEventListener('mousedown', (e) => {
-    // Ignore clicks on links or buttons
-    if (e.target.closest('a') || e.target.closest('button')) return;
-    isDown = true;
-    startX = e.pageX - container.offsetLeft;
+  function stopMomentum() {
+    if (momentumAnimId) {
+      cancelAnimationFrame(momentumAnimId);
+      momentumAnimId = null;
+    }
+  }
+
+  container.addEventListener('pointerdown', (e) => {
+    // Interrupt ongoing momentum animation cleanly
+    stopMomentum();
+
+    // Ignore secondary mouse buttons
+    if (e.button && e.button !== 0) return;
+
+    isPointerDown = true;
+    hasDragged = false;
+    startX = e.clientX;
     scrollStart = container.scrollLeft;
+    velocityHistory = [{ x: e.clientX, time: performance.now() }];
+
+    try {
+      container.setPointerCapture(e.pointerId);
+    } catch (_) {}
   });
 
-  window.addEventListener('mouseup', () => {
-    isDown = false;
+  container.addEventListener('pointermove', (e) => {
+    if (!isPointerDown) return;
+
+    const deltaX = e.clientX - startX;
+    if (!hasDragged && Math.abs(deltaX) > DRAG_THRESHOLD) {
+      hasDragged = true;
+    }
+
+    if (hasDragged) {
+      container.scrollLeft = scrollStart - deltaX;
+      const now = performance.now();
+      velocityHistory.push({ x: e.clientX, time: now });
+      // Keep only the last 100ms of samples for crisp velocity calculation
+      while (velocityHistory.length > 2 && now - velocityHistory[0].time > 100) {
+        velocityHistory.shift();
+      }
+    }
   });
 
-  container.addEventListener('mouseleave', () => {
-    isDown = false;
-  });
+  function handlePointerEnd(e) {
+    if (!isPointerDown) return;
+    isPointerDown = false;
 
-  container.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - container.offsetLeft;
-    const walk = (x - startX) * 1.4;
-    container.scrollLeft = scrollStart - walk;
-  });
+    try {
+      if (container.hasPointerCapture && container.hasPointerCapture(e.pointerId)) {
+        container.releasePointerCapture(e.pointerId);
+      }
+    } catch (_) {}
+
+    if (!hasDragged) return;
+
+    // Calculate release velocity in px/s
+    let releaseVelocity = 0;
+    if (velocityHistory.length >= 2) {
+      const first = velocityHistory[0];
+      const last = velocityHistory[velocityHistory.length - 1];
+      const dt = (last.time - first.time) / 1000;
+      if (dt > 0.01) {
+        // Inverted: dragging left (negative dx) scrolls right (positive velocity)
+        releaseVelocity = -(last.x - first.x) / dt;
+      }
+    }
+
+    // Hand off velocity into momentum coasting
+    if (Math.abs(releaseVelocity) > 80) {
+      let currentVelocity = releaseVelocity;
+      let lastTimestamp = performance.now();
+      const friction = 0.95;
+
+      function coast(now) {
+        const dt = Math.min((now - lastTimestamp) / 1000, 0.1);
+        lastTimestamp = now;
+
+        container.scrollLeft += currentVelocity * dt;
+        currentVelocity *= Math.pow(friction, dt * 60);
+
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        if (container.scrollLeft <= 0 || container.scrollLeft >= maxScroll || Math.abs(currentVelocity) < 15) {
+          stopMomentum();
+          updateScrollButtons();
+          return;
+        }
+
+        momentumAnimId = requestAnimationFrame(coast);
+      }
+
+      momentumAnimId = requestAnimationFrame(coast);
+    } else {
+      updateScrollButtons();
+    }
+  }
+
+  container.addEventListener('pointerup', handlePointerEnd);
+  container.addEventListener('pointercancel', handlePointerEnd);
+
+  // Prevent accidental link navigation when user performed a drag gesture
+  container.addEventListener('click', (e) => {
+    if (hasDragged) {
+      e.preventDefault();
+      e.stopPropagation();
+      hasDragged = false;
+    }
+  }, true);
 
   // Filter selection
   if (filterBar) {
