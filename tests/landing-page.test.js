@@ -275,3 +275,38 @@ test('TDD: Multi-window view switcher combines similar tabs (About & Contact, Ex
   assert.ok(!currentHtml.includes('window-pager'), 'Bottom window-pager bar must be removed');
 });
 
+test('TDD: Contact section uses full-width Apple bento panel with 4-column channel cards instead of clunky narrow 3+1 wrapping buttons', () => {
+  const currentHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf-8');
+  const currentCss = fs.readFileSync(path.join(rootDir, 'style.css'), 'utf-8');
+
+  const contactSectionMatch = currentHtml.match(/<section id="contact"[^>]*>([\s\S]*?)<\/section>/);
+  assert.ok(contactSectionMatch, 'Contact section must exist');
+  const contactSection = contactSectionMatch[1];
+
+  // 1. Must not have clunky parenthetical button labels that caused 3+1 wrapping
+  assert.ok(!contactSection.includes('WhatsApp (0895343371256)'), 'Must replace parenthetical WhatsApp button text with structured channel card');
+  assert.ok(!contactSection.includes('GitHub Profile (Marsel204)'), 'Must replace parenthetical GitHub button text with structured channel card');
+
+  // 2. Must contain 4 structured .contact-channel cards with icons, labels, and values
+  const channelMatches = contactSection.match(/class=["']contact-channel["']/g) || [];
+  assert.equal(channelMatches.length, 4, 'Contact panel must render 4 structured .contact-channel cards (Email, WhatsApp, LinkedIn, GitHub)');
+  assert.ok(contactSection.includes('contact-channel-label'), 'Contact channels must include .contact-channel-label');
+  assert.ok(contactSection.includes('contact-channel-value'), 'Contact channels must include .contact-channel-value');
+
+  // 3. .contact-box must span the full section container width (not constrained to max-width: 680px)
+  const contactBoxBlock = currentCss.match(/\.contact-box\s*\{([^}]+)\}/);
+  assert.ok(contactBoxBlock, '.contact-box rule must exist in style.css');
+  assert.doesNotMatch(contactBoxBlock[1], /max-width:\s*680px/, '.contact-box must not be constrained to a narrow 680px box');
+
+  // 4. .contact-links must use CSS Grid for even multi-column layout (preventing 3+1 orphan wrap)
+  const contactLinksBlock = currentCss.match(/\.contact-links\s*\{([^}]+)\}/);
+  assert.ok(contactLinksBlock, '.contact-links rule must exist in style.css');
+  assert.match(contactLinksBlock[1], /display:\s*grid/, '.contact-links must use CSS Grid instead of unstructured flex-wrap');
+
+  // 5. .contact-channel must have instant tactile :active scale response
+  const channelActiveBlock = currentCss.match(/\.contact-channel:active\s*\{([^}]+)\}/);
+  assert.ok(channelActiveBlock, '.contact-channel:active rule must exist');
+  assert.match(channelActiveBlock[1], /transform:\s*scale\(/, '.contact-channel:active must provide tactile scale feedback');
+});
+
+
