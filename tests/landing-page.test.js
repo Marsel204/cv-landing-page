@@ -437,5 +437,37 @@ test('TDD: Printable CV Mahasiswa document (cv-mahasiswa.html & PDF) follows all
   assert.equal(pdfHeader, '%PDF-', 'Generated PDF must have valid %PDF- header');
 });
 
+test('TDD: Mobile responsive layout prevents multi-line wrapped nav pills, horizontal clipping, and excessive section padding on phones', () => {
+  const css = fs.readFileSync(path.join(rootDir, 'style.css'), 'utf-8');
+  // 1. .nav-links a must enforce white-space: nowrap so tab text never wraps into 3-line circles
+  const navLinkMatch = css.match(/\.nav-links\s+a\s*\{([^}]+)\}/);
+  assert.ok(navLinkMatch, '.nav-links a rule must exist');
+  assert.match(
+    navLinkMatch[1],
+    /white-space:\s*nowrap/,
+    '.nav-links a must include white-space: nowrap so labels never wrap vertically into circles'
+  );
 
+  // 2. Mobile breakpoint (@media (max-width: 768px)) must stack .nav-container and arrange .nav-links in a 2-column segmented control
+  const mobileMediaIdx = css.indexOf('@media (max-width: 768px)');
+  assert.ok(mobileMediaIdx !== -1, '@media (max-width: 768px) block must exist');
+  const mobileCss = css.slice(mobileMediaIdx);
 
+  assert.match(
+    mobileCss,
+    /\.nav-container\s*\{[^}]*flex-direction:\s*column/,
+    'Mobile .nav-container must stack logo and navigation links vertically so tabs are not pushed off-screen'
+  );
+
+  assert.match(
+    mobileCss,
+    /\.nav-links\s*\{[^}]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/,
+    'Mobile .nav-links must use a 2-column segmented grid so all 4 window tabs fit without clipping'
+  );
+
+  assert.match(
+    mobileCss,
+    /\.timeline-card[^{]*\{[^}]*padding:\s*1\.25rem/,
+    'Mobile cards must reduce padding on phones for wider text reading area'
+  );
+});

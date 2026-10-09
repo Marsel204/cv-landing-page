@@ -147,6 +147,11 @@ a {
 }
 
 .nav-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
   font-size: 0.9rem;
   color: var(--text-secondary);
   font-weight: 500;
@@ -1395,10 +1400,44 @@ a {
 }
 
 @media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.55rem;
+    padding: 0.65rem 1rem;
+  }
+
+  .nav-logo {
+    font-size: 1.2rem;
+    align-self: flex-start;
+  }
+
+  .nav-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem;
+    width: 100%;
+    background: rgba(15, 23, 42, 0.05);
+    padding: 0.3rem;
+    border-radius: 14px;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+  }
+
+  .nav-links a {
+    padding: 0.42rem 0.5rem;
+    font-size: 0.8rem;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .hero-section {
+    padding: 1.75rem 1rem 1.25rem;
+  }
+
   .hero-container {
     flex-direction: column;
     align-items: flex-start;
-    gap: 2rem;
+    gap: 1.65rem;
   }
 
   .profile-photo-wrapper {
@@ -1406,33 +1445,68 @@ a {
   }
 
   .photo-container {
-    width: 230px;
+    width: 210px;
   }
 
   .hero-name {
-    font-size: 2.35rem;
+    font-size: 2.15rem;
   }
 
-  .nav-links {
-    gap: 0.2rem;
+  .section,
+  #about.section,
+  #contact.section,
+  #experience.section,
+  #education.section,
+  #skills.section,
+  #projects.section {
+    padding: 1.85rem 1rem;
   }
 
-  .nav-links a {
-    padding: 0.35rem 0.65rem;
-    font-size: 0.85rem;
+  .section-header,
+  .section-header-row {
+    margin-bottom: 1.35rem;
   }
 
-  .section {
-    padding: 3.75rem 1.25rem;
-  }
-
-  .contact-box {
-    padding: 1.85rem 1.5rem;
+  .section-title {
+    font-size: 1.65rem;
+    line-height: 1.2;
   }
 
   .timeline-grid,
-  .education-grid {
+  .education-grid,
+  .skills-grid,
+  .certifications-grid,
+  .projects-grid {
     grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+
+  .timeline-card,
+  .card,
+  .about-card,
+  .skill-category-card {
+    padding: 1.25rem 1.15rem;
+  }
+
+  .contact-box {
+    padding: 1.5rem 1.2rem;
+  }
+
+  .github-filter-bar {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    border-radius: 14px;
+    scrollbar-width: none;
+  }
+
+  .github-filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 }
 
@@ -1440,4 +1514,17 @@ a {
   .contact-links {
     grid-template-columns: 1fr;
   }
+
+  .hero-actions {
+    width: 100%;
+  }
+
+  .hero-actions .btn {
+    flex: 1 1 auto;
+  }
+
+  .edu-card-body {
+    align-items: flex-start;
+  }
 }
+
