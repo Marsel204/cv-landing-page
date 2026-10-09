@@ -563,4 +563,14 @@ test('TDD: Google Search SEO metadata, ProfilePage + Person JSON-LD structured d
   assert.ok(fs.existsSync(robotsPath), 'robots.txt must exist in repository root');
   const robotsTxt = fs.readFileSync(robotsPath, 'utf-8');
   assert.match(robotsTxt, /Sitemap:\s*https:\/\/marsel204\.github\.io\/cv-landing-page\/sitemap\.xml/i, 'robots.txt must point to sitemap.xml');
+
+  // 5. Google Search Console ownership verification file googled3c9de243c6c2c99.html exists with exact token body
+  const gscFilePath = path.join(rootDir, 'googled3c9de243c6c2c99.html');
+  assert.ok(fs.existsSync(gscFilePath), 'googled3c9de243c6c2c99.html must exist for Google Search Console verification');
+  assert.equal(
+    fs.readFileSync(gscFilePath, 'utf-8').trim(),
+    'google-site-verification: googled3c9de243c6c2c99.html',
+    'Verification file must contain exact google-site-verification token string'
+  );
 });
+
