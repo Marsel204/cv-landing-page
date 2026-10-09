@@ -296,4 +296,63 @@ test('TDD: AutoCAD Electrical and IBM certificate images are tightly cropped and
   assert.equal(ibmDim.height, 1238, 'assets/cert_ibm.png must have its 37px bottom blank margin cropped');
 });
 
+test('TDD: Contact section uses full-width Apple bento panel with 4-column channel cards instead of clunky narrow 3+1 wrapping buttons', () => {
+  const currentHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf-8');
+  const currentCss = fs.readFileSync(path.join(rootDir, 'style.css'), 'utf-8');
+
+  const contactSectionMatch = currentHtml.match(/<section id="contact"[^>]*>([\s\S]*?)<\/section>/);
+  assert.ok(contactSectionMatch, 'Contact section must exist');
+  const contactSection = contactSectionMatch[1];
+
+  // 1. Must not have clunky parenthetical button labels that caused 3+1 wrapping
+  assert.ok(!contactSection.includes('WhatsApp (0895343371256)'), 'Must replace parenthetical WhatsApp button text with structured channel card');
+  assert.ok(!contactSection.includes('GitHub Profile (Marsel204)'), 'Must replace parenthetical GitHub button text with structured channel card');
+
+  // 2. Must contain 4 structured .contact-channel cards with icons, labels, and values
+  const channelMatches = contactSection.match(/class=["']contact-channel["']/g) || [];
+  assert.equal(channelMatches.length, 4, 'Contact panel must render 4 structured .contact-channel cards (Email, WhatsApp, LinkedIn, GitHub)');
+  assert.ok(contactSection.includes('contact-channel-label'), 'Contact channels must include .contact-channel-label');
+  assert.ok(contactSection.includes('contact-channel-value'), 'Contact channels must include .contact-channel-value');
+
+  // 3. .contact-box must span the full section container width (not constrained to max-width: 680px)
+  const contactBoxBlock = currentCss.match(/\.contact-box\s*\{([^}]+)\}/);
+  assert.ok(contactBoxBlock, '.contact-box rule must exist in style.css');
+  assert.doesNotMatch(contactBoxBlock[1], /max-width:\s*680px/, '.contact-box must not be constrained to a narrow 680px box');
+
+  // 4. .contact-links must use CSS Grid for even multi-column layout (preventing 3+1 orphan wrap)
+  const contactLinksBlock = currentCss.match(/\.contact-links\s*\{([^}]+)\}/);
+  assert.ok(contactLinksBlock, '.contact-links rule must exist in style.css');
+  assert.match(contactLinksBlock[1], /display:\s*grid/, '.contact-links must use CSS Grid instead of unstructured flex-wrap');
+
+  // 5. .contact-channel must have instant tactile :active scale response
+  const channelActiveBlock = currentCss.match(/\.contact-channel:active\s*\{([^}]+)\}/);
+  assert.ok(channelActiveBlock, '.contact-channel:active rule must exist');
+  assert.match(channelActiveBlock[1], /transform:\s*scale\(/, '.contact-channel:active must provide tactile scale feedback');
+});
+
+test('TDD: Skills section cards use structured icon headers and uniform 2-column grid chips instead of ragged flex-wrap white-on-white pills', () => {
+  const currentHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf-8');
+  const currentCss = fs.readFileSync(path.join(rootDir, 'style.css'), 'utf-8');
+
+  const skillsSectionMatch = currentHtml.match(/<section id="skills"[^>]*>([\s\S]*?)<\/section>/);
+  assert.ok(skillsSectionMatch, 'Skills section must exist');
+  const skillsSection = skillsSectionMatch[1];
+
+  // 1. All 3 skill category cards must have structured headers with icon badges
+  const headerMatches = skillsSection.match(/class=["']skill-card-header["']/g) || [];
+  assert.equal(headerMatches.length, 3, 'All 3 skill category cards must include a .skill-card-header');
+  const iconWrapMatches = skillsSection.match(/class=["']skill-icon-wrap["']/g) || [];
+  assert.equal(iconWrapMatches.length, 3, 'All 3 skill category cards must include a .skill-icon-wrap icon badge');
+
+  // 2. .skill-category-card .pill-list must use a 2-column CSS Grid so rows don't have jagged right-side gaps
+  const skillPillListBlock = currentCss.match(/\.skill-category-card\s+\.pill-list\s*\{([^}]+)\}/);
+  assert.ok(skillPillListBlock, '.skill-category-card .pill-list rule must exist in style.css');
+  assert.match(skillPillListBlock[1], /display:\s*grid/, '.skill-category-card .pill-list must use CSS Grid');
+  assert.match(skillPillListBlock[1], /grid-template-columns:\s*repeat\(2/, '.skill-category-card .pill-list must use 2 equal columns');
+
+  // 3. .pill must define a subtle dark alpha border for surface contrast (not white-on-white border)
+  const pillBlock = currentCss.match(/\.pill\s*\{([^}]+)\}/);
+  assert.ok(pillBlock, '.pill rule must exist in style.css');
+  assert.doesNotMatch(pillBlock[1], /border:\s*1px solid rgba\(255,\s*255,\s*255/, '.pill must not use white-on-white border that washes out on light cards');
+});
 
