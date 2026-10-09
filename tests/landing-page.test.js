@@ -397,4 +397,45 @@ test('TDD: Contact channel cards have strong surface, border, icon, and text con
   );
 });
 
+test('TDD: Printable CV Mahasiswa document (cv-mahasiswa.html & PDF) follows all 7 Komponen CV Mahasiswa sections with NIM 2310314001', () => {
+  const cvHtmlPath = path.join(rootDir, 'cv-mahasiswa.html');
+  const cvPdfPath = path.join(rootDir, 'CV_Marselinus_Allen_Nugraha.pdf');
+
+  assert.ok(fs.existsSync(cvHtmlPath), 'cv-mahasiswa.html must exist in repository root for GitHub maintainability');
+  const cvHtml = fs.readFileSync(cvHtmlPath, 'utf-8');
+
+  // 1. Header & NIM 2310314001
+  assert.ok(cvHtml.includes('Marselinus Allen Nugraha'), 'Must include full name');
+  assert.ok(cvHtml.includes('2310314001'), 'Must include NIM 2310314001');
+  assert.ok(cvHtml.includes('0895343371256'), 'Must include active WhatsApp/phone number');
+  assert.ok(cvHtml.includes('marselinusalen@gmail.com'), 'Must include email');
+  assert.ok(cvHtml.includes('Tangerang'), 'Must include domisili city');
+  assert.ok(cvHtml.includes('assets/profile.png'), 'Must include profile photo');
+
+  // 2. Verify required section order: Summary -> Education -> Organizations -> Experience/Projects -> Skills (Hard & Soft) -> Certifications
+  const idxSummary = cvHtml.indexOf('id="cv-summary"');
+  const idxEducation = cvHtml.indexOf('id="cv-education"');
+  const idxOrganizations = cvHtml.indexOf('id="cv-organizations"');
+  const idxProjects = cvHtml.indexOf('id="cv-projects"');
+  const idxSkills = cvHtml.indexOf('id="cv-skills"');
+  const idxCerts = cvHtml.indexOf('id="cv-certifications"');
+
+  assert.ok(idxSummary !== -1, 'Must include Ringkasan Profil section (#cv-summary)');
+  assert.ok(idxEducation > idxSummary, 'Riwayat Pendidikan (#cv-education) must appear immediately after Ringkasan Profil');
+  assert.ok(idxOrganizations > idxEducation, 'Pengalaman Organisasi (#cv-organizations) must follow Riwayat Pendidikan');
+  assert.ok(idxProjects > idxOrganizations, 'Pengalaman Praktikum & Proyek (#cv-projects) must follow Organisasi');
+  assert.ok(idxSkills > idxProjects, 'Keahlian (#cv-skills) must follow Proyek');
+  assert.ok(idxCerts > idxSkills, 'Sertifikasi (#cv-certifications) must follow Keahlian');
+
+  // 3. Skills must be divided into Hard Skills and Soft Skills
+  assert.match(cvHtml, /Hard Skills/i, 'Keahlian section must include Hard Skills category');
+  assert.match(cvHtml, /Soft Skills/i, 'Keahlian section must include Soft Skills category');
+
+  // 4. Compiled PDF must exist and start with %PDF-
+  assert.ok(fs.existsSync(cvPdfPath), 'CV_Marselinus_Allen_Nugraha.pdf must exist');
+  const pdfHeader = fs.readFileSync(cvPdfPath).subarray(0, 5).toString('ascii');
+  assert.equal(pdfHeader, '%PDF-', 'Generated PDF must have valid %PDF- header');
+});
+
+
 

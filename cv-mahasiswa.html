@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV Mahasiswa — Marselinus Allen Nugraha (2310314001)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f172a;
+      --ink-secondary: #334155;
+      --ink-muted: #475569;
+      --accent: #005bb5;
+      --border: #cbd5e1;
+      --surface: #f8fafc;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--ink);
+      background: #e2e8f0;
+      line-height: 1.48;
+      font-size: 10pt;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Screen-only Top Action Bar */
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      color: #f8fafc;
+      padding: 0.7rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .toolbar-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+
+    .toolbar-title span {
+      color: #38bdf8;
+      font-family: monospace;
+      margin-left: 0.4rem;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.42rem 0.95rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      transition: all 0.18s ease;
+    }
+
+    .toolbar-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .toolbar-btn.primary {
+      background: #0071e3;
+      border-color: #0071e3;
+    }
+
+    .toolbar-btn.primary:hover {
+      background: #005bb5;
+    }
+
+    /* A4 Sheet Container */
+    .page-sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 1.5rem auto;
+      padding: 14mm 16mm;
+      background: #ffffff;
+      box-shadow: 0 12px 36px rgba(15, 23, 42, 0.18);
+      border-radius: 4px;
+    }
+
+    /* 1. Informasi Kontak (Header) */
+    .cv-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.4rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 2px solid var(--ink);
+      margin-bottom: 0.9rem;
+    }
+
+    .cv-header-info {
+      flex: 1;
+    }
+
+    .cv-name {
+      font-size: 19pt;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-transform: uppercase;
+      line-height: 1.15;
+    }
+
+    .cv-nim-role {
+      font-size: 10pt;
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: 0.2rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .cv-contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.22rem 1.2rem;
+      font-size: 9pt;
+      color: var(--ink-secondary);
+    }
+
+    .cv-contact-item strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .cv-contact-item a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .cv-contact-item a:hover {
+      text-decoration: underline;
+    }
+
+    .cv-photo-box {
+      width: 28mm;
+      height: 36mm;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1.5px solid var(--border);
+      background: #f1f5f9;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cv-photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    /* Section Headings */
+    .cv-section {
+      margin-bottom: 0.6rem;
+    }
+
+    .cv-section-title {
+      font-size: 10pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      border-bottom: 1.5px solid var(--ink);
+      padding-bottom: 0.14rem;
+      margin-bottom: 0.38rem;
+    }
+
+    /* 2. Ringkasan Profil */
+    .cv-summary-text {
+      text-align: justify;
+      color: var(--ink-secondary);
+      font-size: 9pt;
+      line-height: 1.44;
+    }
+
+    /* Entries (Education, Organization, Experience/Projects) */
+    .cv-entry {
+      margin-bottom: 0.42rem;
+      break-inside: avoid;
+    }
+
+    .cv-entry:last-child {
+      margin-bottom: 0;
+    }
+
+    .cv-entry-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .cv-entry-title {
+      font-size: 9.4pt;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .cv-entry-org {
+      font-weight: 600;
+      color: var(--ink-secondary);
+    }
+
+    .cv-entry-date {
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: var(--ink-muted);
+      white-space: nowrap;
+    }
+
+    .cv-entry-sub {
+      font-size: 8.8pt;
+      font-style: italic;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.14rem;
+    }
+
+    .cv-bullets {
+      padding-left: 1.1rem;
+      color: var(--ink-secondary);
+      font-size: 8.75pt;
+      line-height: 1.36;
+    }
+
+    .cv-bullets li {
+      margin-bottom: 0.08rem;
+      text-align: justify;
+    }
+
+    /* 6. Keahlian (Hard Skills & Soft Skills) */
+    .skills-two-col {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 0.7rem;
+    }
+
+    .skill-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.42rem 0.65rem;
+    }
+
+    .skill-box-title {
+      font-size: 9pt;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.22rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.12rem;
+    }
+
+    /* Appendix / Lampiran Page */
+    .page-break {
+      page-break-before: always;
+      break-before: page;
+    }
+
+    .appendix-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+      margin-top: 0.35rem;
+    }
+
+    .appendix-item {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.35rem 0.45rem;
+      background: var(--surface);
+      break-inside: avoid;
+    }
+
+    .appendix-item-title {
+      font-size: 8.4pt;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.1rem;
+    }
+
+    .appendix-item-meta {
+      font-size: 7.5pt;
+      color: var(--ink-muted);
+      margin-bottom: 0.22rem;
+    }
+
+    .appendix-thumb {
+      width: 100%;
+      height: 36mm;
+      object-fit: contain;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+    }
+
+    @page {
+      size: A4;
+      margin: 9mm 12mm;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .page-sheet {
+        width: 100%;
+        min-height: auto;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Screen-only Navigation & Export Toolbar -->
+  <div class="toolbar no-print">
+    <div class="toolbar-title">
+      Dokumen CV Mahasiswa — Marselinus Allen Nugraha <span>NIM: 2310314001</span>
+    </div>
+    <div class="toolbar-actions">
+      <a href="index.html" class="toolbar-btn">&larr; Web Portfolio</a>
+      <a href="CV_Marselinus_Allen_Nugraha.pdf" download class="toolbar-btn">Unduh PDF</a>
+      <button type="button" class="toolbar-btn primary" onclick="window.print()">Cetak / Simpan PDF</button>
+    </div>
+  </div>
+
+  <main class="page-sheet">
+    <!-- 1. INFORMASI KONTAK (HEADER) -->
+    <header class="cv-header" id="cv-header">
+      <div class="cv-header-info">
+        <h1 class="cv-name">Marselinus Allen Nugraha</h1>
+        <p class="cv-nim-role">NIM: 2310314001 &bull; Mahasiswa S1 Teknik Elektro &bull; Firmware, IoT &amp; Agentic AI Developer</p>
+        <div class="cv-contact-grid">
+          <div class="cv-contact-item"><strong>Telepon / WhatsApp:</strong> <a href="https://wa.me/62895343371256">0895343371256</a></div>
+          <div class="cv-contact-item"><strong>Email:</strong> <a href="mailto:marselinusalen@gmail.com">marselinusalen@gmail.com</a></div>
+          <div class="cv-contact-item"><strong>Domisili:</strong> Kota Tangerang, Banten</div>
+          <div class="cv-contact-item"><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/marselinus-nugraha-699b29272/">linkedin.com/in/marselinus-nugraha-699b29272</a></div>
+          <div class="cv-contact-item"><strong>GitHub:</strong> <a href="https://github.com/Marsel204">github.com/Marsel204</a></div>
+          <div class="cv-contact-item"><strong>Web Portfolio:</strong> <a href="https://marsel204.github.io/cv-landing-page/">marsel204.github.io/cv-landing-page</a></div>
+        </div>
+      </div>
+      <div class="cv-photo-box">
+        <img src="assets/profile.png" alt="Foto Marselinus Allen Nugraha">
+      </div>
+    </header>
+
+    <!-- 2. RINGKASAN PROFIL / PROFESSIONAL SUMMARY -->
+    <section class="cv-section" id="cv-summary">
+      <h2 class="cv-section-title">Ringkasan Profil (Professional Summary)</h2>
+      <p class="cv-summary-text">
+        Mahasiswa aktif S1 Teknik Elektro Universitas Pembangunan Nasional "Veteran" Jakarta (NIM: <strong>2310314001</strong>, IPK <strong>3.82/4.00</strong>) dengan fokus keahlian pada pengembangan <em>embedded firmware</em> (ESP32/ESP8266, C/C++), arsitektur <em>Internet of Things</em> (MQTT, Modbus RTU, Blynk), perancangan panel kendali industri (AutoCAD Electrical, PLC), serta rekayasa <em>Agentic AI &amp; Edge Computer Vision</em> (LangGraph, RAG, YOLOv11, NVIDIA Jetson). Memiliki pengalaman kepemimpinan aktif selama lebih dari 2 tahun sebagai Ketua Umum KSM IoT FT UPNVJ dan Asisten Laboratorium Teknik Elektro pada 4 mata kuliah praktikum, serta berkomitmen mengontribusikan solusi otomasi perangkat keras-perangkat lunak yang andal dan terukur.
+      </p>
+    </section>
+
+    <!-- 3. RIWAYAT PENDIDIKAN (EDUCATION) -->
+    <section class="cv-section" id="cv-education">
+      <h2 class="cv-section-title">Riwayat Pendidikan (Education)</h2>
+
+      <div class="cv-entry">
+        <div class="cv-entry-head">
+          <div>
+            <span class="cv-entry-title">Universitas Pembangunan Nasional "Veteran" Jakarta</span>
+            <span class="cv-entry-org"> &mdash; Depok, Jawa Barat</span>
+          </div>
+          <span class="cv-entry-date">Agu 2023 &ndash; Jan 2027 (Estimasi)</span>
+        </div>
+        <div class="cv-entry-sub">S1 Teknik Elektro (NIM: 2310314001) &bull; Konsentrasi Kendali, Embedded IoT &amp; Sistem Cerdas &bull; IPK: 3.82 / 4.00</div>
+        <ul class="cv-bullets">
+          <li><strong>Fokus Penelitian / Skripsi:</strong> <em>Rancang Bangun Adaptive Traffic Signal Controller (ATSC) Berbasis Deteksi Objek YOLOv11 dan Sugeno ANFIS Traffic Controller pada Edge Runtime NVIDIA Jetson Orin Nano</em>.</li>
+          <li><strong>Mata Kuliah Relevan:</strong> Sistem Mikroprosesor &amp; Mikrokontroler, Sistem Digital, Rangkaian Listrik, Dasar Elektronika, Sistem Kendali Otomatis, dan Pemrograman Komputer.</li>
+        </ul>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-entry-head">
+          <div>
+            <span class="cv-entry-title">SMAN 12 Tangerang</span>
+            <span class="cv-entry-org"> &mdash; Kota Tangerang, Banten</span>
+          </div>
+          <span class="cv-entry-date">Jul 2020 &ndash; Mei 2023</span>
+        </div>
+        <div class="cv-entry-sub">Jurusan Matematika dan Ilmu Pengetahuan Alam (MIPA) &bull; Lulus</div>
+      </div>
+    </section>
+
+    <!-- 4. PENGALAMAN ORGANISASI ATAU KEPANITIAAN -->
+    <section class="cv-section" id="cv-organizations">
+      <h2 class="cv-section-title">Pengalaman Organisasi &amp; Kepanitiaan (Extracurricular &amp; Organizations)</h2>
+
+      <div class="cv-entry">
+        <div class="cv-entry-head">
+          <div>
+            <span class="cv-entry-title">Kelompok Studi Mahasiswa (KSM) IoT &ndash; FT UPN "Veteran" Jakarta</span>
+          </div>
+          <span class="cv-entry-date">Jan 2026 &ndash; Sekarang</span>
+        </div>
+        <div class="cv-entry-sub">Ketua Umum (Chairman)</div>
+        <ul class="cv-bullets">
+          <li>Memimpin manajemen strategis organisasi yang membawahi 3 departemen dan 9 divisi teknis maupun non-teknis untuk menjamin kelancaran eksekusi program kerja tahunan.</li>
+          <li>Mengarahkan persiapan tim riset mahasiswa dalam kompetisi rekayasa teknologi tingkat nasional serta mengoordinasikan pengembangan proyek purwarupa IoT lintas divisi.</li>
+        </ul>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-entry-head">
+          <div>
+            <span class="cv-entry-title">Kelompok Studi Mahasiswa (KSM) IoT &ndash; FT UPN "Veteran" Jakarta</span>
+          </div>
+          <span class="cv-entry-date">Jan 2025 &ndash; Des 2025</span>
+        </div>
+        <div class="cv-entry-sub">Staf Divisi Firmware (Staff of Firmware Division)</div>
+        <ul class="cv-bullets">
+          <li>Mengembangkan <em>embedded firmware</em> menggunakan mikrokontroler ESP32 dan ESP8266 dalam bahasa Arduino C/C++ dengan integrasi sensor, komunikasi serial, protokol MQTT, dan platform Blynk.</li>
+          <li>Berpartisipasi aktif dalam kompetisi nasional <strong>GEMASTIK</strong> dan <strong>Futura Transporter Robot Competition</strong> sebagai pengembang arsitektur <em>firmware</em> dan optimasi latensi sistem.</li>
+        </ul>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-entry-head">
+          <div>
+            <span class="cv-entry-title">Himpunan Mahasiswa Teknik Elektro (HMTE) &ndash; FT UPN "Veteran" Jakarta</span>
+          </div>
+          <span class="cv-entry-date">Jan 2025 &ndash; Des 2025</span>
+        </div>
+        <div class="cv-entry-sub">Staf Divisi Penelitian dan Pengembangan (Litbang)</div>
+        <ul class="cv-bullets">
+          <li>Merancang dan mengeksekusi program peningkatan kompetensi akademik dan perangkat lunak keteknikan bagi mahasiswa Teknik Elektro.</li>
+          <li>Menjabat sebagai <strong>Project Officer Propel KTI 2025</strong>, <strong>Kepala Divisi KTI Electrolympic 2025</strong>, dan <strong>Kepala Divisi Acara Propel Software 2025</strong>, serta menjadi Panitia Pelaksana <strong>Adjunct Professor Program 2025</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-entry-head">
+          <div>
+            <span class="cv-entry-title">Musicasa &ndash; SMAN 12 Tangerang</span>
+          </div>
+          <span class="cv-entry-date">Jan 2020 &ndash; Des 2022</span>
+        </div>
+        <div class="cv-entry-sub">Wakil Ketua (Vice President)</div>
+        <ul class="cv-bullets">
+          <li>Memelopori revitalisasi organisasi pasca-pandemi COVID-19 sehingga meningkatkan keberlanjutan program dan partisipasi aktif anggota secara signifikan.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5. PENGALAMAN PRAKTIKUM / KERJA / PROYEK (INTERNSHIP / PROJECTS) -->
+    <section class="cv-section" id="cv-projects">
+      <h2 class="cv-section-title">Pengalaman Praktikum &amp; Proyek Teknis (Academic Work &amp; Engineering Projects)</h2>
+
+      <div class="cv-entry">
+        <div class="cv-entry-head">
+          <div>
+            <span class="cv-entry-title">Laboratorium Teknik Elektro &ndash; FT UPN "Veteran" Jakarta</span>
+          </div>
+          <span class="cv-entry-date">Agu 2024 &ndash; Sekarang</span>
+        </div>
+        <div class="cv-entry-sub">Asisten Laboratorium Tersertifikasi (Fisika Dasar, Sistem Digital, Rangkaian Listrik, Dasar Elektronika)</div>
+        <ul class="cv-bullets">
+          <li>Mendampingi dosen pengampu dalam pelaksanaan praktikum laboratorium untuk 4 mata kuliah inti Teknik Elektro serta membimbing mahasiswa dalam analisis rangkaian dan instrumentasi.</li>
+          <li>Melakukan kalibrasi alat ukur laboratorium, menyiapkan modul eksperimen, serta mengevaluasi laporan mingguan dan ujian praktik mahasiswa.</li>
+        </ul>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-entry-head">
+          <div>
+            <span class="cv-entry-title">Proyek Rekayasa Embedded IoT, Otomasi Industri &amp; Agentic AI</span>
+          </div>
+          <span class="cv-entry-date">2025 &ndash; 2026</span>
+        </div>
+        <div class="cv-entry-sub">Pengembang Utama (Lead Developer) &bull; github.com/Marsel204</div>
+        <ul class="cv-bullets">
+          <li><strong>DeploySkripsi &mdash; ATSC Edge Runtime on NVIDIA Jetson (2026):</strong> Merancang sistem kendali lampu lalu lintas adaptif <em>real-time</em> di atas NVIDIA Jetson Orin Nano yang memadukan pelacakan multi-objek YOLOv11 (TensorRT FP16), inferensi <em>Sugeno ANFIS</em>, dan aktuasi perangkat keras melalui protokol RS-485.</li>
+          <li><strong>Industrial Root Cause Analysis / IndustrialRCA (2026):</strong> Membangun sistem <em>agentic AI</em> berbasis <strong>LangGraph</strong>, RAG, dan DeepSeek AI untuk analisis akar masalah industri berstandar taksonomi ISA-95 / ISO 14224 dengan akuisisi telemetri Modbus RTU.</li>
+          <li><strong>MBG Food Freshness &amp; Touchscreen GUI / fuzzylogic-tft (2026):</strong> Mengembangkan purwarupa deteksi kesegaran bahan pangan berbasis spektroskopi impedansi (EIS), sensor gas/pH, mesin inferensi <em>fuzzy</em> C99/Python, dan antarmuka layar sentuh interaktif pada ESP32-S3 (GUITION JC2432W328C).</li>
+          <li><strong>PLC-Based Multi-Floor Elevator &amp; DOL Motor Starter CAD (2025):</strong> Merancang logika <em>Ladder PLC</em> kendali elevator multi-lantai di <strong>Siemens TIA Portal &amp; Factory I/O 3D</strong>, serta menyusun skematik <em>Direct On Line (DOL) Motor Starter</em>, tata letak panel industri, dan <em>Bill of Materials (BOM)</em> otomatis menggunakan <strong>AutoCAD Electrical</strong>.</li>
+          <li><strong>Antigravity Embedded Suite &amp; VisionLabs Traffic Annotator (2026):</strong> Membangun <em>framework</em> otomasi 4-pilar untuk mikrokontroler (skematik KiCad, kompilasi <em>headless</em> Arduino-CLI, kalibrasi NVS, triase <em>crash</em> ESP32) serta perangkat lunak anotasi <em>Label Fusion</em> (GroundingDINO + YOLOv11).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 6. KEAHLIAN (SKILLS) -->
+    <section class="cv-section" id="cv-skills">
+      <h2 class="cv-section-title">Keahlian (Skills)</h2>
+      <div class="skills-two-col">
+        <div class="skill-box">
+          <div class="skill-box-title">Hard Skills (Keahlian Teknis)</div>
+          <ul class="cv-bullets">
+            <li><strong>Embedded &amp; IoT:</strong> ESP32 / ESP32-S3, ESP8266, NVIDIA Jetson, Arduino C/C++, C99, MQTT, Blynk, Modbus RTU / RS-485, UART/I2C/SPI, KiCad EDA.</li>
+            <li><strong>Otomasi &amp; Elektrikal:</strong> AutoCAD Electrical, PLC (Ladder Logic), Siemens TIA Portal, Factory I/O 3D, DOL Motor Starter &amp; Panel Wiring, ISA-95.</li>
+            <li><strong>AI &amp; Pemrograman:</strong> Python, Agentic AI (LangGraph, RAG), YOLOv11, OpenCV, PyTorch, TensorRT/ONNX, Fuzzy Logic &amp; ANFIS, FastAPI, Git.</li>
+            <li><strong>Bahasa:</strong> Bahasa Indonesia (Fasih), Bahasa Inggris (Profesional).</li>
+          </ul>
+        </div>
+        <div class="skill-box">
+          <div class="skill-box-title">Soft Skills (Keahlian Non-Teknis)</div>
+          <ul class="cv-bullets">
+            <li><strong>Kepemimpinan (Leadership):</strong> Memimpin 3 departemen &amp; 9 divisi di KSM IoT FT UPNVJ serta kepanitiaan tingkat fakultas.</li>
+            <li><strong>Manajemen Proyek &amp; Waktu:</strong> Perencanaan <em>milestone</em> riset, pengajaran laboratorium, dan koordinasi kompetisi secara paralel.</li>
+            <li><strong>Kerja Sama Tim (Teamwork):</strong> Kolaborasi lintas disiplin perangkat keras, <em>firmware</em>, dan perangkat lunak AI.</li>
+            <li><strong>Pemecahan Masalah &amp; Komunikasi:</strong> <em>Debugging</em> sistem tertanam dan penyampaian materi praktikum di laboratorium.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. SERTIFIKASI, KURSUS, ATAU PRESTASI -->
+    <section class="cv-section" id="cv-certifications">
+      <h2 class="cv-section-title">Sertifikasi, Kursus &amp; Prestasi (Certificates &amp; Achievements)</h2>
+      <ul class="cv-bullets">
+        <li><strong>Python for Data Science, AI &amp; Development</strong> &mdash; IBM &amp; Coursera (Terverifikasi: Jan 2026 &bull; ID: <code>0L3LHEIRAPVH</code>).</li>
+        <li><strong>Code Generation and Optimization Using IBM Granite</strong> &mdash; IBM SkillsBuild (Terverifikasi Credly: Okt 2025).</li>
+        <li><strong>AutoCAD Electrical Software Training Program (15 Jam Praktik)</strong> &mdash; HMTE UPNVJ (Jul 2025 &bull; ID: <code>001/SRT-PES/PROPELSOFTWARE/UN61/HMTE/VIII/2025</code>).</li>
+        <li><strong>Asisten Laboratorium Tersertifikasi (4 Mata Kuliah Praktikum)</strong> &mdash; SK Dekan FT UPNVJ: <em>Fisika Dasar</em> &amp; <em>Sistem Digital</em> (Genap 2024/2025 &bull; <code>SK/4526/UN61/HK.03.01/2025</code>), <em>Rangkaian Listrik</em> (Ganjil 2025/2026 &bull; <code>SGAS/159/UN61/2025/FT</code>), dan <em>Dasar Elektronika</em> (Ganjil 2025/2026 &bull; <code>SGAS/160/UN61/2025/FT</code>).</li>
+        <li><strong>Panitia Pelaksana Adjunct Professor Program</strong> &mdash; Program Studi Teknik Elektro UPNVJ (Sep 2025 &bull; ID: <code>SERTF/546/UN61/2025/FT</code>).</li>
+        <li><strong>Kompetisi Nasional:</strong> Kontributor Divisi Firmware pada <strong>GEMASTIK</strong> dan <strong>Futura Transporter Robot Competition</strong> (2025).</li>
+      </ul>
+    </section>
+
+    <!-- LAMPIRAN: BUKTI SERTIFIKAT & PORTOFOLIO -->
+    <section class="cv-section page-break" id="cv-appendix">
+      <h2 class="cv-section-title">Lampiran 1 &mdash; Bukti Sertifikat &amp; SK Asisten Laboratorium</h2>
+      <div class="appendix-grid">
+        <div class="appendix-item">
+          <div class="appendix-item-title">1. Python for Data Science, AI &amp; Development (IBM &amp; Coursera)</div>
+          <div class="appendix-item-meta">Terbit: 11 Januari 2026 &bull; coursera.org/verify/0L3LHEIRAPVH</div>
+          <img src="assets/cert_coursera.png" alt="Coursera Python Certificate" class="appendix-thumb">
+        </div>
+        <div class="appendix-item">
+          <div class="appendix-item-title">2. Code Generation &amp; Optimization Using IBM Granite</div>
+          <div class="appendix-item-meta">Terbit: 22 Oktober 2025 &bull; IBM SkillsBuild (Verified Credly)</div>
+          <img src="assets/cert_ibm.png" alt="IBM Granite Certificate" class="appendix-thumb">
+        </div>
+        <div class="appendix-item">
+          <div class="appendix-item-title">3. AutoCAD Electrical Software Training Program (15 Hours)</div>
+          <div class="appendix-item-meta">No: 001/SRT-PES/PROPELSOFTWARE/UN61/HMTE/VIII/2025</div>
+          <img src="assets/cert_autocad.png" alt="AutoCAD Electrical Certificate" class="appendix-thumb">
+        </div>
+        <div class="appendix-item">
+          <div class="appendix-item-title">4. Asisten Praktikum Fisika Dasar &mdash; FT UPNVJ</div>
+          <div class="appendix-item-meta">Semester Genap T.A 2024/2025 &bull; SK/4526/UN61/HK.03.01/2025</div>
+          <img src="assets/cert_lab_fisika.png" alt="Sertifikat Asisten Fisika Dasar" class="appendix-thumb">
+        </div>
+        <div class="appendix-item">
+          <div class="appendix-item-title">5. Asisten Praktikum Sistem Digital &mdash; FT UPNVJ</div>
+          <div class="appendix-item-meta">Semester Genap T.A 2024/2025 &bull; SK/4526/UN61/HK.03.01/2025</div>
+          <img src="assets/cert_lab_sisdig.png" alt="Sertifikat Asisten Sistem Digital" class="appendix-thumb">
+        </div>
+        <div class="appendix-item">
+          <div class="appendix-item-title">6. Asisten Praktikum Rangkaian Listrik &mdash; FT UPNVJ</div>
+          <div class="appendix-item-meta">Semester Ganjil T.A 2025/2026 &bull; SGAS/159/UN61/2025/FT</div>
+          <img src="assets/cert_lab_rangkaian.png" alt="Sertifikat Asisten Rangkaian Listrik" class="appendix-thumb">
+        </div>
+        <div class="appendix-item">
+          <div class="appendix-item-title">7. Asisten Praktikum Dasar Elektronika &mdash; FT UPNVJ</div>
+          <div class="appendix-item-meta">Semester Ganjil T.A 2025/2026 &bull; SGAS/160/UN61/2025/FT</div>
+          <img src="assets/cert_lab_elektronika.png" alt="Sertifikat Asisten Dasar Elektronika" class="appendix-thumb">
+        </div>
+        <div class="appendix-item">
+          <div class="appendix-item-title">8. Panitia Pelaksana Adjunct Professor Program &mdash; FT UPNVJ</div>
+          <div class="appendix-item-meta">September 2025 &bull; SERTF/546/UN61/2025/FT</div>
+          <img src="assets/cert_adjunct.png" alt="Sertifikat Adjunct Professor" class="appendix-thumb">
+        </div>
+      </div>
+
+      <h2 class="cv-section-title" style="margin-top: 1.1rem;">Lampiran 2 &mdash; Dokumentasi Portofolio Proyek Teknis</h2>
+      <div class="appendix-grid">
+        <div class="appendix-item">
+          <div class="appendix-item-title">1. DeploySkripsi &mdash; ATSC Edge Runtime (NVIDIA Jetson &amp; YOLOv11)</div>
+          <div class="appendix-item-meta">Kalibrasi ROI 4-Titik Perspektif, YOLOv11 &amp; Sugeno ANFIS</div>
+          <img src="assets/proj_deploy_atsc.jpg" alt="DeploySkripsi ATSC Jetson" class="appendix-thumb">
+        </div>
+        <div class="appendix-item">
+          <div class="appendix-item-title">2. Industrial Root Cause Analysis (LangGraph &amp; Modbus RTU)</div>
+          <div class="appendix-item-meta">Multi-Agent RCA Workflow Berstandar ISA-95 &amp; ISO 14224</div>
+          <img src="assets/proj_industrial_rca.png" alt="Industrial RCA System" class="appendix-thumb">
+        </div>
+        <div class="appendix-item">
+          <div class="appendix-item-title">3. MBG Food Freshness &amp; TFT Touchscreen GUI (ESP32-S3)</div>
+          <div class="appendix-item-meta">Mesin Inferensi Fuzzy C99/Python pada GUITION JC2432W328C</div>
+          <img src="assets/proj_fuzzylogic_tft.png" alt="fuzzylogic-tft MBG GUI" class="appendix-thumb">
+        </div>
+        <div class="appendix-item">
+          <div class="appendix-item-title">4. PLC-Based Multi-Floor Elevator (Siemens TIA Portal &amp; Factory I/O)</div>
+          <div class="appendix-item-meta">Simulasi 3D Industri &amp; Diagram Ladder Logic PLC</div>
+          <img src="assets/proj_elevator.png" alt="PLC Elevator Simulation" class="appendix-thumb">
+        </div>
+        <div class="appendix-item">
+          <div class="appendix-item-title">5. Direct On Line (DOL) Motor Starter &amp; Panel Layout</div>
+          <div class="appendix-item-meta">Skematik Rangkaian Daya/Kontrol &amp; Layout Panel di AutoCAD Electrical</div>
+          <img src="assets/proj_cad.png" alt="DOL Motor Starter AutoCAD Electrical" class="appendix-thumb">
+        </div>
+        <div class="appendix-item">
+          <div class="appendix-item-title">6. VisionLabs &mdash; Traffic Annotator &amp; Multi-Model Label Fusion</div>
+          <div class="appendix-item-meta">GroundingDINO + YOLOv11 Fusion &amp; Active Learning Priority Scoring</div>
+          <img src="assets/proj_visionlabs.png" alt="VisionLabs Traffic Annotator" class="appendix-thumb">
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
