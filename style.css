@@ -1217,13 +1217,24 @@ h3 {
     padding-top: 36px;
   }
   .hero-grid {
-    display: block;
-    position: relative;
+    grid-template-columns: minmax(0, 1fr) 90px;
+    gap: 0 16px;
+    align-items: start;
   }
   .hero-copy {
-    position: relative;
+    display: contents;
+  }
+  .hero-copy > * {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+  .hero-copy > h1 {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: center;
   }
   .hero .eyebrow {
+    grid-row: 1;
     font-size: 9px;
     letter-spacing: 1.25px;
     margin-bottom: 18px;
@@ -1231,7 +1242,8 @@ h3 {
   h1 {
     font-size: 40px;
     letter-spacing: -1.7px;
-    max-width: calc(100% - 98px);
+    max-width: none;
+    overflow-wrap: anywhere;
     line-height: 1.06;
   }
   .hero-role {
@@ -1262,9 +1274,10 @@ h3 {
     flex-wrap: wrap;
   }
   .portrait-card {
-    position: absolute;
-    top: 44px;
-    right: 0;
+    position: relative;
+    grid-column: 2;
+    grid-row: 2;
+    align-self: center;
     width: 90px;
     height: 111px;
     min-height: 0;
@@ -1464,7 +1477,7 @@ h3 {
 }
 @media (max-width: 480px) {
   h1 {
-    font-size: 34px;
+    font-size: clamp(28px, 8.5vw, 34px);
     letter-spacing: -1.3px;
   }
   .hero-role {
@@ -1513,8 +1526,10 @@ h3 {
     margin-top: 0;
     min-height: 30px;
   }
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) 86px;
+  }
   .portrait-card {
-    top: 35px;
     width: 86px;
     height: 107px;
   }
