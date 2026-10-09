@@ -356,3 +356,45 @@ test('TDD: Skills section cards use structured icon headers and uniform 2-column
   assert.doesNotMatch(pillBlock[1], /border:\s*1px solid rgba\(255,\s*255,\s*255/, '.pill must not use white-on-white border that washes out on light cards');
 });
 
+test('TDD: Contact channel cards have strong surface, border, icon, and text contrast against .contact-box', () => {
+  const currentCss = fs.readFileSync(path.join(rootDir, 'style.css'), 'utf-8');
+
+  // 1. .contact-channel must use a distinct tinted surface (not white-on-white rgba(255, 255, 255, 0.72)) and must not erase its top border with white
+  const channelBlock = currentCss.match(/\.contact-channel\s*\{([^}]+)\}/);
+  assert.ok(channelBlock, '.contact-channel rule must exist in style.css');
+  assert.doesNotMatch(
+    channelBlock[1],
+    /background:\s*rgba\(255,\s*255,\s*255/,
+    '.contact-channel must not use white-on-white background inside .contact-box'
+  );
+  assert.doesNotMatch(
+    channelBlock[1],
+    /border-top:\s*1px solid rgba\(255,\s*255,\s*255/,
+    '.contact-channel must not override border-top with white, which washes out the top card edge'
+  );
+
+  // 2. .contact-channel-value must use high-contrast text color (not --text-muted) and semi-bold weight
+  const valueBlock = currentCss.match(/\.contact-channel-value\s*\{([^}]+)\}/);
+  assert.ok(valueBlock, '.contact-channel-value rule must exist in style.css');
+  assert.doesNotMatch(
+    valueBlock[1],
+    /color:\s*var\(--text-muted\)/,
+    '.contact-channel-value must not use low-contrast --text-muted'
+  );
+  assert.match(
+    valueBlock[1],
+    /font-weight:\s*600/,
+    '.contact-channel-value must use font-weight: 600 for crisp legibility'
+  );
+
+  // 3. .contact-channel-arrow must use high-contrast color (not --text-muted)
+  const arrowBlock = currentCss.match(/\.contact-channel-arrow\s*\{([^}]+)\}/);
+  assert.ok(arrowBlock, '.contact-channel-arrow rule must exist in style.css');
+  assert.doesNotMatch(
+    arrowBlock[1],
+    /color:\s*var\(--text-muted\)/,
+    '.contact-channel-arrow must not use washed-out --text-muted'
+  );
+});
+
+

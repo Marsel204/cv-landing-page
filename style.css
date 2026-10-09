@@ -1204,10 +1204,9 @@ a {
   gap: 1.1rem;
   padding: 1.25rem 1.3rem;
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-top: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.025);
+  background: #f1f5f9;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
   text-align: left;
   transition: transform 0.28s var(--ease-spring), box-shadow 0.28s var(--ease-spring), background-color 0.2s ease, border-color 0.2s ease;
 }
@@ -1215,8 +1214,8 @@ a {
 .contact-channel:hover {
   transform: translateY(-3px);
   background: #ffffff;
-  border-color: rgba(0, 113, 227, 0.22);
-  box-shadow: 0 10px 24px -4px rgba(0, 0, 0, 0.07), 0 2px 6px rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 113, 227, 0.45);
+  box-shadow: 0 12px 26px -4px rgba(0, 113, 227, 0.14), 0 4px 10px rgba(15, 23, 42, 0.06);
 }
 
 .contact-channel:active {
@@ -1232,31 +1231,33 @@ a {
 }
 
 .contact-icon-wrap {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: rgba(0, 113, 227, 0.08);
-  border: 1px solid rgba(0, 113, 227, 0.14);
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background: rgba(0, 113, 227, 0.14);
+  border: 1px solid rgba(0, 113, 227, 0.28);
+  box-shadow: 0 2px 6px rgba(0, 113, 227, 0.1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--accent-blue);
-  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s var(--ease-spring);
+  color: #005bb5;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s var(--ease-spring), box-shadow 0.25s ease;
 }
 
 .contact-channel:hover .contact-icon-wrap {
   background: var(--accent-blue);
   color: #ffffff;
   border-color: var(--accent-blue);
+  box-shadow: 0 4px 12px rgba(0, 113, 227, 0.28);
   transform: scale(1.05);
 }
 
 .contact-icon {
-  width: 18px;
-  height: 18px;
+  width: 19px;
+  height: 19px;
   stroke: currentColor;
   fill: none;
-  stroke-width: 1.9;
+  stroke-width: 2;
 }
 
 .contact-icon.contact-icon-solid {
@@ -1265,35 +1266,45 @@ a {
 }
 
 .contact-channel-arrow {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  transition: transform 0.25s var(--ease-spring), color 0.2s ease;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  background: rgba(15, 23, 42, 0.07);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  transition: transform 0.25s var(--ease-spring), color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .contact-channel:hover .contact-channel-arrow {
-  color: var(--accent-blue);
+  color: #ffffff;
+  background: var(--accent-blue);
+  border-color: var(--accent-blue);
   transform: translate(2px, -2px);
 }
 
 .contact-channel-body {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.22rem;
   min-width: 0;
 }
 
 .contact-channel-label {
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   font-weight: 700;
   letter-spacing: -0.015em;
   color: var(--text-primary);
 }
 
 .contact-channel-value {
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
