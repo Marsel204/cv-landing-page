@@ -167,12 +167,67 @@ a {
   transition: transform 100ms ease-out;
 }
 
+.nav-links a.active {
+  background: var(--accent-primary);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16);
+}
+
+/* ==========================================================================
+   Multi-Window View Switcher & macOS Window Chrome
+   ========================================================================== */
+.main-content {
+  min-height: calc(100vh - 135px);
+  display: flex;
+  flex-direction: column;
+}
+
+.window-view {
+  display: none;
+}
+
+.window-view.is-active {
+  display: block;
+  animation: windowEnter 0.36s var(--ease-spring) backwards;
+}
+
+@keyframes windowEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.992);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 /* ==========================================================================
    Hero Section & Floating Optical Portrait
    ========================================================================== */
 .hero-section {
-  padding: 5.5rem 1.5rem 4.5rem;
+  padding: 3.75rem 1.5rem 1.75rem;
   animation: fadeIn 0.8s var(--ease-spring) backwards;
+}
+
+#about.section {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+#contact.section {
+  padding-top: 1.75rem;
+}
+
+#experience.section,
+#skills.section {
+  padding-bottom: 1.75rem;
+}
+
+#education.section,
+#projects.section {
+  padding-top: 1.75rem;
 }
 
 @keyframes fadeIn {
@@ -556,15 +611,22 @@ a {
   padding: 1.85rem;
 }
 
-.timeline-grid,
+.timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+  gap: 1.5rem;
+}
+
 .education-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
   gap: 1.5rem;
 }
 
 .timeline-card {
   padding: 1.85rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .timeline-header {
@@ -1119,5 +1181,10 @@ a {
 
   .section {
     padding: 3.75rem 1.25rem;
+  }
+
+  .timeline-grid,
+  .education-grid {
+    grid-template-columns: 1fr;
   }
 }
