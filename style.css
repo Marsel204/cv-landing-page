@@ -1136,13 +1136,6 @@ a {
   flex-direction: column;
 }
 
-@media (max-width: 640px) {
-  .github-carousel-track .repo-card {
-    flex: 0 0 85vw;
-    width: 85vw;
-  }
-}
-
 /* ==========================================================================
    Contact Section & Footer
    ========================================================================== */
@@ -1460,6 +1453,7 @@ a {
   #skills.section,
   #projects.section {
     padding: 1.85rem 1rem;
+    scroll-margin-top: 8.5rem;
   }
 
   .section-header,
@@ -1488,25 +1482,50 @@ a {
     padding: 1.25rem 1.15rem;
   }
 
+  .skill-category-card .pill {
+    padding: 0.48rem 0.58rem;
+    font-size: 0.76rem;
+    gap: 0.38rem;
+  }
+
   .contact-box {
     padding: 1.5rem 1.2rem;
   }
 
-  .github-filter-bar {
+  .header-actions-group {
     width: 100%;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    border-radius: 14px;
-    scrollbar-width: none;
+    min-width: 0;
   }
 
-  .github-filter-bar::-webkit-scrollbar {
-    display: none;
+  .github-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    border-radius: 14px;
+    padding: 0.35rem;
+    gap: 0.35rem;
+    overflow: visible;
   }
 
   .filter-btn {
+    flex: 1 1 auto;
+    text-align: center;
+    padding: 0.38rem 0.65rem;
+    font-size: 0.78rem;
     white-space: nowrap;
-    flex-shrink: 0;
+  }
+
+  .github-carousel-track {
+    gap: 1rem;
+    padding: 0.35rem 0 1.35rem;
+  }
+
+  .github-carousel-track .repo-card {
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    scroll-snap-align: start;
   }
 }
 

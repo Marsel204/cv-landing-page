@@ -478,3 +478,50 @@ test('TDD: Mobile responsive layout prevents multi-line wrapped nav pills, horiz
     'Mobile cards must reduce padding on phones for wider text reading area'
   );
 });
+
+test('TDD: Mobile Featured Projects section prevents filter bar right-edge clipping, section title navbar overlap, and half-cropped carousel cards', () => {
+  const css = fs.readFileSync(path.join(rootDir, 'style.css'), 'utf-8');
+  const currentHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf-8');
+
+  const mobileMediaIdx = css.indexOf('@media (max-width: 768px)');
+  assert.ok(mobileMediaIdx !== -1, '@media (max-width: 768px) block must exist');
+  const mobileCss = css.slice(mobileMediaIdx);
+
+  // 1. .github-filter-bar on mobile must wrap pills cleanly inside container instead of clipping "Embedded & IoT" ("[Emb") off the right edge
+  const mobileFilterBar = mobileCss.match(/\.github-filter-bar\s*\{([^}]+)\}/);
+  assert.ok(mobileFilterBar, 'Mobile .github-filter-bar rule must exist');
+  assert.match(
+    mobileFilterBar[1],
+    /flex-wrap:\s*wrap/,
+    'Mobile .github-filter-bar must use flex-wrap: wrap so filter buttons never clip off the right screen edge'
+  );
+
+  // 2. .github-carousel-track .repo-card on mobile must be 100% width so cards are never half-cropped on both left and right edges
+  const mobileRepoCard = mobileCss.match(/\.github-carousel-track\s+\.repo-card\s*\{([^}]+)\}/);
+  assert.ok(mobileRepoCard, 'Mobile .github-carousel-track .repo-card rule must exist');
+  assert.match(
+    mobileRepoCard[1],
+    /flex:\s*0\s+0\s+100%/,
+    'Mobile .repo-card must use flex: 0 0 100% so a single card fits cleanly without clipping adjacent cards'
+  );
+  assert.match(
+    mobileRepoCard[1],
+    /min-width:\s*100%/,
+    'Mobile .repo-card must override min-width: 320px with min-width: 100%'
+  );
+
+  // 3. Mobile .section must set scroll-margin-top >= 8rem so "Featured Projects" heading is not clipped under the stacked mobile navbar
+  assert.match(
+    mobileCss,
+    /scroll-margin-top:\s*8\.5rem/,
+    'Mobile sections must increase scroll-margin-top so headings are not tucked under the sticky mobile navbar'
+  );
+
+  // 4. Carousel auto-roll must pause/skip on mobile viewports (<= 768px) so cards are not drifted halfway off the left edge while reading
+  assert.match(
+    currentHtml,
+    /innerWidth\s*<=\s*768|max-width:\s*768px/,
+    'index.html auto-roller must skip continuous pixel drift on mobile screens (<= 768px) to keep cards aligned'
+  );
+});
+

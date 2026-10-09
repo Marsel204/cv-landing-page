@@ -433,6 +433,14 @@ export function createCarouselAutoRoll(container, options = {}) {
     );
   }
 
+  function isMobileViewport() {
+    return (
+      typeof window !== 'undefined' &&
+      typeof window.innerWidth === 'number' &&
+      window.innerWidth <= 768
+    );
+  }
+
   function pause() {
     isPaused = true;
     container.classList?.remove('is-auto-rolling');
@@ -459,7 +467,7 @@ export function createCarouselAutoRoll(container, options = {}) {
   }
 
   function step(dtSeconds, currentTimestamp = nowTime()) {
-    if (isReducedMotion()) {
+    if (isReducedMotion() || isMobileViewport()) {
       container.classList?.remove('is-auto-rolling');
       return;
     }
@@ -644,14 +652,16 @@ export function initGithubSection() {
   if (scrollLeftBtn) {
     scrollLeftBtn.addEventListener('click', () => {
       autoRoll?.pauseFor(1400);
-      container.scrollBy({ left: -360, behavior: 'smooth' });
+      const stepPx = window.innerWidth <= 768 ? (container.clientWidth + 16) : 360;
+      container.scrollBy({ left: -stepPx, behavior: 'smooth' });
     });
   }
 
   if (scrollRightBtn) {
     scrollRightBtn.addEventListener('click', () => {
       autoRoll?.pauseFor(1400);
-      container.scrollBy({ left: 360, behavior: 'smooth' });
+      const stepPx = window.innerWidth <= 768 ? (container.clientWidth + 16) : 360;
+      container.scrollBy({ left: stepPx, behavior: 'smooth' });
     });
   }
 
@@ -675,6 +685,13 @@ export function initGithubSection() {
   }
 
   container.addEventListener('pointerdown', (e) => {
+    // On touch devices, preserve native touch scrolling and CSS scroll-snap-type: x mandatory
+    if (e.pointerType === 'touch') {
+      stopMomentum();
+      autoRoll?.pauseFor(2500);
+      return;
+    }
+
     // Interrupt ongoing momentum and automatic roll cleanly
     stopMomentum();
     autoRoll?.pause();

@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261009">
+  <link rel="stylesheet" href="style.css?v=20261009b">
 </head>
 <body>
   <!-- Ambient Animated Holographic Canvas -->
@@ -1132,9 +1132,10 @@
           lastTimestamp = timestamp;
 
           const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          const isMobile = window.innerWidth <= 768;
           const maxScroll = container.scrollWidth - container.clientWidth;
 
-          if (!reduced && !isPaused && timestamp >= pauseUntil && maxScroll > 2) {
+          if (!reduced && !isMobile && !isPaused && timestamp >= pauseUntil && maxScroll > 2) {
             container.classList.add('is-auto-rolling');
             if (Math.abs(container.scrollLeft - virtualScrollLeft) > 3) {
               virtualScrollLeft = container.scrollLeft;
@@ -1259,14 +1260,16 @@
         scrollLeftBtn.addEventListener('click', () => {
           if (container.__githubInitialized) return;
           container.__autoRoll?.pauseFor(1400);
-          container.scrollBy({ left: -360, behavior: 'smooth' });
+          const stepPx = window.innerWidth <= 768 ? (container.clientWidth + 16) : 360;
+          container.scrollBy({ left: -stepPx, behavior: 'smooth' });
         });
       }
       if (scrollRightBtn) {
         scrollRightBtn.addEventListener('click', () => {
           if (container.__githubInitialized) return;
           container.__autoRoll?.pauseFor(1400);
-          container.scrollBy({ left: 360, behavior: 'smooth' });
+          const stepPx = window.innerWidth <= 768 ? (container.clientWidth + 16) : 360;
+          container.scrollBy({ left: stepPx, behavior: 'smooth' });
         });
       }
       container.addEventListener('scroll', updateScrollButtons, { passive: true });
@@ -1311,7 +1314,7 @@
 
       // Dynamic load of github.js only when running via http/https to enrich with live GitHub API data
       if (window.location.protocol.startsWith('http')) {
-        import('./github.js').catch(err => {
+        import('./github.js?v=20261009b').catch(err => {
           console.warn('[GitHub Projects] Live fetch unavailable:', err);
         });
       }
