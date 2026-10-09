@@ -173,6 +173,23 @@ test('TDD: Hero bio highlights agentic AI (RAG, LangGraph) and removes PLC/TIA P
   assert.match(heroBioText, /agentic/i, 'Hero bio should mention agentic AI/systems');
 });
 
+test('TDD: Hero role headline reflects updated portfolio with Firmware/Embedded, IoT, and Agentic AI', () => {
+  const currentHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf-8');
+  const heroRoleMatch = currentHtml.match(/<p class="hero-role">([\s\S]*?)<\/p>/);
+  assert.ok(heroRoleMatch, 'Hero role must exist');
+  const heroRoleText = heroRoleMatch[1].trim();
+
+  assert.notEqual(
+    heroRoleText,
+    'Electrical Engineering Student &bull; Firmware & IoT Developer',
+    'Hero role must be updated from the old headline'
+  );
+  assert.match(heroRoleText, /Electrical Engineering Student/i, 'Hero role must retain Electrical Engineering Student');
+  assert.match(heroRoleText, /Firmware|Embedded/i, 'Hero role must mention Firmware or Embedded');
+  assert.match(heroRoleText, /IoT/i, 'Hero role must mention IoT');
+  assert.match(heroRoleText, /Agentic AI/i, 'Hero role must highlight Agentic AI');
+});
+
 test('TDD: Experience and Education cards include organization logos with proper CSS styling', () => {
   const expSectionMatch = htmlContent.match(/<section id="experience"[^>]*>([\s\S]*?)<\/section>/);
   assert.ok(expSectionMatch, 'Experience section must exist');

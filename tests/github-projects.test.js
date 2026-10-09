@@ -327,6 +327,60 @@ test('TDD: index.html has deleted the 5 requested projects and retains remaining
   assert.ok(indexHtml.includes('data-repo-name="cv-landing-page"'), 'index.html must include cv-landing-page');
 });
 
+test('TDD: Every project card in index.html and active github.js metadata has a unique thumbnail image (no duplicates)', () => {
+  const indexHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf8');
+
+  // 1. Check all .repo-card thumbnails in index.html
+  const cardImgRegex = /<div class="card repo-card"[^>]*data-repo-name="([^"]+)"[\s\S]*?<img src="([^"]+)"[^>]*class="card-thumb"/g;
+  let match;
+  const htmlImages = new Map();
+  while ((match = cardImgRegex.exec(indexHtml)) !== null) {
+    const [, repoName, imgSrc] = match;
+    assert.notEqual(imgSrc, 'assets/profile.png', `Project ${repoName} must not reuse hero cutout assets/profile.png`);
+    assert.ok(
+      !htmlImages.has(imgSrc),
+      `Duplicate project thumbnail "${imgSrc}" found on "${repoName}" (already used by "${htmlImages.get(imgSrc)}")`
+    );
+    htmlImages.set(imgSrc, repoName);
+
+    const fullPath = path.join(rootDir, imgSrc);
+    assert.ok(fs.existsSync(fullPath), `Thumbnail file must exist for ${repoName}: ${imgSrc}`);
+    assert.ok(fs.statSync(fullPath).size > 0, `Thumbnail file must be non-empty for ${repoName}: ${imgSrc}`);
+  }
+  assert.equal(htmlImages.size, 13, 'All 13 project cards in index.html must have unique thumbnails');
+
+  // 2. Check all active projects in github.js (FEATURED_ENGINEERING_PROJECTS + non-excluded REPO_METADATA)
+  const excluded = githubModule.EXCLUDED_REPOS || new Set();
+  const metadata = githubModule.REPO_METADATA;
+  const featured = githubModule.FEATURED_ENGINEERING_PROJECTS;
+
+  const jsImages = new Map();
+  for (const proj of featured) {
+    assert.ok(proj.image, `Featured project ${proj.name} must have an image`);
+    assert.ok(
+      !jsImages.has(proj.image),
+      `Duplicate image "${proj.image}" in github.js on "${proj.name}" (already used by "${jsImages.get(proj.image)}")`
+    );
+    jsImages.set(proj.image, proj.name);
+  }
+
+  for (const [repoName, meta] of Object.entries(metadata)) {
+    if (excluded.has(repoName)) continue;
+    assert.ok(meta.image, `Active repo ${repoName} must have an image`);
+    assert.notEqual(meta.image, 'assets/profile.png', `Active repo ${repoName} must not reuse assets/profile.png`);
+    assert.ok(
+      !jsImages.has(meta.image),
+      `Duplicate image "${meta.image}" in github.js on "${repoName}" (already used by "${jsImages.get(meta.image)}")`
+    );
+    jsImages.set(meta.image, repoName);
+
+    const fullPath = path.join(rootDir, meta.image);
+    assert.ok(fs.existsSync(fullPath), `Thumbnail file must exist for ${repoName}: ${meta.image}`);
+    assert.ok(fs.statSync(fullPath).size > 0, `Thumbnail file must be non-empty for ${repoName}: ${meta.image}`);
+  }
+});
+
+
 
 
 

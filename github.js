@@ -50,7 +50,7 @@ export const REPO_METADATA = {
   'antigravity-agentic-kit': {
     title: 'Antigravity Agentic Engineering Kit',
     description: 'High-discipline SDLC skills, TDD enforcement, token-efficient action formatting, interactive architecture generation, persistent memory, and parallel worktree management.',
-    image: 'assets/proj_embedded_suite.png',
+    image: 'assets/proj_agentic_kit.png',
     category: ['Agentic Engineering', 'Agentic'],
     tags: ['SDLC', 'TDD', 'Agentic Workflows', 'Worktree Automation', 'Shell']
   },
@@ -64,7 +64,7 @@ export const REPO_METADATA = {
   'VisionLabs': {
     title: 'VisionLabs Computer Vision Lab',
     description: 'Computer vision research and experimentation repository exploring real-time deep learning model benchmarks, object detection, and edge camera calibration pipelines.',
-    image: 'assets/proj_traffic.png',
+    image: 'assets/proj_visionlabs.png',
     category: ['AI & Vision', 'AI', 'Python'],
     tags: ['Python', 'OpenCV', 'PyTorch', 'Computer Vision']
   },
@@ -78,7 +78,7 @@ export const REPO_METADATA = {
   'Yolo-Inference': {
     title: 'YOLO Inference Real-Time Pipeline',
     description: 'High-throughput YOLO inference pipelines optimized for low-latency vehicle and object detection in edge computing environments.',
-    image: 'assets/proj_traffic.png',
+    image: 'assets/proj_yolo_inference.png',
     category: ['AI & Vision', 'AI', 'Python'],
     tags: ['Python', 'YOLO', 'Object Detection', 'TensorRT']
   },
@@ -92,21 +92,21 @@ export const REPO_METADATA = {
   'LangPlayeExt': {
     title: 'LinguaPlay — Japanese AI Immersion Player & Extension',
     description: 'AI-enhanced Japanese language immersion video player and YouTube subtitle companion featuring Kuromoji tokenization, multi-provider LLM explanations (Gemini & DeepSeek), and Anki sync.',
-    image: 'assets/proj_embedded_suite.png',
+    image: 'assets/proj_langplay_ext.png',
     category: ['Web & Tools', 'AI & Vision', 'Python', 'Web', 'Tools', 'AI'],
     tags: ['JavaScript', 'HTML5', 'Kuromoji', 'DeepSeek', 'Gemini AI', 'Anki Sync']
   },
   'LangPlay': {
     title: 'LangPlay — AI Language Immersion Web Runtime',
     description: 'Full-stack language immersion media runtime with interactive romaji-to-kanji parsing, sentence tokenization engine, and multi-model AI grammar pedagogical breakdowns.',
-    image: 'assets/proj_clock_dashboard.png',
+    image: 'assets/proj_langplay.png',
     category: ['Web & Tools', 'Python', 'AI & Vision', 'Web', 'Tools'],
     tags: ['Python', 'HTML5', 'NLP', 'Parsing', 'AI Pedagogy']
   },
   'frieren-theme': {
     title: 'Frieren Omarchy Theme',
     description: 'Minimalist desktop aesthetic theme inspired by Frieren for Omarchy Linux environments, with custom palette styling, status bar colors, and UI assets.',
-    image: 'assets/proj_clock_dashboard.png',
+    image: 'assets/proj_frieren_theme.png',
     category: ['Web & Tools', 'Web', 'Tools'],
     tags: ['CSS', 'Omarchy', 'Linux', 'Theme', 'Styling']
   },
@@ -120,7 +120,7 @@ export const REPO_METADATA = {
   'cv-landing-page': {
     title: 'Interactive CV & Engineering Portfolio',
     description: 'Modern, high-performance responsive CV and engineering portfolio landing page built with pure CSS holographic iridescent theme and single-sweep project carousel.',
-    image: 'assets/profile.png',
+    image: 'assets/proj_cv_portfolio.png',
     category: ['Web & Tools', 'Web', 'Tools'],
     tags: ['HTML5', 'CSS3', 'JavaScript', 'Holographic UI', 'Performance']
   }
