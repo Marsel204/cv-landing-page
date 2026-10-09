@@ -198,3 +198,63 @@ test('TDD: Experience and Education cards include organization logos with proper
   assert.ok(orgLogoBlock, '.org-logo rule must exist in style.css');
   assert.match(orgLogoBlock[1], /object-fit:\s*contain/, '.org-logo must use object-fit: contain');
 });
+
+test('TDD: Multi-window view switcher combines similar tabs (About & Contact, Experience & Education, Skills & Projects, Certifications) and lays out Experience items in multi-window grid', () => {
+  const currentHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf-8');
+  const currentCss = fs.readFileSync(path.join(rootDir, 'style.css'), 'utf-8');
+
+  // 1. Navbar links combine related sections into 4 unified tabs
+  assert.ok(currentHtml.includes('About &amp; Contact') || currentHtml.includes('About & Contact'), 'Navbar must include combined "About & Contact" tab');
+  assert.ok(currentHtml.includes('Experience &amp; Education') || currentHtml.includes('Experience & Education'), 'Navbar must include combined "Experience & Education" tab');
+  assert.ok(currentHtml.includes('Skills &amp; Projects') || currentHtml.includes('Skills & Projects'), 'Navbar must include combined "Skills & Projects" tab');
+  assert.ok(currentHtml.includes('Certifications'), 'Navbar must include "Certifications" tab');
+
+  const expectedWindows = ['about', 'experience', 'projects', 'certifications'];
+  for (const win of expectedWindows) {
+    assert.ok(
+      currentHtml.includes(`data-window="${win}"`),
+      `Navbar must include a tab trigger with data-window="${win}"`
+    );
+  }
+
+  // 2. Sections are grouped into the 4 combined window-view containers
+  assert.match(currentHtml, /id="hero"[^>]*class="[^"]*window-view[^"]*is-active"[^>]*data-window-id="about"/, '#hero must belong to about window-view and be active by default');
+  assert.match(currentHtml, /id="about"[^>]*class="[^"]*window-view[^"]*is-active"[^>]*data-window-id="about"/, '#about must belong to about window-view and be active by default');
+  assert.match(currentHtml, /id="contact"[^>]*class="[^"]*window-view[^"]*is-active"[^>]*data-window-id="about"/, '#contact must belong to about window-view and be active by default');
+
+  assert.match(currentHtml, /id="experience"[^>]*class="[^"]*window-view"[^>]*data-window-id="experience"/, '#experience must belong to experience window-view');
+  assert.match(currentHtml, /id="education"[^>]*class="[^"]*window-view"[^>]*data-window-id="experience"/, '#education must belong to experience window-view');
+
+  assert.match(currentHtml, /id="skills"[^>]*class="[^"]*window-view"[^>]*data-window-id="projects"/, '#skills must belong to projects window-view');
+  assert.match(currentHtml, /id="projects"[^>]*class="[^"]*window-view"[^>]*data-window-id="projects"/, '#projects must belong to projects window-view');
+
+  assert.match(currentHtml, /id="certifications"[^>]*class="[^"]*window-view"[^>]*data-window-id="certifications"/, '#certifications must belong to certifications window-view');
+
+  // 3. CSS hides inactive .window-view and reveals .window-view.is-active
+  const windowViewBlock = currentCss.match(/\.window-view\s*\{([^}]+)\}/);
+  assert.ok(windowViewBlock, '.window-view rule must exist in style.css');
+  assert.match(windowViewBlock[1], /display:\s*none/, '.window-view must default to display: none');
+
+  const windowViewActiveBlock = currentCss.match(/\.window-view\.is-active\s*\{([^}]+)\}/);
+  assert.ok(windowViewActiveBlock, '.window-view.is-active rule must exist in style.css');
+  assert.match(windowViewActiveBlock[1], /display:\s*block/, '.window-view.is-active must set display: block');
+
+  // 4. Active navbar tab styling exists
+  assert.ok(
+    currentCss.includes('.nav-links a.active'),
+    'style.css must style .nav-links a.active for active window tab indication'
+  );
+
+  // 5. Experience items use a multi-window responsive grid instead of packing into a single column
+  const timelineGridBlock = currentCss.match(/\.timeline-grid\s*\{([^}]+)\}/);
+  assert.ok(timelineGridBlock, '.timeline-grid rule must exist in style.css');
+  assert.match(timelineGridBlock[1], /display:\s*grid/, '.timeline-grid must use CSS grid for multi-window cards');
+  assert.match(timelineGridBlock[1], /grid-template-columns:/, '.timeline-grid must define multi-column grid-template-columns');
+
+  // 6. Window switcher script exists without cluttered window-titlebar traffic dots or bottom window-pager bar
+  assert.ok(!currentHtml.includes('window-titlebar'), 'Cluttered window-titlebar traffic dots must be removed from cards');
+  assert.ok(!currentHtml.includes('window-dots'), 'window-dots must be removed from cards');
+  assert.ok(currentHtml.includes('switchWindow'), 'index.html must include switchWindow controller function');
+  assert.ok(!currentHtml.includes('window-pager'), 'Bottom window-pager bar must be removed');
+});
+

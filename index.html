@@ -19,22 +19,19 @@
   <!-- Navigation -->
   <header class="navbar">
     <div class="nav-container">
-      <a href="#hero" class="nav-logo">Marsel<span>.</span></a>
-      <nav class="nav-links">
-        <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#education">Education</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#certifications">Certifications</a>
-        <a href="#contact">Contact</a>
+      <a href="#hero" class="nav-logo" data-window-trigger="about">Marsel<span>.</span></a>
+      <nav class="nav-links" role="tablist" aria-label="Portfolio Windows">
+        <a href="#about" class="active" data-window="about" role="tab" aria-selected="true">About &amp; Contact</a>
+        <a href="#experience" data-window="experience" role="tab" aria-selected="false">Experience &amp; Education</a>
+        <a href="#projects" data-window="projects" role="tab" aria-selected="false">Skills &amp; Projects</a>
+        <a href="#certifications" data-window="certifications" role="tab" aria-selected="false">Certifications</a>
       </nav>
     </div>
   </header>
 
   <main class="main-content">
     <!-- Hero / Personal Info Section -->
-    <section id="hero" class="hero-section">
+    <section id="hero" class="hero-section window-view is-active" data-window-id="about">
       <div class="hero-container">
         <!-- Profile Cutout Photo -->
         <div class="profile-photo-wrapper">
@@ -80,18 +77,18 @@
           </div>
 
           <div class="hero-actions">
-            <a href="#projects" class="btn btn-primary">
+            <a href="#projects" class="btn btn-primary" data-window-trigger="projects">
               <span>Explore Projects</span>
               &rarr;
             </a>
-            <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            <a href="#contact" class="btn btn-secondary" data-window-trigger="contact">Get In Touch</a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="section">
+    <section id="about" class="section window-view is-active" data-window-id="about">
       <div class="section-container">
         <div class="section-header">
           <h2 class="section-title">About Me</h2>
@@ -106,7 +103,7 @@
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="section">
+    <section id="experience" class="section window-view" data-window-id="experience">
       <div class="section-container">
         <div class="section-header">
           <h2 class="section-title">Work & Organizational Experience</h2>
@@ -213,7 +210,7 @@
     </section>
 
     <!-- Education Section -->
-    <section id="education" class="section">
+    <section id="education" class="section window-view" data-window-id="experience">
       <div class="section-container">
         <div class="section-header">
           <h2 class="section-title">Education</h2>
@@ -259,7 +256,7 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="section">
+    <section id="skills" class="section window-view" data-window-id="projects">
       <div class="section-container">
         <div class="section-header">
           <h2 class="section-title">Core Skills & Technologies</h2>
@@ -313,7 +310,7 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="section">
+    <section id="projects" class="section window-view" data-window-id="projects">
       <div class="section-container">
         <div class="section-header-row">
           <div>
@@ -719,7 +716,7 @@
   </section>
 
     <!-- Certifications Section -->
-    <section id="certifications" class="section">
+    <section id="certifications" class="section window-view" data-window-id="certifications">
       <div class="section-container">
         <div class="section-header-row">
           <div>
@@ -871,7 +868,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="section">
+    <section id="contact" class="section window-view is-active" data-window-id="about">
       <div class="section-container">
         <div class="contact-box">
           <h2 class="section-title">Let's Connect & Collaborate</h2>
@@ -902,12 +899,92 @@
   <footer class="footer">
     <div class="footer-container">
       <p>&copy; 2026 Marselinus Allen Nugraha. All rights reserved.</p>
-      <a href="#hero" class="back-to-top">Back to top &uarr;</a>
+      <a href="#hero" class="back-to-top" data-window-trigger="about">Back to About &uarr;</a>
     </div>
   </footer>
-  <!-- GitHub Projects Fetcher & Interactive Filter -->
+  <!-- Multi-Window View Controller & GitHub Projects Fetcher -->
   <script>
-    (function initPortfolioFilters() {
+    (function initMultiWindowAndFilters() {
+      const WINDOW_ORDER = ['about', 'experience', 'projects', 'certifications'];
+
+      function normalizeWindowId(rawId) {
+        if (!rawId) return 'about';
+        const clean = rawId.replace(/^#/, '').toLowerCase().trim();
+        if (clean === 'hero' || clean === 'about' || clean === 'contact') return 'about';
+        if (clean === 'experience' || clean === 'education') return 'experience';
+        if (clean === 'skills' || clean === 'projects') return 'projects';
+        if (clean === 'certifications') return 'certifications';
+        return 'about';
+      }
+
+      function switchWindow(targetId, updateHash = true) {
+        const cleanRaw = (targetId || '').replace(/^#/, '').toLowerCase().trim();
+        const resolved = normalizeWindowId(targetId);
+
+        // Toggle active window views
+        document.querySelectorAll('.window-view').forEach(section => {
+          const winId = section.getAttribute('data-window-id');
+          if (winId === resolved) {
+            section.classList.add('is-active');
+          } else {
+            section.classList.remove('is-active');
+          }
+        });
+
+        // Sync navbar tab active state
+        document.querySelectorAll('.nav-links a[data-window]').forEach(link => {
+          const isMatch = link.getAttribute('data-window') === resolved;
+          link.classList.toggle('active', isMatch);
+          link.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+        });
+
+        if (updateHash && window.history && window.history.replaceState) {
+          window.history.replaceState(null, '', `#${resolved}`);
+        }
+
+        if (cleanRaw === 'contact') {
+          document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+
+        // Recalculate carousel dimensions when Skills & Projects window becomes visible
+        if (resolved === 'projects') {
+          requestAnimationFrame(() => {
+            window.dispatchEvent(new Event('resize'));
+          });
+        }
+      }
+
+      // Navbar tab clicks
+      document.querySelectorAll('.nav-links a[data-window]').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchWindow(link.getAttribute('data-window'));
+        });
+      });
+
+      // Internal window triggers (Hero CTAs, Logo, Back to About)
+      document.querySelectorAll('[data-window-trigger]').forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchWindow(trigger.getAttribute('data-window-trigger'));
+        });
+      });
+
+      // Hash navigation support
+      window.addEventListener('hashchange', () => {
+        if (window.location.hash) {
+          switchWindow(window.location.hash, false);
+        }
+      });
+
+      if (window.location.hash) {
+        switchWindow(window.location.hash, false);
+      } else {
+        switchWindow('about', false);
+      }
+
       const container = document.getElementById('github-projects-grid');
       const filterBar = document.getElementById('repo-filter-bar');
       const scrollLeftBtn = document.getElementById('repo-scroll-left');
