@@ -574,3 +574,32 @@ test('TDD: Google Search SEO metadata, ProfilePage + Person JSON-LD structured d
   );
 });
 
+test('TDD: English CV document (cv-english.html & CV_Marselinus_Allen_Nugraha_EN.pdf) exists and is linked from CV menu and index.html', () => {
+  const cvEnHtmlPath = path.join(rootDir, 'cv-english.html');
+  const cvEnPdfPath = path.join(rootDir, 'CV_Marselinus_Allen_Nugraha_EN.pdf');
+  const cvIdHtml = fs.readFileSync(path.join(rootDir, 'cv-mahasiswa.html'), 'utf-8');
+  const currentHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf-8');
+
+  // 1. cv-english.html must exist with all 7 sections and NIM 2310314001 in English
+  assert.ok(fs.existsSync(cvEnHtmlPath), 'cv-english.html must exist in repository root');
+  const cvEnHtml = fs.readFileSync(cvEnHtmlPath, 'utf-8');
+  assert.ok(cvEnHtml.includes('Marselinus Allen Nugraha'), 'English CV must include full name');
+  assert.ok(cvEnHtml.includes('2310314001'), 'English CV must include NIM 2310314001');
+  assert.ok(cvEnHtml.includes('id="cv-summary"'), 'English CV must include #cv-summary');
+  assert.ok(cvEnHtml.includes('id="cv-education"'), 'English CV must include #cv-education');
+  assert.ok(cvEnHtml.includes('id="cv-organizations"'), 'English CV must include #cv-organizations');
+  assert.ok(cvEnHtml.includes('id="cv-projects"'), 'English CV must include #cv-projects');
+  assert.ok(cvEnHtml.includes('id="cv-skills"'), 'English CV must include #cv-skills');
+  assert.ok(cvEnHtml.includes('id="cv-certifications"'), 'English CV must include #cv-certifications');
+
+  // 2. Both CV menus (cv-mahasiswa.html and cv-english.html) and index.html must link to the English CV
+  assert.ok(cvIdHtml.includes('cv-english.html'), 'cv-mahasiswa.html toolbar menu must include a button to open cv-english.html');
+  assert.ok(cvIdHtml.includes('CV_Marselinus_Allen_Nugraha_EN.pdf'), 'cv-mahasiswa.html toolbar menu must include a button to download English PDF');
+  assert.ok(cvEnHtml.includes('cv-mahasiswa.html'), 'cv-english.html toolbar menu must include a button to switch to Indonesian CV');
+  assert.ok(currentHtml.includes('cv-english.html'), 'index.html must include a button to open the English CV');
+
+  // 3. Compiled English PDF must exist with valid %PDF- header
+  assert.ok(fs.existsSync(cvEnPdfPath), 'CV_Marselinus_Allen_Nugraha_EN.pdf must exist');
+  const pdfHeader = fs.readFileSync(cvEnPdfPath).subarray(0, 5).toString('ascii');
+  assert.equal(pdfHeader, '%PDF-', 'Generated English PDF must have valid %PDF- header');
+});

@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'cv-mahasiswa.html'
+      - 'cv-english.html'
       - 'assets/**'
   workflow_dispatch:
 
@@ -24,21 +25,24 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Render cv-mahasiswa.html to CV_Marselinus_Allen_Nugraha.pdf
+      - name: Render Indonesian & English CV HTML to PDF
         run: |
           google-chrome --headless=new --no-sandbox --disable-gpu --no-pdf-header-footer \
             --print-to-pdf="$GITHUB_WORKSPACE/CV_Marselinus_Allen_Nugraha.pdf" \
             "file://$GITHUB_WORKSPACE/cv-mahasiswa.html"
+          google-chrome --headless=new --no-sandbox --disable-gpu --no-pdf-header-footer \
+            --print-to-pdf="$GITHUB_WORKSPACE/CV_Marselinus_Allen_Nugraha_EN.pdf" \
+            "file://$GITHUB_WORKSPACE/cv-english.html"
 
       - name: Run Test Suite
         run: node --test tests/*.test.js
 
-      - name: Commit updated PDF if changed
+      - name: Commit updated PDFs if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if ! git diff --quiet CV_Marselinus_Allen_Nugraha.pdf; then
-            git add CV_Marselinus_Allen_Nugraha.pdf
-            git commit -m "chore(cv): auto-regenerate CV_Marselinus_Allen_Nugraha.pdf from cv-mahasiswa.html [skip ci]"
+          if ! git diff --quiet CV_Marselinus_Allen_Nugraha.pdf CV_Marselinus_Allen_Nugraha_EN.pdf; then
+            git add CV_Marselinus_Allen_Nugraha.pdf CV_Marselinus_Allen_Nugraha_EN.pdf
+            git commit -m "chore(cv): auto-regenerate Indonesian & English CV PDFs [skip ci]"
             git push
           fi
