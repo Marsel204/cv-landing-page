@@ -275,3 +275,25 @@ test('TDD: Multi-window view switcher combines similar tabs (About & Contact, Ex
   assert.ok(!currentHtml.includes('window-pager'), 'Bottom window-pager bar must be removed');
 });
 
+test('TDD: AutoCAD Electrical and IBM certificate images are tightly cropped and centered without off-center white margins', () => {
+  // Read PNG IHDR dimensions (bytes 16..20 = width, 20..24 = height)
+  function getPngDimensions(relPath) {
+    const buf = fs.readFileSync(path.join(rootDir, relPath));
+    return {
+      width: buf.readUInt32BE(16),
+      height: buf.readUInt32BE(20)
+    };
+  }
+
+  // cert_autocad.png previously had a 102px left white strip and 33px top white strip (993x702 -> 891x669)
+  const autocadDim = getPngDimensions('assets/cert_autocad.png');
+  assert.equal(autocadDim.width, 891, 'assets/cert_autocad.png must have its 102px left blank margin cropped so the certificate is centered');
+  assert.equal(autocadDim.height, 669, 'assets/cert_autocad.png must have its 33px top blank margin cropped so the certificate is centered');
+
+  // cert_ibm.png previously had a 37px bottom white strip (1650x1275 -> 1650x1238)
+  const ibmDim = getPngDimensions('assets/cert_ibm.png');
+  assert.equal(ibmDim.width, 1650, 'assets/cert_ibm.png width must remain 1650');
+  assert.equal(ibmDim.height, 1238, 'assets/cert_ibm.png must have its 37px bottom blank margin cropped');
+});
+
+

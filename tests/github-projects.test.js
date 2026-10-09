@@ -380,6 +380,93 @@ test('TDD: Every project card in index.html and active github.js metadata has a 
   }
 });
 
+test('TDD: createCarouselAutoRoll smoothly rolls carousel, reverses at boundaries, and yields on user interaction', () => {
+  assert.equal(typeof githubModule.createCarouselAutoRoll, 'function', 'github.js must export createCarouselAutoRoll');
+
+  const classes = new Set();
+  const listeners = {};
+  const mockContainer = {
+    scrollLeft: 0,
+    scrollWidth: 1400,
+    clientWidth: 1000,
+    classList: {
+      add: (c) => classes.add(c),
+      remove: (c) => classes.delete(c),
+      toggle: (c, force) => {
+        if (force === undefined) {
+          classes.has(c) ? classes.delete(c) : classes.add(c);
+        } else if (force) {
+          classes.add(c);
+        } else {
+          classes.delete(c);
+        }
+      },
+      contains: (c) => classes.has(c)
+    },
+    addEventListener: (type, fn) => {
+      listeners[type] = listeners[type] || [];
+      listeners[type].push(fn);
+    },
+    removeEventListener: (type, fn) => {
+      if (listeners[type]) {
+        listeners[type] = listeners[type].filter(f => f !== fn);
+      }
+    }
+  };
+
+  const controller = githubModule.createCarouselAutoRoll(mockContainer, {
+    speedPxPerSec: 100,
+    autoStart: false
+  });
+
+  // 1. Sub-pixel accumulation: 5ms step at 100px/s = 0.5px (even if DOM truncates scrollLeft to integer)
+  controller.step(0.005);
+  controller.step(0.005);
+  assert.ok(mockContainer.scrollLeft >= 1, 'Sub-pixel deltas must accumulate and advance scrollLeft');
+  assert.ok(classes.has('is-auto-rolling'), 'Container must have is-auto-rolling class while actively rolling');
+
+  // 2. Advance to right boundary (maxScroll = 400) and verify smooth direction reversal
+  controller.step(4.0);
+  assert.equal(mockContainer.scrollLeft, 400, 'Must clamp at maxScroll (scrollWidth - clientWidth)');
+  assert.equal(controller.getDirection(), -1, 'Must reverse direction (-1) at right boundary');
+
+  // 3. Step in reverse and reach left boundary (0)
+  controller.step(1.0);
+  assert.equal(mockContainer.scrollLeft, 300, 'Must roll backward when direction is -1');
+  controller.step(3.5);
+  assert.equal(mockContainer.scrollLeft, 0, 'Must clamp at 0 on left boundary');
+  assert.equal(controller.getDirection(), 1, 'Must reverse direction (+1) at left boundary');
+
+  // 4. Pause on user interaction and sync manual scroll position on resume
+  controller.pause();
+  assert.ok(!classes.has('is-auto-rolling'), 'is-auto-rolling class must be removed when paused');
+  mockContainer.scrollLeft = 150; // User manually scrolled to 150
+  controller.step(1.0);
+  assert.equal(mockContainer.scrollLeft, 150, 'Must not advance while paused');
+
+  controller.resume();
+  controller.step(0.5);
+  assert.equal(mockContainer.scrollLeft, 200, 'Must resume rolling smoothly from the user-scrolled position');
+
+  controller.destroy();
+});
+
+test('TDD: style.css and index.html configure automatic carousel roll without scroll-snap fighting', () => {
+  const css = fs.readFileSync(path.join(rootDir, 'style.css'), 'utf8');
+  const indexHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf8');
+
+  const autoRollRule = css.match(/\.github-carousel-track\.is-auto-rolling[^{]*\{([^}]+)\}/);
+  assert.ok(autoRollRule, 'style.css must define .github-carousel-track.is-auto-rolling rule');
+  assert.match(autoRollRule[1], /scroll-snap-type:\s*none/, '.is-auto-rolling must disable scroll-snap-type so per-frame roll does not snap back');
+  assert.match(autoRollRule[1], /scroll-behavior:\s*auto/, '.is-auto-rolling must set scroll-behavior: auto for immediate RAF updates');
+
+  assert.ok(
+    indexHtml.includes('is-auto-rolling') || indexHtml.includes('createCarouselAutoRoll'),
+    'index.html must include automatic carousel rolling logic'
+  );
+});
+
+
 
 
 

@@ -402,12 +402,185 @@ export function project(initialVelocity, decelerationRate = 0.995) {
 }
 
 /**
+ * Apple Design: Interruptible continuous automatic roll controller for horizontal carousel
+ */
+export function createCarouselAutoRoll(container, options = {}) {
+  if (!container) return null;
+  if (container.__autoRoll && typeof container.__autoRoll.destroy === 'function') {
+    container.__autoRoll.destroy();
+  }
+
+  const speedPxPerSec = options.speedPxPerSec ?? 52;
+  const autoStart = options.autoStart ?? true;
+  const onScrollUpdate = options.onScrollUpdate ?? null;
+
+  let direction = 1;
+  let virtualScrollLeft = container.scrollLeft || 0;
+  let isPaused = false;
+  let pauseUntil = 0;
+  let rafId = null;
+  let lastTimestamp = null;
+
+  function nowTime() {
+    return typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now();
+  }
+
+  function isReducedMotion() {
+    return (
+      typeof window !== 'undefined' &&
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    );
+  }
+
+  function pause() {
+    isPaused = true;
+    container.classList?.remove('is-auto-rolling');
+  }
+
+  function resume() {
+    isPaused = false;
+    pauseUntil = 0;
+    virtualScrollLeft = container.scrollLeft || 0;
+    lastTimestamp = null;
+  }
+
+  function pauseFor(durationMs = 1500) {
+    pauseUntil = nowTime() + durationMs;
+    virtualScrollLeft = container.scrollLeft || 0;
+    container.classList?.remove('is-auto-rolling');
+    lastTimestamp = null;
+  }
+
+  function reset() {
+    direction = 1;
+    virtualScrollLeft = 0;
+    pauseFor(500);
+  }
+
+  function step(dtSeconds, currentTimestamp = nowTime()) {
+    if (isReducedMotion()) {
+      container.classList?.remove('is-auto-rolling');
+      return;
+    }
+
+    if (isPaused || currentTimestamp < pauseUntil) {
+      container.classList?.remove('is-auto-rolling');
+      virtualScrollLeft = container.scrollLeft || 0;
+      return;
+    }
+
+    const maxScroll = (container.scrollWidth || 0) - (container.clientWidth || 0);
+    if (maxScroll <= 2) {
+      container.classList?.remove('is-auto-rolling');
+      virtualScrollLeft = container.scrollLeft || 0;
+      return;
+    }
+
+    container.classList?.add('is-auto-rolling');
+
+    if (Math.abs((container.scrollLeft || 0) - virtualScrollLeft) > 3) {
+      virtualScrollLeft = container.scrollLeft || 0;
+    }
+
+    virtualScrollLeft += speedPxPerSec * dtSeconds * direction;
+
+    if (virtualScrollLeft >= maxScroll) {
+      virtualScrollLeft = maxScroll;
+      direction = -1;
+    } else if (virtualScrollLeft <= 0) {
+      virtualScrollLeft = 0;
+      direction = 1;
+    }
+
+    container.scrollLeft = Math.round(virtualScrollLeft);
+    if (typeof onScrollUpdate === 'function') {
+      onScrollUpdate();
+    }
+  }
+
+  function tick(timestamp) {
+    if (lastTimestamp === null) {
+      lastTimestamp = timestamp;
+    }
+    const dt = Math.min(Math.max((timestamp - lastTimestamp) / 1000, 0), 0.1);
+    lastTimestamp = timestamp;
+    step(dt, timestamp);
+    if (typeof requestAnimationFrame === 'function') {
+      rafId = requestAnimationFrame(tick);
+    }
+  }
+
+  function start() {
+    if (rafId !== null || typeof requestAnimationFrame !== 'function') return;
+    lastTimestamp = null;
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function stop() {
+    if (rafId !== null && typeof cancelAnimationFrame === 'function') {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+    lastTimestamp = null;
+    container.classList?.remove('is-auto-rolling');
+  }
+
+  function onWheel() {
+    pauseFor(1800);
+  }
+
+  function onPointerOver(e) {
+    if (e?.target?.closest?.('a, button')) {
+      pause();
+    }
+  }
+
+  function onPointerOut(e) {
+    if (e?.target?.closest?.('a, button')) {
+      resume();
+    }
+  }
+
+  container.addEventListener?.('wheel', onWheel, { passive: true });
+  container.addEventListener?.('pointerover', onPointerOver, { passive: true });
+  container.addEventListener?.('pointerout', onPointerOut, { passive: true });
+
+  const controller = {
+    step,
+    pause,
+    resume,
+    pauseFor,
+    reset,
+    start,
+    stop,
+    getDirection: () => direction,
+    destroy() {
+      stop();
+      container.removeEventListener?.('wheel', onWheel);
+      container.removeEventListener?.('pointerover', onPointerOver);
+      container.removeEventListener?.('pointerout', onPointerOut);
+      if (container.__autoRoll === controller) {
+        delete container.__autoRoll;
+      }
+    }
+  };
+
+  container.__autoRoll = controller;
+  if (autoStart) {
+    start();
+  }
+  return controller;
+}
+
+/**
  * Initialize dynamic GitHub projects grid in DOM if present
  */
 export function initGithubSection() {
   const container = document.getElementById('github-projects-grid');
   const filterBar = document.getElementById('repo-filter-bar');
   if (!container) return;
+  container.__githubInitialized = true;
 
   const scrollLeftBtn = document.getElementById('repo-scroll-left');
   const scrollRightBtn = document.getElementById('repo-scroll-right');
@@ -441,7 +614,12 @@ export function initGithubSection() {
     scrollRightBtn.disabled = container.scrollLeft >= maxScrollLeft - 4;
   }
 
-  function render(reposToRender) {
+  const autoRoll = createCarouselAutoRoll(container, {
+    speedPxPerSec: 52,
+    onScrollUpdate: updateScrollButtons
+  });
+
+  function render(reposToRender, resetScroll = true) {
     if (!reposToRender.length) {
       container.innerHTML = `
         <div class="no-repos-notice" style="flex: 1 0 100%; text-align: center; padding: 2.5rem; color: var(--text-muted);">
@@ -451,20 +629,28 @@ export function initGithubSection() {
       updateScrollButtons();
       return;
     }
+    const prevScroll = container.scrollLeft;
     container.innerHTML = reposToRender.map(renderRepoCard).join('\n');
-    container.scrollTo({ left: 0, behavior: 'smooth' });
+    if (resetScroll) {
+      autoRoll?.reset();
+      container.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      container.scrollLeft = prevScroll;
+    }
     setTimeout(updateScrollButtons, 150);
   }
 
   // Sideways navigation buttons
   if (scrollLeftBtn) {
     scrollLeftBtn.addEventListener('click', () => {
+      autoRoll?.pauseFor(1400);
       container.scrollBy({ left: -360, behavior: 'smooth' });
     });
   }
 
   if (scrollRightBtn) {
     scrollRightBtn.addEventListener('click', () => {
+      autoRoll?.pauseFor(1400);
       container.scrollBy({ left: 360, behavior: 'smooth' });
     });
   }
@@ -489,8 +675,10 @@ export function initGithubSection() {
   }
 
   container.addEventListener('pointerdown', (e) => {
-    // Interrupt ongoing momentum animation cleanly
+    // Interrupt ongoing momentum and automatic roll cleanly
     stopMomentum();
+    autoRoll?.pause();
+    container.classList.add('is-dragging');
 
     // Ignore secondary mouse buttons
     if (e.button && e.button !== 0) return;
@@ -528,6 +716,7 @@ export function initGithubSection() {
   function handlePointerEnd(e) {
     if (!isPointerDown) return;
     isPointerDown = false;
+    container.classList.remove('is-dragging');
 
     try {
       if (container.hasPointerCapture && container.hasPointerCapture(e.pointerId)) {
@@ -535,7 +724,11 @@ export function initGithubSection() {
       }
     } catch (_) {}
 
-    if (!hasDragged) return;
+    if (!hasDragged) {
+      autoRoll?.resume();
+      autoRoll?.pauseFor(1200);
+      return;
+    }
 
     // Calculate release velocity in px/s
     let releaseVelocity = 0;
@@ -566,6 +759,8 @@ export function initGithubSection() {
         if (container.scrollLeft <= 0 || container.scrollLeft >= maxScroll || Math.abs(currentVelocity) < 15) {
           stopMomentum();
           updateScrollButtons();
+          autoRoll?.resume();
+          autoRoll?.pauseFor(1500);
           return;
         }
 
@@ -575,6 +770,8 @@ export function initGithubSection() {
       momentumAnimId = requestAnimationFrame(coast);
     } else {
       updateScrollButtons();
+      autoRoll?.resume();
+      autoRoll?.pauseFor(1500);
     }
   }
 
@@ -598,7 +795,7 @@ export function initGithubSection() {
       filterBar.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
       target.classList.add('active');
       currentFilter = target.getAttribute('data-filter') || 'All';
-      render(filterRepos(allRepos, currentFilter));
+      render(filterRepos(allRepos, currentFilter), true);
     });
   }
 
@@ -606,7 +803,7 @@ export function initGithubSection() {
 
   fetchGithubProjects('Marsel204').then(repos => {
     allRepos = repos;
-    render(filterRepos(allRepos, currentFilter));
+    render(filterRepos(allRepos, currentFilter), false);
   });
 }
 
@@ -618,3 +815,4 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
     initGithubSection();
   }
 }
+

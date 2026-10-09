@@ -1015,6 +1015,12 @@ a {
   cursor: grabbing;
 }
 
+.github-carousel-track.is-auto-rolling,
+.github-carousel-track.is-dragging {
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+}
+
 .github-carousel-track::-webkit-scrollbar {
   height: 7px;
 }

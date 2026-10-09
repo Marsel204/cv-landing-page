@@ -998,6 +998,106 @@
         scrollRightBtn.disabled = container.scrollLeft >= maxScrollLeft - 4;
       }
 
+      // Initialize offline-capable automatic carousel roll controller (replaced seamlessly if github.js loads)
+      (function initInlineAutoRoll() {
+        if (container.__autoRoll) return;
+        const speedPxPerSec = 52;
+        let direction = 1;
+        let virtualScrollLeft = container.scrollLeft || 0;
+        let isPaused = false;
+        let pauseUntil = 0;
+        let rafId = null;
+        let lastTimestamp = null;
+
+        function nowTime() {
+          return typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now();
+        }
+
+        function pause() {
+          isPaused = true;
+          container.classList.remove('is-auto-rolling');
+        }
+
+        function resume() {
+          isPaused = false;
+          pauseUntil = 0;
+          virtualScrollLeft = container.scrollLeft || 0;
+          lastTimestamp = null;
+        }
+
+        function pauseFor(durationMs = 1500) {
+          pauseUntil = nowTime() + durationMs;
+          virtualScrollLeft = container.scrollLeft || 0;
+          container.classList.remove('is-auto-rolling');
+          lastTimestamp = null;
+        }
+
+        function reset() {
+          direction = 1;
+          virtualScrollLeft = 0;
+          pauseFor(500);
+        }
+
+        function tick(timestamp) {
+          if (lastTimestamp === null) lastTimestamp = timestamp;
+          const dt = Math.min(Math.max((timestamp - lastTimestamp) / 1000, 0), 0.1);
+          lastTimestamp = timestamp;
+
+          const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          const maxScroll = container.scrollWidth - container.clientWidth;
+
+          if (!reduced && !isPaused && timestamp >= pauseUntil && maxScroll > 2) {
+            container.classList.add('is-auto-rolling');
+            if (Math.abs(container.scrollLeft - virtualScrollLeft) > 3) {
+              virtualScrollLeft = container.scrollLeft;
+            }
+            virtualScrollLeft += speedPxPerSec * dt * direction;
+            if (virtualScrollLeft >= maxScroll) {
+              virtualScrollLeft = maxScroll;
+              direction = -1;
+            } else if (virtualScrollLeft <= 0) {
+              virtualScrollLeft = 0;
+              direction = 1;
+            }
+            container.scrollLeft = Math.round(virtualScrollLeft);
+            updateScrollButtons();
+          } else {
+            container.classList.remove('is-auto-rolling');
+            virtualScrollLeft = container.scrollLeft || 0;
+          }
+
+          rafId = requestAnimationFrame(tick);
+        }
+
+        function onWheel() { pauseFor(1800); }
+        function onPointerOver(e) { if (e.target && e.target.closest && e.target.closest('a, button')) pause(); }
+        function onPointerOut(e) { if (e.target && e.target.closest && e.target.closest('a, button')) resume(); }
+
+        container.addEventListener('wheel', onWheel, { passive: true });
+        container.addEventListener('pointerover', onPointerOver, { passive: true });
+        container.addEventListener('pointerout', onPointerOut, { passive: true });
+
+        const ctrl = {
+          pause,
+          resume,
+          pauseFor,
+          reset,
+          getDirection: () => direction,
+          destroy() {
+            if (rafId !== null) cancelAnimationFrame(rafId);
+            rafId = null;
+            container.classList.remove('is-auto-rolling');
+            container.removeEventListener('wheel', onWheel);
+            container.removeEventListener('pointerover', onPointerOver);
+            container.removeEventListener('pointerout', onPointerOut);
+            if (container.__autoRoll === ctrl) delete container.__autoRoll;
+          }
+        };
+
+        container.__autoRoll = ctrl;
+        rafId = requestAnimationFrame(tick);
+      })();
+
       function filterProjectCards(filter) {
         const cards = container.querySelectorAll('.repo-card');
         const f = (filter || 'all').toLowerCase().trim();
@@ -1050,12 +1150,14 @@
           notice.style.display = 'none';
         }
 
+        container.__autoRoll?.reset();
         container.scrollTo({ left: 0, behavior: 'smooth' });
         setTimeout(updateScrollButtons, 120);
       }
 
       // Filter button click listener
       filterBar.addEventListener('click', (e) => {
+        if (container.__githubInitialized) return;
         const btn = e.target.closest('.filter-btn');
         if (!btn) return;
         filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1067,11 +1169,15 @@
       // Horizontal navigation arrows
       if (scrollLeftBtn) {
         scrollLeftBtn.addEventListener('click', () => {
+          if (container.__githubInitialized) return;
+          container.__autoRoll?.pauseFor(1400);
           container.scrollBy({ left: -360, behavior: 'smooth' });
         });
       }
       if (scrollRightBtn) {
         scrollRightBtn.addEventListener('click', () => {
+          if (container.__githubInitialized) return;
+          container.__autoRoll?.pauseFor(1400);
           container.scrollBy({ left: 360, behavior: 'smooth' });
         });
       }
@@ -1079,25 +1185,41 @@
       window.addEventListener('resize', updateScrollButtons, { passive: true });
       updateScrollButtons();
 
-      // Mouse drag-to-scroll
-      let isDown = false;
-      let startX = 0;
-      let scrollStart = 0;
-      container.addEventListener('mousedown', (e) => {
-        if (e.target.closest('a') || e.target.closest('button')) return;
-        isDown = true;
-        startX = e.pageX - container.offsetLeft;
-        scrollStart = container.scrollLeft;
-      });
-      window.addEventListener('mouseup', () => { isDown = false; });
-      container.addEventListener('mouseleave', () => { isDown = false; });
-      container.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - container.offsetLeft;
-        const walk = (x - startX) * 1.4;
-        container.scrollLeft = scrollStart - walk;
-      });
+      // Mouse drag-to-scroll (for file:// mode when github.js pointer events are not loaded)
+      if (!window.location.protocol.startsWith('http')) {
+        let isDown = false;
+        let startX = 0;
+        let scrollStart = 0;
+        container.addEventListener('mousedown', (e) => {
+          if (e.target.closest('a') || e.target.closest('button')) return;
+          isDown = true;
+          container.__autoRoll?.pause();
+          container.classList.add('is-dragging');
+          startX = e.pageX - container.offsetLeft;
+          scrollStart = container.scrollLeft;
+        });
+        window.addEventListener('mouseup', () => {
+          if (!isDown) return;
+          isDown = false;
+          container.classList.remove('is-dragging');
+          container.__autoRoll?.resume();
+          container.__autoRoll?.pauseFor(1500);
+        });
+        container.addEventListener('mouseleave', () => {
+          if (!isDown) return;
+          isDown = false;
+          container.classList.remove('is-dragging');
+          container.__autoRoll?.resume();
+          container.__autoRoll?.pauseFor(1500);
+        });
+        container.addEventListener('mousemove', (e) => {
+          if (!isDown) return;
+          e.preventDefault();
+          const x = e.pageX - container.offsetLeft;
+          const walk = (x - startX) * 1.4;
+          container.scrollLeft = scrollStart - walk;
+        });
+      }
 
       // Dynamic load of github.js only when running via http/https to enrich with live GitHub API data
       if (window.location.protocol.startsWith('http')) {
