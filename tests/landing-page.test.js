@@ -309,4 +309,31 @@ test('TDD: Contact section uses full-width Apple bento panel with 4-column chann
   assert.match(channelActiveBlock[1], /transform:\s*scale\(/, '.contact-channel:active must provide tactile scale feedback');
 });
 
+test('TDD: Skills section cards use structured icon headers and uniform 2-column grid chips instead of ragged flex-wrap white-on-white pills', () => {
+  const currentHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf-8');
+  const currentCss = fs.readFileSync(path.join(rootDir, 'style.css'), 'utf-8');
+
+  const skillsSectionMatch = currentHtml.match(/<section id="skills"[^>]*>([\s\S]*?)<\/section>/);
+  assert.ok(skillsSectionMatch, 'Skills section must exist');
+  const skillsSection = skillsSectionMatch[1];
+
+  // 1. All 3 skill category cards must have structured headers with icon badges
+  const headerMatches = skillsSection.match(/class=["']skill-card-header["']/g) || [];
+  assert.equal(headerMatches.length, 3, 'All 3 skill category cards must include a .skill-card-header');
+  const iconWrapMatches = skillsSection.match(/class=["']skill-icon-wrap["']/g) || [];
+  assert.equal(iconWrapMatches.length, 3, 'All 3 skill category cards must include a .skill-icon-wrap icon badge');
+
+  // 2. .skill-category-card .pill-list must use a 2-column CSS Grid so rows don't have jagged right-side gaps
+  const skillPillListBlock = currentCss.match(/\.skill-category-card\s+\.pill-list\s*\{([^}]+)\}/);
+  assert.ok(skillPillListBlock, '.skill-category-card .pill-list rule must exist in style.css');
+  assert.match(skillPillListBlock[1], /display:\s*grid/, '.skill-category-card .pill-list must use CSS Grid');
+  assert.match(skillPillListBlock[1], /grid-template-columns:\s*repeat\(2/, '.skill-category-card .pill-list must use 2 equal columns');
+
+  // 3. .pill must define a subtle dark alpha border for surface contrast (not white-on-white border)
+  const pillBlock = currentCss.match(/\.pill\s*\{([^}]+)\}/);
+  assert.ok(pillBlock, '.pill rule must exist in style.css');
+  assert.doesNotMatch(pillBlock[1], /border:\s*1px solid rgba\(255,\s*255,\s*255/, '.pill must not use white-on-white border that washes out on light cards');
+});
+
+
 
