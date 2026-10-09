@@ -1,0 +1,44 @@
+name: Build & Update CV Mahasiswa PDF
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'cv-mahasiswa.html'
+      - 'assets/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js & Run TDD Test Suite
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Render cv-mahasiswa.html to CV_Marselinus_Allen_Nugraha.pdf
+        run: |
+          google-chrome --headless=new --no-sandbox --disable-gpu --no-pdf-header-footer \
+            --print-to-pdf="$GITHUB_WORKSPACE/CV_Marselinus_Allen_Nugraha.pdf" \
+            "file://$GITHUB_WORKSPACE/cv-mahasiswa.html"
+
+      - name: Run Test Suite
+        run: node --test tests/*.test.js
+
+      - name: Commit updated PDF if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet CV_Marselinus_Allen_Nugraha.pdf; then
+            git add CV_Marselinus_Allen_Nugraha.pdf
+            git commit -m "chore(cv): auto-regenerate CV_Marselinus_Allen_Nugraha.pdf from cv-mahasiswa.html [skip ci]"
+            git push
+          fi

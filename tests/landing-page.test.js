@@ -435,6 +435,13 @@ test('TDD: Printable CV Mahasiswa document (cv-mahasiswa.html & PDF) follows all
   assert.ok(fs.existsSync(cvPdfPath), 'CV_Marselinus_Allen_Nugraha.pdf must exist');
   const pdfHeader = fs.readFileSync(cvPdfPath).subarray(0, 5).toString('ascii');
   assert.equal(pdfHeader, '%PDF-', 'Generated PDF must have valid %PDF- header');
+
+  // 5. GitHub Actions workflow must exist to auto-regenerate CV_Marselinus_Allen_Nugraha.pdf when cv-mahasiswa.html is edited on GitHub
+  const workflowPath = path.join(rootDir, '.github', 'workflows', 'update-cv-pdf.yml');
+  assert.ok(fs.existsSync(workflowPath), '.github/workflows/update-cv-pdf.yml must exist for automated GitHub PDF maintenance');
+  const workflowYaml = fs.readFileSync(workflowPath, 'utf-8');
+  assert.match(workflowYaml, /cv-mahasiswa\.html/, 'Workflow must trigger on or reference cv-mahasiswa.html');
+  assert.match(workflowYaml, /CV_Marselinus_Allen_Nugraha\.pdf/, 'Workflow must output CV_Marselinus_Allen_Nugraha.pdf');
 });
 
 test('TDD: Mobile responsive layout prevents multi-line wrapped nav pills, horizontal clipping, and excessive section padding on phones', () => {
