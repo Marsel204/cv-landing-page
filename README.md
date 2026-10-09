@@ -12,6 +12,26 @@ Official Web Portfolio and Curriculum Vitae of **Marselinus Allen Nugraha** (**N
 
 ---
 
+## Portfolio interface
+
+The landing page uses a responsive scrolling layout with selected projects, category filters, project detail dialogs, experience and education, and eight certificate previews. Select a certificate to view it at full size. The CV dialog provides both English and Indonesian HTML and PDF versions.
+
+The site is plain HTML, CSS, and JavaScript; no build step or runtime dependencies are required. GitHub Pages publishes from the root of `main`.
+
+```sh
+python -m http.server 8765
+```
+
+Open `http://localhost:8765/` to preview the site. Run the asset, navigation, project filtering, CV, accessibility preference, and search metadata checks with Node.js 20 or newer:
+
+```sh
+npm test
+```
+
+`Site checks` runs these tests on pull requests and pushes to `main`. The existing CV workflow continues to regenerate the PDFs when CV source documents or assets change.
+
+---
+
 ## Profile & Core Focus
 - **Role**: Electrical Engineering Student • Firmware, IoT & Agentic AI Developer
 - **Leadership**: Chairman (*Ketua Umum*) of **KSM IoT FT UPN "Veteran" Jakarta** (2026–Present)
