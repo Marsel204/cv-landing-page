@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://marsel204.github.io/cv-landing-page/sitemap.xml

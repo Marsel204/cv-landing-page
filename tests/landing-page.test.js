@@ -525,3 +525,42 @@ test('TDD: Mobile Featured Projects section prevents filter bar right-edge clipp
   );
 });
 
+test('TDD: Google Search SEO metadata, ProfilePage + Person JSON-LD structured data, sitemap.xml, and robots.txt are configured', () => {
+  const currentHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf-8');
+  const cvHtml = fs.readFileSync(path.join(rootDir, 'cv-mahasiswa.html'), 'utf-8');
+  const sitemapPath = path.join(rootDir, 'sitemap.xml');
+  const robotsPath = path.join(rootDir, 'robots.txt');
+
+  // 1. Canonical URL, meta description, author, robots, and OpenGraph tags in index.html
+  assert.match(currentHtml, /<meta\s+name="description"\s+content="[^"]*Marselinus Allen Nugraha[^"]*"/i, 'index.html must include meta description with Marselinus Allen Nugraha');
+  assert.match(currentHtml, /<meta\s+name="author"\s+content="Marselinus Allen Nugraha"/i, 'index.html must include meta author');
+  assert.match(currentHtml, /<link\s+rel="canonical"\s+href="https:\/\/marsel204\.github\.io\/cv-landing-page\/"/i, 'index.html must include canonical link');
+  assert.match(currentHtml, /<meta\s+property="og:title"\s+content="[^"]*Marselinus Allen Nugraha[^"]*"/i, 'index.html must include og:title');
+  assert.match(currentHtml, /<meta\s+property="og:image"\s+content="https:\/\/marsel204\.github\.io\/cv-landing-page\/assets\/profile\.png"/i, 'index.html must include absolute og:image');
+
+  // 2. Valid JSON-LD Schema.org ProfilePage & Person entity with sameAs links (LinkedIn, GitHub, Instagram)
+  const jsonLdMatch = currentHtml.match(/<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/i);
+  assert.ok(jsonLdMatch, 'index.html must include application/ld+json structured data script');
+  const schemaObj = JSON.parse(jsonLdMatch[1].trim());
+  assert.equal(schemaObj['@type'], 'ProfilePage', 'Root schema @type must be ProfilePage');
+  assert.equal(schemaObj.mainEntity?.['@type'], 'Person', 'mainEntity @type must be Person');
+  assert.equal(schemaObj.mainEntity?.name, 'Marselinus Allen Nugraha', 'Person name must be Marselinus Allen Nugraha');
+  assert.ok(Array.isArray(schemaObj.mainEntity?.sameAs), 'Person schema must include sameAs array');
+  assert.ok(schemaObj.mainEntity.sameAs.some(u => u.includes('linkedin.com')), 'sameAs must include LinkedIn URL');
+  assert.ok(schemaObj.mainEntity.sameAs.some(u => u.includes('github.com/Marsel204')), 'sameAs must include GitHub URL');
+  assert.ok(schemaObj.mainEntity.sameAs.some(u => u.includes('instagram.com/allen_nn')), 'sameAs must include Instagram @allen_nn URL');
+
+  // 3. cv-mahasiswa.html also includes canonical and meta description
+  assert.match(cvHtml, /<link\s+rel="canonical"\s+href="https:\/\/marsel204\.github\.io\/cv-landing-page\/cv-mahasiswa\.html"/i, 'cv-mahasiswa.html must include canonical URL');
+
+  // 4. sitemap.xml and robots.txt exist and reference the public URLs
+  assert.ok(fs.existsSync(sitemapPath), 'sitemap.xml must exist in repository root');
+  const sitemapXml = fs.readFileSync(sitemapPath, 'utf-8');
+  assert.ok(sitemapXml.includes('https://marsel204.github.io/cv-landing-page/'), 'sitemap.xml must include root URL');
+  assert.ok(sitemapXml.includes('https://marsel204.github.io/cv-landing-page/cv-mahasiswa.html'), 'sitemap.xml must include cv-mahasiswa.html');
+  assert.ok(sitemapXml.includes('https://marsel204.github.io/cv-landing-page/CV_Marselinus_Allen_Nugraha.pdf'), 'sitemap.xml must include PDF CV');
+
+  assert.ok(fs.existsSync(robotsPath), 'robots.txt must exist in repository root');
+  const robotsTxt = fs.readFileSync(robotsPath, 'utf-8');
+  assert.match(robotsTxt, /Sitemap:\s*https:\/\/marsel204\.github\.io\/cv-landing-page\/sitemap\.xml/i, 'robots.txt must point to sitemap.xml');
+});
