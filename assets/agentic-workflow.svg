@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <title>Agentic engineering kit workflow illustration</title>
+  <rect width="800" height="450" fill="#eef4fc"/>
+  <g font-family="Arial,sans-serif" fill="#20374b">
+    <text x="40" y="49" font-size="13" letter-spacing="2" fill="#537694">AI DEVELOPMENT TOOLING</text>
+    <text x="40" y="88" font-size="29" font-weight="700">Agentic Engineering Kit</text>
+    <text x="40" y="119" font-size="16" fill="#5b7085">Reusable workflows and developer-tool integrations.</text>
+    <g fill="#fff" stroke="#cbdced" stroke-width="1.5">
+      <rect x="40" y="177" width="105" height="84" rx="12"/><rect x="162" y="177" width="105" height="84" rx="12"/>
+      <rect x="284" y="177" width="105" height="84" rx="12"/><rect x="406" y="177" width="105" height="84" rx="12"/>
+      <rect x="528" y="177" width="105" height="84" rx="12"/><rect x="650" y="177" width="105" height="84" rx="12"/>
+    </g>
+    <g font-size="17" font-weight="700" text-anchor="middle">
+      <text x="92" y="228">Specify</text><text x="214" y="228">Plan</text><text x="336" y="228">Test</text>
+      <text x="458" y="228">Build</text><text x="580" y="228">Review</text><text x="702" y="228">Ship</text>
+    </g>
+    <g font-size="18" fill="#6b88a0" text-anchor="middle">
+      <text x="153" y="225">›</text><text x="275" y="225">›</text><text x="397" y="225">›</text><text x="519" y="225">›</text><text x="641" y="225">›</text>
+    </g>
+    <path d="M40 306h715" stroke="#cbdced"/>
+    <text x="40" y="342" font-size="17">Bash installer · MCP configuration · Git worktrees</text>
+    <text x="40" y="373" font-size="15" fill="#61788d">Packages reusable skills and integrates existing engineering tools.</text>
+    <text x="40" y="413" font-size="12" letter-spacing="1" fill="#7890a5">WORKFLOW ILLUSTRATION · BASED ON THE README AND INSTALLER</text>
+  </g>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <title>Mamdani fuzzy inference algorithm illustration</title>
+  <rect width="800" height="450" fill="#eef4fc"/>
+  <g font-family="Arial,sans-serif" fill="#20374b">
+    <text x="40" y="49" font-size="13" letter-spacing="2" fill="#537694">INFERENCE &amp; CONTROL ALGORITHMS</text>
+    <text x="40" y="88" font-size="29" font-weight="700">Mamdani Fuzzy Inference Engine</text>
+    <text x="40" y="119" font-size="16" fill="#5b7085">From membership values to a crisp numerical output.</text>
+    <rect x="40" y="154" width="720" height="158" rx="16" fill="#fff" stroke="#cbdced"/>
+    <path d="M90 181v100h618" fill="none" stroke="#a6b9cc" stroke-width="1.5"/>
+    <path d="m90 280 105-85 150 85" fill="none" stroke="#3986be" stroke-width="3"/>
+    <path d="m230 280 170-85 170 85" fill="none" stroke="#6386ca" stroke-width="3"/>
+    <path d="m455 280 145-85 106 85" fill="none" stroke="#55a795" stroke-width="3"/>
+    <g font-size="13" text-anchor="middle">
+      <text x="194" y="183" fill="#3986be">Low</text><text x="400" y="183" fill="#6386ca">Medium</text><text x="600" y="183" fill="#55a795">High</text>
+    </g>
+    <g fill="#fff" stroke="#cbdced">
+      <rect x="40" y="331" width="208" height="44" rx="10"/>
+      <rect x="294" y="331" width="208" height="44" rx="10"/>
+      <rect x="552" y="331" width="208" height="44" rx="10"/>
+    </g>
+    <g font-size="16" text-anchor="middle">
+      <text x="144" y="359">Fuzzification</text><text x="398" y="359">Max–min rules</text><text x="656" y="359">Centroid output</text>
+      <text x="271" y="359" fill="#6b88a0">→</text><text x="527" y="359" fill="#6b88a0">→</text>
+    </g>
+    <text x="40" y="413" font-size="12" letter-spacing="1" fill="#7890a5">ALGORITHM ILLUSTRATION · PYTHON MEMBERSHIP AND INFERENCE MODULES</text>
+  </g>
+</svg>

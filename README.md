@@ -14,7 +14,9 @@ Official Web Portfolio and Curriculum Vitae of **Marselinus Allen Nugraha** (**N
 
 ## Portfolio interface
 
-The landing page uses a responsive scrolling layout with selected projects, category filters, project detail dialogs, experience and education, and eight certificate previews. Select a certificate to view it at full size. The CV dialog provides both English and Indonesian HTML and PDF versions.
+The landing page shows eleven projects in a continuous carousel with category filters, swipe and arrow controls, and an explicit pause button. Scrolling starts automatically when the cards enter view and resumes after manual browsing; visitors who prefer reduced motion can browse without automatic motion. Select a project image or “View project” to read its purpose, contribution, capabilities, workflow, technologies and deliverable, then enlarge its screenshot or diagram from the overview.
+
+The original introduction, public experience and education section, and eight certificate previews remain available. Select a certificate to view it at full size. The CV dialog provides both English and Indonesian HTML and PDF versions. Project cards and details use local assets and do not require a GitHub API request.
 
 The site is plain HTML, CSS, and JavaScript; no build step or runtime dependencies are required. GitHub Pages publishes from the root of `main`.
 

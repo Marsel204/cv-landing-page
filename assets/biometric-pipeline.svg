@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <title>ESP32-CAM firmware pipeline illustration</title>
+  <rect width="800" height="450" fill="#eef4fc"/>
+  <g font-family="Arial,sans-serif" fill="#20374b">
+    <text x="40" y="49" font-size="13" letter-spacing="2" fill="#537694">FIRMWARE &amp; DEVICE CONTROL</text>
+    <text x="40" y="88" font-size="29" font-weight="700">ESP32-CAM Safe Controller</text>
+    <text x="40" y="119" font-size="16" fill="#5b7085">Camera processing, shared state and physical I/O.</text>
+    <g fill="#fff" stroke="#cbdced" stroke-width="1.5">
+      <rect x="40" y="166" width="155" height="129" rx="16"/>
+      <rect x="228" y="166" width="155" height="129" rx="16"/>
+      <rect x="416" y="166" width="155" height="129" rx="16"/>
+      <rect x="604" y="166" width="155" height="129" rx="16"/>
+    </g>
+    <g fill="none" stroke="#397bae" stroke-width="2.5" stroke-linejoin="round">
+      <rect x="100" y="191" width="35" height="25" rx="4"/><circle cx="117" cy="204" r="7"/>
+      <path d="M295 190h22v25h-22zM301 199h10M306 190v-5M306 215v5"/>
+      <path d="M479 188v31m-10-25h19m-19 18h19m-25-17h6m19 17h7"/>
+      <rect x="670" y="187" width="24" height="31" rx="3"/><path d="M676 197h12m-12 7h12m-12 7h8"/>
+      <path d="M204 230h14m-5-5 5 5-5 5M392 230h14m-5-5 5 5-5 5M580 230h14m-5-5 5 5-5 5"/>
+    </g>
+    <g text-anchor="middle" font-size="17" font-weight="700">
+      <text x="117" y="249">Capture</text><text x="305" y="249">Recognize</text>
+      <text x="493" y="249">Actuate</text><text x="681" y="249">Log events</text>
+    </g>
+    <g text-anchor="middle" font-size="13" fill="#61788d">
+      <text x="117" y="274">OV2640 camera</text><text x="305" y="274">Local esp-face</text>
+      <text x="493" y="274">Relay or servo</text><text x="681" y="274">microSD storage</text>
+    </g>
+    <path d="M40 337h720" stroke="#cbdced"/>
+    <text x="40" y="370" font-size="16">C++ · FreeRTOS · HTTP administration</text>
+    <text x="40" y="408" font-size="12" letter-spacing="1" fill="#7890a5">PIPELINE ILLUSTRATION · BASED ON REPOSITORY SOURCE</text>
+  </g>
+</svg>

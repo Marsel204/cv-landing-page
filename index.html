@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f5f5f7" />
@@ -72,7 +72,7 @@
         "@context": "https://schema.org",
         "@type": "ProfilePage",
         "dateCreated": "2026-01-01T00:00:00+07:00",
-        "dateModified": "2026-10-09T10:00:00+07:00",
+        "dateModified": "2026-10-10T05:58:02+00:00",
         "mainEntity": {
           "@type": "Person",
           "@id": "https://marsel204.github.io/cv-landing-page/#person",
@@ -133,10 +133,11 @@
         }
       }
     </script>
-    <link rel="stylesheet" href="style.css?v=20261009-mobile-hero" />
-  </head>
-  <body>
-    <svg
+    <link rel="stylesheet" href="style.css?v=20261010-project-overviews" />
+
+</head>
+<body>
+<svg
       aria-hidden="true"
       style="position: absolute; width: 0; height: 0; overflow: hidden"
     >
@@ -201,470 +202,197 @@
         </symbol>
       </defs>
     </svg>
-    <a class="skip" href="#main">Skip to content</a>
-    <header class="site-header">
-      <div class="wrap nav">
-        <a class="brand" href="#about" aria-label="Marsel, back to about"
-          >Marsel<span>.</span></a
-        >
-        <nav class="nav-links" id="navigation" aria-label="Main navigation">
-          <a href="#about" aria-current="location">About</a
-          ><a href="#projects">Projects</a><a href="#experience">Experience</a
-          ><a href="#credentials">Credentials</a>
-        </nav>
-        <button class="button dark nav-cv" data-open-cv>
-          View CV <svg aria-hidden="true"><use href="#i-up" /></svg>
-        </button>
-        <button
-          class="menu-button"
-          aria-label="Open navigation"
-          aria-expanded="false"
-          aria-controls="navigation"
-          id="menu-toggle"
-        >
-          <svg aria-hidden="true"><use href="#i-menu" /></svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="#about" aria-label="Marsel, back to about">Marsel<span>.</span></a>
+    <nav class="nav-links" id="navigation" aria-label="Main navigation">
+      <a href="#about" aria-current="location">About</a><a href="#projects">Projects</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#credentials">Credentials</a><a href="#contact">Contact</a>
+    </nav>
+    <button class="button dark nav-cv" data-open-cv>View CV <svg aria-hidden="true"><use href="#i-up"/></svg></button>
+    <button class="menu-button" id="menu-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="navigation"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
+  </div>
+</header>
+<main id="main" class="wrap">
+  <section class="hero" id="about" aria-labelledby="hero-name">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Electrical engineering · UPNVJ</p>
+          <h1 id="hero-name">Marselinus Allen<br>Nugraha<span style="color:var(--blue)">.</span></h1>
+          <p class="hero-role">Embedded systems, IoT &amp; applied AI.</p>
+          <p class="hero-bio">Electrical Engineering student at UPN “Veteran” Jakarta, building firmware, industrial automation, and edge AI systems.</p>
+          <div class="hero-actions"><a class="button primary" href="#projects">View projects <svg aria-hidden="true"><use href="#i-arrow"/></svg></a><button class="button" data-open-cv>View CV <svg aria-hidden="true"><use href="#i-file"/></svg></button><a class="text-link" href="#contact">Let’s connect <svg aria-hidden="true"><use href="#i-up"/></svg></a></div>
+          <div class="socials"><span style="display:flex;gap:5px;align-items:center"><svg aria-hidden="true"><use href="#i-pin"/></svg>Tangerang, Indonesia</span><a href="https://github.com/Marsel204" target="_blank" rel="noopener noreferrer">GitHub <svg aria-hidden="true"><use href="#i-up"/></svg></a><a href="https://www.linkedin.com/in/marselinus-nugraha-699b29272/" target="_blank" rel="noopener noreferrer">LinkedIn <svg aria-hidden="true"><use href="#i-up"/></svg></a></div>
+        </div>
+        <div class="portrait-card"><span class="status">Open for collaboration</span><img class="portrait" src="assets/profile.png" alt="Marselinus Allen Nugraha" width="1024" height="935" fetchpriority="high"><div class="portrait-caption"><div><strong>Hardware meets software.</strong>Engineering with purpose.</div><span><svg aria-hidden="true"><use href="#i-pin"/></svg> Indonesia</span></div></div>
+      </div>
+      <div class="proof-strip">
+        <div class="proof"><span class="proof-icon"><svg aria-hidden="true"><use href="#i-cap"/></svg></span><div><strong>3.82 / 4.00 GPA</strong><small>Electrical Engineering · UPNVJ</small></div></div>
+        <div class="proof"><span class="proof-icon"><svg aria-hidden="true"><use href="#i-people"/></svg></span><div><strong>Chairman, KSM IoT</strong><small>Leading 3 departments &amp; 9 divisions</small></div></div>
+        <div class="proof"><span class="proof-icon"><svg aria-hidden="true"><use href="#i-award"/></svg></span><div><strong>Certified lab assistant</strong><small>Physics, circuits, digital &amp; electronics</small></div></div>
+      </div>
+    </section>
+
+  <section class="section" id="projects" aria-labelledby="projects-title">
+    <div class="section-top"><div><span class="section-number">01 / Projects</span><h2 id="projects-title">Built across hardware and software.</h2><p class="section-description">Selected systems and tools. Open a project to explore the work behind it.</p></div><a class="text-link" href="https://github.com/Marsel204?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub repositories <svg aria-hidden="true"><use href="#i-up"/></svg></a></div>
+    <div class="project-toolbar"><div class="filters" role="group" aria-label="Filter projects"><button class="filter" data-filter="all" aria-pressed="true">All projects</button><button class="filter" data-filter="embedded" aria-pressed="false">Embedded &amp; IoT</button><button class="filter" data-filter="ai" aria-pressed="false">AI &amp; Vision</button><button class="filter" data-filter="industrial" aria-pressed="false">Industrial</button><button class="filter" data-filter="software" aria-pressed="false">Software &amp; tools</button></div><span id="project-count" role="status" aria-live="polite">11 projects</span></div>
+    <div class="project-carousel" id="project-carousel" role="region" aria-roledescription="carousel" aria-label="Engineering projects">
+      <div class="carousel-toolbar"><p id="carousel-hint">Auto-scrolls left. Swipe or use the arrows to browse.</p><div class="carousel-controls" id="carousel-controls"><span id="carousel-position" aria-live="off" aria-atomic="true">01 / 11</span><button class="carousel-play" id="carousel-play" aria-label="Pause scrolling"><svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg><svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 10 7-10 7z"/></svg><span>Pause scrolling</span></button><button class="carousel-arrow previous" id="carousel-previous" aria-label="Previous project"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button><button class="carousel-arrow" id="carousel-next" aria-label="Next project"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button></div></div>
+      <div class="project-track" id="project-track" tabindex="0" aria-label="Project cards. Swipe or use the arrow controls to browse."><article id="project-deploy" class="project-card" data-category="embedded ai" data-accent="blue">
+      <div class="project-media">
+        <button class="project-image-button" data-image="deploy" aria-label="View Adaptive Traffic Control project overview">
+          <img class="project-reference" src="assets/proj_deploy_atsc.jpg" alt="Road camera calibration view from the adaptive traffic control project" loading="lazy">
+          <span class="image-hint">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </button>
       </div>
-    </header>
-    <main id="main" class="wrap">
-      <section class="hero" id="about" aria-labelledby="hero-name">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <p class="eyebrow">Electrical engineering · UPNVJ</p>
-            <h1 id="hero-name">
-              Marselinus Allen<br />Nugraha<span style="color: var(--blue)"
-                >.</span
-              >
-            </h1>
-            <p class="hero-role">Embedded systems, IoT &amp; applied AI.</p>
-            <p class="hero-bio">
-              Electrical Engineering student at UPN “Veteran” Jakarta, building
-              firmware, industrial automation, and edge AI systems.
-            </p>
-            <div class="hero-actions">
-              <a class="button primary" href="#projects"
-                >View projects
-                <svg aria-hidden="true"><use href="#i-arrow" /></svg></a
-              ><button class="button" data-open-cv>
-                View CV
-                <svg aria-hidden="true"><use href="#i-file" /></svg></button
-              ><a class="text-link" href="#contact"
-                >Let’s connect <svg aria-hidden="true"><use href="#i-up" /></svg
-              ></a>
-            </div>
-            <div class="socials">
-              <span style="display: flex; gap: 5px; align-items: center"
-                ><svg aria-hidden="true"><use href="#i-pin" /></svg>Tangerang,
-                Indonesia</span
-              ><a
-                href="https://github.com/Marsel204"
-                target="_blank"
-                rel="noopener noreferrer"
-                >GitHub <svg aria-hidden="true"><use href="#i-up" /></svg></a
-              ><a
-                href="https://www.linkedin.com/in/marselinus-nugraha-699b29272/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >LinkedIn <svg aria-hidden="true"><use href="#i-up" /></svg
-              ></a>
-            </div>
-          </div>
-          <div class="portrait-card">
-            <span class="status">Open for collaboration</span
-            ><img
-              class="portrait"
-              src="assets/profile.png"
-              alt="Marselinus Allen Nugraha"
-              width="1024"
-              height="935"
-              fetchpriority="high"
-            />
-            <div class="portrait-caption">
-              <div>
-                <strong>Hardware meets software.</strong>Engineering with
-                purpose.
-              </div>
-              <span
-                ><svg aria-hidden="true"><use href="#i-pin" /></svg>
-                Indonesia</span
-              >
-            </div>
-          </div>
-        </div>
-        <div class="proof-strip">
-          <div class="proof">
-            <span class="proof-icon"
-              ><svg aria-hidden="true"><use href="#i-cap" /></svg
-            ></span>
-            <div>
-              <strong>3.82 / 4.00 GPA</strong
-              ><small>Electrical Engineering · UPNVJ</small>
-            </div>
-          </div>
-          <div class="proof">
-            <span class="proof-icon"
-              ><svg aria-hidden="true"><use href="#i-people" /></svg
-            ></span>
-            <div>
-              <strong>Chairman, KSM IoT</strong
-              ><small>Leading 3 departments &amp; 9 divisions</small>
-            </div>
-          </div>
-          <div class="proof">
-            <span class="proof-icon"
-              ><svg aria-hidden="true"><use href="#i-award" /></svg
-            ></span>
-            <div>
-              <strong>Certified lab assistant</strong
-              ><small>Physics, circuits, digital &amp; electronics</small>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="section" id="projects" aria-labelledby="projects-title">
-        <div class="section-top">
-          <div>
-            <span class="section-number">01 / Selected work</span>
-            <h2 id="projects-title">Ideas, built into systems.</h2>
-            <p class="section-description">
-              A selection of projects across embedded hardware, industrial
-              automation, and applied AI.
-            </p>
-          </div>
-          <a
-            class="text-link"
-            href="https://github.com/Marsel204?tab=repositories"
-            target="_blank"
-            rel="noopener noreferrer"
-            >All repositories <svg aria-hidden="true"><use href="#i-up" /></svg
-          ></a>
-        </div>
-        <div class="filters" role="group" aria-label="Filter projects">
-          <button class="filter" data-filter="all" aria-pressed="true">
-            Selected projects</button
-          ><button class="filter" data-filter="embedded" aria-pressed="false">
-            Embedded &amp; IoT</button
-          ><button class="filter" data-filter="ai" aria-pressed="false">
-            AI &amp; Vision</button
-          ><button class="filter" data-filter="industrial" aria-pressed="false">
-            Industrial &amp; CAD
-          </button>
-        </div>
-        <div class="projects-grid">
-          <article
-            class="project"
-            id="project-deploy"
-            data-category="embedded ai"
-          >
-            <div class="project-visual photo">
-              <img
-                src="assets/proj_deploy_atsc.jpg"
-                alt="Road camera view with traffic area calibration overlays"
-                width="1920"
-                height="1080"
-                loading="lazy"
-              />
-            </div>
-            <div class="project-body">
-              <div class="project-label">
-                Edge AI &amp; control <small>Thesis project</small>
-              </div>
-              <h3>Adaptive Traffic Control</h3>
-              <p>
-                Connecting real-time vehicle detection with adaptive signal
-                control on NVIDIA Jetson.
-              </p>
-              <ul class="tags project-tags" aria-label="Technologies">
-                <li>Jetson Orin Nano</li>
-                <li>YOLO11</li>
-                <li>RS-485</li>
-              </ul>
-              <div class="project-actions">
-                <button
-                  data-project="deploy"
-                  aria-label="View Adaptive Traffic Control project details"
-                >
-                  View project
-                  <svg aria-hidden="true"><use href="#i-arrow" /></svg></button
-                ><a
-                  href="https://github.com/Marsel204/DeploySkripsi"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >GitHub <svg aria-hidden="true"><use href="#i-up" /></svg
-                ></a>
-              </div>
-            </div>
-          </article>
-          <article
-            class="project"
-            id="project-rca"
-            data-category="ai industrial"
-          >
-            <div class="project-visual">
-              <img
-                src="assets/proj_industrial_rca.png"
-                alt="IndustrialRCA monitoring dashboard showing telemetry and agent diagnostics"
-                width="2400"
-                height="1425"
-                loading="lazy"
-              />
-            </div>
-            <div class="project-body">
-              <div class="project-label violet">
-                Agentic AI <small>IndustrialRCA</small>
-              </div>
-              <h3>Industrial Root Cause Analysis</h3>
-              <p>
-                A diagnostic workflow that connects industrial telemetry with
-                structured AI reasoning.
-              </p>
-              <ul class="tags project-tags" aria-label="Technologies">
-                <li>LangGraph</li>
-                <li>Modbus RTU</li>
-                <li>Python</li>
-              </ul>
-              <div class="project-actions">
-                <button
-                  data-project="rca"
-                  aria-label="View Industrial Root Cause Analysis project details"
-                >
-                  View project
-                  <svg aria-hidden="true"><use href="#i-arrow" /></svg></button
-                ><a
-                  href="https://github.com/Marsel204/IndustrialRCA"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >GitHub <svg aria-hidden="true"><use href="#i-up" /></svg
-                ></a>
-              </div>
-            </div>
-          </article>
-          <article class="project" id="project-fuzzy" data-category="embedded">
-            <div class="project-visual">
-              <img
-                src="assets/proj_fuzzylogic_tft.png"
-                alt="Food freshness touchscreen prototype with material selection and inspection results"
-                width="1040"
-                height="592"
-                loading="lazy"
-              />
-            </div>
-            <div class="project-body">
-              <div class="project-label green">
-                Embedded firmware <small>Research prototype</small>
-              </div>
-              <h3>Food Freshness, on a Touchscreen</h3>
-              <p>
-                Fuzzy inference and a clear touchscreen interface for an
-                ESP32-S3 food freshness prototype.
-              </p>
-              <ul class="tags project-tags" aria-label="Technologies">
-                <li>ESP32-S3</li>
-                <li>C99</li>
-                <li>Fuzzy logic</li>
-              </ul>
-              <div class="project-actions">
-                <button
-                  data-project="fuzzy"
-                  aria-label="View Food Freshness project details"
-                >
-                  View project
-                  <svg aria-hidden="true"><use href="#i-arrow" /></svg></button
-                ><a
-                  href="https://github.com/Marsel204/fuzzylogic-tft"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >GitHub <svg aria-hidden="true"><use href="#i-up" /></svg
-                ></a>
-              </div>
-            </div>
-          </article>
-          <article class="project" data-category="embedded ai" data-more hidden>
-            <div class="project-visual">
-              <img
-                src="assets/proj_embedded_suite.png"
-                alt="Antigravity Embedded Engineering Suite project artwork"
-                width="800"
-                height="450"
-                loading="lazy"
-              />
-            </div>
-            <div class="project-body">
-              <div class="project-label violet">
-                Engineering tools <small>Open source</small>
-              </div>
-              <h3>Embedded Engineering Suite</h3>
-              <p>
-                Agentic tooling for schematic generation, firmware builds,
-                sensor calibration, and crash triage.
-              </p>
-              <ul class="tags project-tags" aria-label="Technologies">
-                <li>KiCad</li>
-                <li>ESP32</li>
-                <li>Python</li>
-              </ul>
-              <div class="project-actions">
-                <button
-                  data-project="suite"
-                  aria-label="View Embedded Engineering Suite project details"
-                >
-                  View project
-                  <svg aria-hidden="true"><use href="#i-arrow" /></svg></button
-                ><a
-                  href="https://github.com/Marsel204/antigravity-embedded-suite"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >GitHub <svg aria-hidden="true"><use href="#i-up" /></svg
-                ></a>
-              </div>
-            </div>
-          </article>
-          <article class="project" data-category="industrial" data-more hidden>
-            <div class="project-visual">
-              <img
-                src="assets/proj_elevator.png"
-                alt="PLC elevator simulation in Siemens TIA Portal and Factory I/O"
-                width="993"
-                height="579"
-                loading="lazy"
-              />
-            </div>
-            <div class="project-body">
-              <div class="project-label">
-                Industrial automation <small>Simulation</small>
-              </div>
-              <h3>PLC Elevator Controller</h3>
-              <p>
-                A multi-floor elevator simulation with call sequencing, safety
-                interlocks, and motor direction control.
-              </p>
-              <ul class="tags project-tags" aria-label="Technologies">
-                <li>Siemens TIA Portal</li>
-                <li>Factory I/O</li>
-                <li>Ladder logic</li>
-              </ul>
-              <div class="project-actions">
-                <button
-                  data-project="elevator"
-                  aria-label="View PLC Elevator Controller project details"
-                >
-                  View project
-                  <svg aria-hidden="true"><use href="#i-arrow" /></svg></button
-                ><span class="date" style="margin: 0"
-                  >Simulated &amp; verified</span
-                >
-              </div>
-            </div>
-          </article>
-          <article class="project" data-category="industrial" data-more hidden>
-            <div class="project-visual">
-              <img
-                src="assets/proj_cad.png"
-                alt="AutoCAD Electrical wiring diagram and motor starter panel layout"
-                width="993"
-                height="439"
-                loading="lazy"
-              />
-            </div>
-            <div class="project-body">
-              <div class="project-label green">
-                Electrical CAD <small>Design project</small>
-              </div>
-              <h3>DOL Motor Starter Panel</h3>
-              <p>
-                Power and control circuit design, panel wiring, component
-                sizing, and a bill of materials.
-              </p>
-              <ul class="tags project-tags" aria-label="Technologies">
-                <li>AutoCAD Electrical</li>
-                <li>Panel wiring</li>
-                <li>DOL starter</li>
-              </ul>
-              <div class="project-actions">
-                <button
-                  data-project="cad"
-                  aria-label="View DOL Motor Starter Panel project details"
-                >
-                  View project
-                  <svg aria-hidden="true"><use href="#i-arrow" /></svg></button
-                ><span class="date" style="margin: 0"
-                  >Schematic &amp; layout</span
-                >
-              </div>
-            </div>
-          </article>
-        </div>
-        <div class="projects-bottom">
-          <button class="button" id="show-more" aria-expanded="false">
-            Explore more projects
-            <svg aria-hidden="true"><use href="#i-chevron" /></svg>
-          </button>
-        </div>
-        <p
-          class="project-count"
-          id="project-count"
-          role="status"
-          aria-live="polite"
-        >
-          Showing 3 selected projects
-        </p>
-      </section>
-      <section class="section" id="skills" aria-labelledby="skills-title">
-        <div class="section-top">
-          <div>
-            <span class="section-number">02 / What I work with</span>
-            <h2 id="skills-title">From the circuit to the system.</h2>
-            <p class="section-description">
-              Practical skills, connected to the projects that use them.
-            </p>
-          </div>
-        </div>
-        <div class="skills-grid">
-          <article class="skill">
-            <span class="skill-icon"
-              ><svg aria-hidden="true"><use href="#i-chip" /></svg
-            ></span>
-            <h3>Embedded systems &amp; IoT</h3>
-            <p>
-              ESP32 / ESP32-S3, Arduino C/C++, MQTT, RS-485 / Modbus, KiCad, and
-              touchscreen interfaces.
-            </p>
-            <a class="text-link" href="#projects" data-skill-filter="embedded"
-              >See embedded projects
-              <svg aria-hidden="true"><use href="#i-arrow" /></svg
-            ></a>
-          </article>
-          <article class="skill">
-            <span class="skill-icon"
-              ><svg aria-hidden="true"><use href="#i-spark" /></svg
-            ></span>
-            <h3>Applied AI &amp; software</h3>
-            <p>
-              Python, LangGraph, RAG workflows, YOLO11, TensorRT / ONNX,
-              FastAPI, and fuzzy inference.
-            </p>
-            <a class="text-link" href="#projects" data-skill-filter="ai"
-              >See AI projects
-              <svg aria-hidden="true"><use href="#i-arrow" /></svg
-            ></a>
-          </article>
-          <article class="skill">
-            <span class="skill-icon"
-              ><svg aria-hidden="true"><use href="#i-bolt" /></svg
-            ></span>
-            <h3>Industrial automation</h3>
-            <p>
-              PLC ladder logic, Siemens TIA Portal, Factory I/O, AutoCAD
-              Electrical, panel wiring, and DOL starters.
-            </p>
-            <a class="text-link" href="#projects" data-skill-filter="industrial"
-              >See automation projects
-              <svg aria-hidden="true"><use href="#i-arrow" /></svg
-            ></a>
-          </article>
-        </div>
-      </section>
-      <section
+      <div class="project-copy">
+        <div class="project-meta"><p class="project-kicker">Edge AI &amp; control</p><span class="project-stage">Thesis research</span></div>
+        <h3>Adaptive Traffic Control</h3><p class="project-summary">Turning traffic measurements into adaptive signal decisions.</p>
+        <ul class="tags project-technologies" aria-label="Selected technologies"><li>Jetson Orin Nano</li><li>YOLO11</li><li>RS-485</li></ul>
+        <div class="project-actions"><button class="text-link" data-project="deploy" aria-label="View Adaptive Traffic Control project details">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></button><a class="project-source" href="https://github.com/Marsel204/DeploySkripsi" target="_blank" rel="noopener noreferrer">GitHub <svg aria-hidden="true"><use href="#i-up"/></svg></a></div>
+      </div></article>
+<article id="project-rca" class="project-card" data-category="ai industrial" data-accent="purple">
+      <div class="project-media">
+        <button class="project-image-button" data-image="rca" aria-label="View Industrial Root Cause Analysis project overview">
+          <img class="project-reference" src="assets/proj_industrial_rca.png" alt="IndustrialRCA telemetry and diagnostic workspace" loading="lazy">
+          <span class="image-hint">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </button>
+      </div>
+      <div class="project-copy">
+        <div class="project-meta"><p class="project-kicker">Applied AI &amp; industry</p><span class="project-stage">Development project</span></div>
+        <h3>Industrial Root Cause Analysis</h3><p class="project-summary">Giving industrial telemetry a structured diagnostic workflow.</p>
+        <ul class="tags project-technologies" aria-label="Selected technologies"><li>LangGraph</li><li>Python</li><li>Modbus RTU</li></ul>
+        <div class="project-actions"><button class="text-link" data-project="rca" aria-label="View Industrial Root Cause Analysis project details">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></button><a class="project-source" href="https://github.com/Marsel204/IndustrialRCA" target="_blank" rel="noopener noreferrer">GitHub <svg aria-hidden="true"><use href="#i-up"/></svg></a></div>
+      </div></article>
+<article id="project-fuzzy" class="project-card" data-category="embedded" data-accent="green">
+      <div class="project-media">
+        <button class="project-image-button" data-image="fuzzy" aria-label="View Food Freshness Touchscreen project overview">
+          <img class="project-reference" src="assets/proj_fuzzylogic_tft.png" alt="Food freshness prototype interface showing material selection and demo inspection results" loading="lazy">
+          <span class="image-hint">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </button>
+      </div>
+      <div class="project-copy">
+        <div class="project-meta"><p class="project-kicker">Embedded firmware</p><span class="project-stage">Research prototype</span></div>
+        <h3>Food Freshness Touchscreen</h3><p class="project-summary">Making fuzzy inference usable through a guided touchscreen.</p>
+        <ul class="tags project-technologies" aria-label="Selected technologies"><li>ESP32-S3</li><li>C99</li><li>Fuzzy logic</li></ul>
+        <div class="project-actions"><button class="text-link" data-project="fuzzy" aria-label="View Food Freshness Touchscreen project details">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></button><a class="project-source" href="https://github.com/Marsel204/fuzzylogic-tft" target="_blank" rel="noopener noreferrer">GitHub <svg aria-hidden="true"><use href="#i-up"/></svg></a></div>
+      </div></article>
+<article id="project-visionlab" class="project-card" data-category="ai software" data-accent="purple">
+      <div class="project-media">
+        <button class="project-image-button" data-image="visionlab" aria-label="View VisionLab Annotation Studio project overview">
+          <img class="project-reference" src="assets/visionlab-studio.png" alt="VisionLab desktop studio screenshot from the repository, showing image annotation and object inspection" loading="lazy">
+          <span class="image-hint">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </button>
+      </div>
+      <div class="project-copy">
+        <div class="project-meta"><p class="project-kicker">Computer vision &amp; datasets</p><span class="project-stage">Desktop application</span></div>
+        <h3>VisionLab Annotation Studio</h3><p class="project-summary">Multi-model detection, human review and dataset export in one desktop studio.</p>
+        <ul class="tags project-technologies" aria-label="Selected technologies"><li>Python</li><li>React</li><li>TypeScript</li></ul>
+        <div class="project-actions"><button class="text-link" data-project="visionlab" aria-label="View VisionLab Annotation Studio project details">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></button><a class="project-source" href="https://github.com/Marsel204/VisionLabs" target="_blank" rel="noopener noreferrer">GitHub <svg aria-hidden="true"><use href="#i-up"/></svg></a></div>
+      </div></article>
+<article id="project-biometric" class="project-card" data-category="embedded ai" data-accent="green">
+      <div class="project-media">
+        <button class="project-image-button" data-image="biometric" aria-label="View ESP32-CAM Safe Controller project overview">
+          <img class="project-reference" src="assets/biometric-pipeline.svg" alt="Illustrated ESP32-CAM firmware pipeline from camera capture through local face recognition to actuator control and event logging" loading="lazy">
+          <span class="image-hint">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </button>
+      </div>
+      <div class="project-copy">
+        <div class="project-meta"><p class="project-kicker">Firmware &amp; device control</p><span class="project-stage">Firmware prototype</span></div>
+        <h3>ESP32-CAM Safe Controller</h3><p class="project-summary">Local face recognition connected to actuator control and a browser-based admin interface.</p>
+        <ul class="tags project-technologies" aria-label="Selected technologies"><li>C++</li><li>ESP32-CAM</li><li>FreeRTOS</li></ul>
+        <div class="project-actions"><button class="text-link" data-project="biometric" aria-label="View ESP32-CAM Safe Controller project details">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></button><a class="project-source" href="https://github.com/Marsel204/IoT-Face-Detection-Sytem" target="_blank" rel="noopener noreferrer">GitHub <svg aria-hidden="true"><use href="#i-up"/></svg></a></div>
+      </div></article>
+<article id="project-elevator" class="project-card" data-category="industrial" data-accent="green">
+      <div class="project-media">
+        <button class="project-image-button" data-image="elevator" aria-label="View PLC Elevator Controller project overview">
+          <img class="project-reference" src="assets/proj_elevator.png" alt="Multi-floor elevator simulation in TIA Portal and Factory I/O" loading="lazy">
+          <span class="image-hint">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </button>
+      </div>
+      <div class="project-copy">
+        <div class="project-meta"><p class="project-kicker">Industrial automation</p><span class="project-stage">Simulation</span></div>
+        <h3>PLC Elevator Controller</h3><p class="project-summary">Call sequencing, interlocks and motor control in a simulated elevator.</p>
+        <ul class="tags project-technologies" aria-label="Selected technologies"><li>TIA Portal</li><li>Factory I/O</li><li>Ladder logic</li></ul>
+        <div class="project-actions"><button class="text-link" data-project="elevator" aria-label="View PLC Elevator Controller project details">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
+      </div></article>
+<article id="project-cad" class="project-card" data-category="industrial" data-accent="green">
+      <div class="project-media">
+        <button class="project-image-button" data-image="cad" aria-label="View DOL Motor Starter Panel project overview">
+          <img class="project-reference" src="assets/proj_cad.png" alt="AutoCAD Electrical motor-starter schematic and panel layout" loading="lazy">
+          <span class="image-hint">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </button>
+      </div>
+      <div class="project-copy">
+        <div class="project-meta"><p class="project-kicker">Electrical CAD</p><span class="project-stage">Design project</span></div>
+        <h3>DOL Motor Starter Panel</h3><p class="project-summary">From power and control circuits to a documented panel layout.</p>
+        <ul class="tags project-technologies" aria-label="Selected technologies"><li>AutoCAD Electrical</li><li>Panel layout</li><li>DOL starter</li></ul>
+        <div class="project-actions"><button class="text-link" data-project="cad" aria-label="View DOL Motor Starter Panel project details">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
+      </div></article>
+<article id="project-suite" class="project-card" data-category="embedded ai" data-accent="green">
+      <div class="project-media">
+        <button class="project-image-button" data-image="suite" aria-label="View Embedded Engineering Suite project overview">
+          <img class="project-reference" src="assets/proj_embedded_suite.png" alt="Embedded Engineering Suite project artwork" loading="lazy">
+          <span class="image-hint">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </button>
+      </div>
+      <div class="project-copy">
+        <div class="project-meta"><p class="project-kicker">Engineering tools</p><span class="project-stage">Open-source framework</span></div>
+        <h3>Embedded Engineering Suite</h3><p class="project-summary">Four connected workflows for microcontroller development.</p>
+        <ul class="tags project-technologies" aria-label="Selected technologies"><li>KiCad</li><li>ESP32</li><li>Arduino-CLI</li></ul>
+        <div class="project-actions"><button class="text-link" data-project="suite" aria-label="View Embedded Engineering Suite project details">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></button><a class="project-source" href="https://github.com/Marsel204/antigravity-embedded-suite" target="_blank" rel="noopener noreferrer">GitHub <svg aria-hidden="true"><use href="#i-up"/></svg></a></div>
+      </div></article>
+<article id="project-fis" class="project-card" data-category="ai" data-accent="purple">
+      <div class="project-media">
+        <button class="project-image-button" data-image="fis" aria-label="View Mamdani Fuzzy Inference Engine project overview">
+          <img class="project-reference" src="assets/fuzzy-engine.svg" alt="Illustration of triangular membership functions and a Mamdani inference pipeline ending in centroid defuzzification" loading="lazy">
+          <span class="image-hint">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </button>
+      </div>
+      <div class="project-copy">
+        <div class="project-meta"><p class="project-kicker">Inference &amp; control algorithms</p><span class="project-stage">Python library</span></div>
+        <h3>Mamdani Fuzzy Inference Engine</h3><p class="project-summary">A modular Python engine for membership functions, fuzzy rules and centroid output.</p>
+        <ul class="tags project-technologies" aria-label="Selected technologies"><li>Python</li><li>Mamdani</li><li>OOP</li></ul>
+        <div class="project-actions"><button class="text-link" data-project="fis" aria-label="View Mamdani Fuzzy Inference Engine project details">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></button><a class="project-source" href="https://github.com/Marsel204/Fuzzy-Inference-System" target="_blank" rel="noopener noreferrer">GitHub <svg aria-hidden="true"><use href="#i-up"/></svg></a></div>
+      </div></article>
+<article id="project-linguaplay" class="project-card" data-category="ai software" data-accent="purple">
+      <div class="project-media">
+        <button class="project-image-button" data-image="linguaplay" aria-label="View LinguaPlay for YouTube project overview">
+          <img class="project-reference" src="assets/linguaplay-youtube.png" alt="Repository screenshot of the LinguaPlay extension with clickable Japanese subtitles and a word analysis drawer on YouTube" loading="lazy">
+          <span class="image-hint">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </button>
+      </div>
+      <div class="project-copy">
+        <div class="project-meta"><p class="project-kicker">Language tools &amp; applied AI</p><span class="project-stage">Browser extension</span></div>
+        <h3>LinguaPlay for YouTube</h3><p class="project-summary">Clickable Japanese subtitles, contextual AI tutoring and Anki cards inside YouTube.</p>
+        <ul class="tags project-technologies" aria-label="Selected technologies"><li>JavaScript</li><li>Manifest V3</li><li>NLP</li></ul>
+        <div class="project-actions"><button class="text-link" data-project="linguaplay" aria-label="View LinguaPlay for YouTube project details">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></button><a class="project-source" href="https://github.com/Marsel204/LangPlayeExt" target="_blank" rel="noopener noreferrer">GitHub <svg aria-hidden="true"><use href="#i-up"/></svg></a></div>
+      </div></article>
+<article id="project-agentic" class="project-card" data-category="software" data-accent="purple">
+      <div class="project-media">
+        <button class="project-image-button" data-image="agentic" aria-label="View Agentic Engineering Kit project overview">
+          <img class="project-reference" src="assets/agentic-workflow.svg" alt="Illustration of specification, planning, testing, building, reviewing and shipping stages supported by the agentic engineering kit" loading="lazy">
+          <span class="image-hint">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </button>
+      </div>
+      <div class="project-copy">
+        <div class="project-meta"><p class="project-kicker">AI development tooling</p><span class="project-stage">Workflow integration kit</span></div>
+        <h3>Agentic Engineering Kit</h3><p class="project-summary">Reusable engineering workflows with an installer, MCP configuration and isolated Git worktrees.</p>
+        <ul class="tags project-technologies" aria-label="Selected technologies"><li>Bash</li><li>SDLC</li><li>MCP</li></ul>
+        <div class="project-actions"><button class="text-link" data-project="agentic" aria-label="View Agentic Engineering Kit project details">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></button><a class="project-source" href="https://github.com/Marsel204/antigravity-agentic-kit" target="_blank" rel="noopener noreferrer">GitHub <svg aria-hidden="true"><use href="#i-up"/></svg></a></div>
+      </div></article></div>
+    </div>
+  </section>
+
+  <section class="section" id="skills" aria-labelledby="skills-title">
+    <div class="section-top"><div><span class="section-number">02 / Connected capabilities</span><h2 id="skills-title">Hardware, software, and the space between.</h2><p class="section-description">Three connected disciplines, grounded in the projects above.</p></div></div>
+    <div class="skills-grid">
+      <article class="skill"><span class="skill-icon"><svg aria-hidden="true"><use href="#i-chip"/></svg></span><span class="skill-index">01 / SENSE &amp; CONNECT</span><h3>Embedded systems &amp; IoT</h3><p>Firmware, sensor integration and communication between devices.</p><ul class="tags"><li>ESP32 / ESP32-S3</li><li>C / C++</li><li>MQTT</li><li>RS-485 / Modbus</li><li>KiCad</li></ul><a class="text-link" href="#projects" data-skill-filter="embedded">Explore embedded work <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></article>
+      <article class="skill"><span class="skill-icon"><svg aria-hidden="true"><use href="#i-spark"/></svg></span><span class="skill-index">02 / PERCEIVE &amp; REASON</span><h3>Applied AI &amp; software</h3><p>Computer vision, inference and structured diagnostic workflows.</p><ul class="tags"><li>Python</li><li>YOLO11</li><li>TensorRT / ONNX</li><li>LangGraph</li><li>RAG</li></ul><a class="text-link" href="#projects" data-skill-filter="ai">Explore AI work <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></article>
+      <article class="skill"><span class="skill-icon"><svg aria-hidden="true"><use href="#i-bolt"/></svg></span><span class="skill-index">03 / CONTROL &amp; ACTUATE</span><h3>Industrial automation</h3><p>Control logic and documented electrical systems.</p><ul class="tags"><li>PLC ladder logic</li><li>TIA Portal</li><li>Factory I/O</li><li>AutoCAD Electrical</li><li>Panel wiring</li></ul><a class="text-link" href="#projects" data-skill-filter="industrial">Explore automation work <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></article>
+    </div>
+  </section>
+  <section
         class="section"
         id="experience"
         aria-labelledby="experience-title"
@@ -774,23 +502,10 @@
           </aside>
         </div>
       </section>
-      <section
-        class="section"
-        id="credentials"
-        aria-labelledby="credentials-title"
-      >
-        <div class="section-top">
-          <div>
-            <span class="section-number">04 / Credentials</span>
-            <h2 id="credentials-title">Learning, put into practice.</h2>
-            <p class="section-description">
-              Certificates from technical training, laboratory appointments, and
-              academic programs. Select a certificate for a closer look.
-            </p>
-          </div>
-        </div>
-        <div class="credentials">
-          <article
+
+  <section class="section" id="credentials" aria-labelledby="credentials-title">
+    <div class="section-top"><div><span class="section-number">04 / Credentials</span><h2 id="credentials-title">Learning, with the evidence to show it.</h2><p class="section-description">Technical training, four laboratory appointments, and academic committee work. Select any document to view it in detail.</p></div><span class="document-count"><svg aria-hidden="true"><use href="#i-file"/></svg>8 documents</span></div>
+    <div class="credential-group"><div class="group-heading"><h3>Technical training</h3><span>AI, Python &amp; electrical CAD</span></div><div class="credentials training-certificates"><article
             class="credential"
             data-cert-title="Code Generation &amp; Optimization Using IBM Granite"
             data-cert-issuer="IBM SkillsBuild · Oct 2025"
@@ -828,7 +543,7 @@
               </div>
             </div>
           </article>
-          <article
+<article
             class="credential"
             data-cert-title="Python for Data Science, AI &amp; Development"
             data-cert-issuer="IBM &amp; Coursera · Jan 2026"
@@ -866,7 +581,7 @@
               </div>
             </div>
           </article>
-          <article
+<article
             class="credential"
             data-cert-title="AutoCAD Electrical Training"
             data-cert-issuer="HMTE UPNVJ · Jul 2025"
@@ -897,20 +612,20 @@
                 </button>
               </div>
             </div>
-          </article>
-          <article
-            class="credential"
+          </article></div></div>
+    <div class="credential-group laboratory-group"><div class="group-heading"><div><h3>Laboratory appointments</h3><p>Electrical Engineering Laboratories · UPN “Veteran” Jakarta</p></div><span>4 core courses · 2025</span></div><div class="credentials lab-certificates"><article
+            class="credential laboratory"
             data-cert-title="Laboratory Assistant — Basic Physics"
             data-cert-issuer="Electrical Engineering Laboratories · UPNVJ · Semester Genap · 2025"
           >
             <button
               class="certificate-thumb"
               data-certificate="physics"
-              aria-label="Enlarge Laboratory Assistant — Basic Physics certificate"
+              aria-label="Enlarge Basic Physics certificate"
             >
               <img
                 src="assets/cert_lab_fisika.png"
-                alt="Laboratory Assistant — Basic Physics certificate awarded to Marselinus Allen Nugraha"
+                alt="Basic Physics laboratory appointment certificate awarded to Marselinus Allen Nugraha"
                 width="2000"
                 height="1414"
                 loading="lazy"
@@ -921,7 +636,7 @@
                 <span>Academic appointment</span
                 ><time>Semester Genap · 2025</time>
               </div>
-              <h3>Laboratory Assistant — Basic Physics</h3>
+              <h3>Basic Physics</h3>
               <p>Electrical Engineering Laboratories · UPNVJ</p>
               <div class="certificate-actions">
                 <button data-certificate="physics">
@@ -931,19 +646,19 @@
               </div>
             </div>
           </article>
-          <article
-            class="credential"
+<article
+            class="credential laboratory"
             data-cert-title="Laboratory Assistant — Digital Systems"
             data-cert-issuer="Electrical Engineering Laboratories · UPNVJ · Semester Genap · 2025"
           >
             <button
               class="certificate-thumb"
               data-certificate="digital"
-              aria-label="Enlarge Laboratory Assistant — Digital Systems certificate"
+              aria-label="Enlarge Digital Systems certificate"
             >
               <img
                 src="assets/cert_lab_sisdig.png"
-                alt="Laboratory Assistant — Digital Systems certificate awarded to Marselinus Allen Nugraha"
+                alt="Digital Systems laboratory appointment certificate awarded to Marselinus Allen Nugraha"
                 width="742"
                 height="525"
                 loading="lazy"
@@ -954,7 +669,7 @@
                 <span>Academic appointment</span
                 ><time>Semester Genap · 2025</time>
               </div>
-              <h3>Laboratory Assistant — Digital Systems</h3>
+              <h3>Digital Systems</h3>
               <p>Electrical Engineering Laboratories · UPNVJ</p>
               <div class="certificate-actions">
                 <button data-certificate="digital">
@@ -964,19 +679,19 @@
               </div>
             </div>
           </article>
-          <article
-            class="credential"
+<article
+            class="credential laboratory"
             data-cert-title="Laboratory Assistant — Electric Circuits"
             data-cert-issuer="Electrical Engineering Laboratories · UPNVJ · Semester Ganjil · 2025"
           >
             <button
               class="certificate-thumb"
               data-certificate="circuits"
-              aria-label="Enlarge Laboratory Assistant — Electric Circuits certificate"
+              aria-label="Enlarge Electric Circuits certificate"
             >
               <img
                 src="assets/cert_lab_rangkaian.png"
-                alt="Laboratory Assistant — Electric Circuits certificate awarded to Marselinus Allen Nugraha"
+                alt="Electric Circuits laboratory appointment certificate awarded to Marselinus Allen Nugraha"
                 width="1418"
                 height="1000"
                 loading="lazy"
@@ -987,7 +702,7 @@
                 <span>Academic appointment</span
                 ><time>Semester Ganjil · 2025</time>
               </div>
-              <h3>Laboratory Assistant — Electric Circuits</h3>
+              <h3>Electric Circuits</h3>
               <p>Electrical Engineering Laboratories · UPNVJ</p>
               <div class="certificate-actions">
                 <button data-certificate="circuits">
@@ -997,19 +712,19 @@
               </div>
             </div>
           </article>
-          <article
-            class="credential"
+<article
+            class="credential laboratory"
             data-cert-title="Laboratory Assistant — Basic Electronics"
             data-cert-issuer="Electrical Engineering Laboratories · UPNVJ · Semester Ganjil · 2025"
           >
             <button
               class="certificate-thumb"
               data-certificate="electronics"
-              aria-label="Enlarge Laboratory Assistant — Basic Electronics certificate"
+              aria-label="Enlarge Basic Electronics certificate"
             >
               <img
                 src="assets/cert_lab_elektronika.png"
-                alt="Laboratory Assistant — Basic Electronics certificate awarded to Marselinus Allen Nugraha"
+                alt="Basic Electronics laboratory appointment certificate awarded to Marselinus Allen Nugraha"
                 width="1414"
                 height="1000"
                 loading="lazy"
@@ -1020,7 +735,7 @@
                 <span>Academic appointment</span
                 ><time>Semester Ganjil · 2025</time>
               </div>
-              <h3>Laboratory Assistant — Basic Electronics</h3>
+              <h3>Basic Electronics</h3>
               <p>Electrical Engineering Laboratories · UPNVJ</p>
               <div class="certificate-actions">
                 <button data-certificate="electronics">
@@ -1029,8 +744,8 @@
                 </button>
               </div>
             </div>
-          </article>
-          <article
+          </article></div></div>
+    <div class="credential-group committee-group"><div class="group-heading"><h3>Academic committee work</h3><span>Program contribution</span></div><div class="credentials committee-certificates"><article
             class="credential"
             data-cert-title="Adjunct Professor Program Committee"
             data-cert-issuer="Electrical Engineering Program · UPNVJ · Sep 2025"
@@ -1061,92 +776,38 @@
                 </button>
               </div>
             </div>
-          </article>
-        </div>
-      </section>
-      <section class="contact" id="contact" aria-labelledby="contact-title">
-        <div>
-          <span class="eyebrow">Let’s connect</span>
-          <h2 id="contact-title">
-            Have something in mind?<br />Let’s build it together.
-          </h2>
-          <p>
-            Open to embedded firmware, IoT engineering, applied AI projects, and
-            technical collaborations.
-          </p>
-        </div>
-        <div class="contact-actions">
-          <a class="button" href="mailto:marselinusalen@gmail.com"
-            ><svg aria-hidden="true"><use href="#i-mail" /></svg>Send me an
-            email <svg aria-hidden="true"><use href="#i-up" /></svg></a
-          ><button class="copy-email" id="copy-email">
-            <svg aria-hidden="true"><use href="#i-copy" /></svg
-            ><span id="copy-label" aria-live="polite">Copy email address</span>
-          </button>
-          <div class="contact-socials">
-            <a
-              href="https://www.linkedin.com/in/marselinus-nugraha-699b29272/"
-              target="_blank"
-              rel="noopener noreferrer"
-              >LinkedIn ↗</a
-            ><a
-              href="https://github.com/Marsel204"
-              target="_blank"
-              rel="noopener noreferrer"
-              >GitHub ↗</a
-            ><a
-              href="https://wa.me/62895343371256"
-              target="_blank"
-              rel="noopener noreferrer"
-              >WhatsApp ↗</a
-            >
-          </div>
-        </div>
-      </section>
-    </main>
-    <footer class="wrap footer">
-      <span>© 2026 Marselinus Allen Nugraha</span
-      ><span><a href="#about">Back to top ↑</a></span>
-    </footer>
-    <dialog class="dialog" id="project-dialog" aria-labelledby="detail-title">
-      <div class="dialog-header">
-        <h2 id="detail-title">Project details</h2>
-        <button
-          class="close-button"
-          data-close
-          aria-label="Close project details"
-        >
-          <svg aria-hidden="true"><use href="#i-close" /></svg>
-        </button>
+          </article></div></div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div><span class="eyebrow">05 / Let’s connect</span><h2 id="contact-title">Have a system in mind?<br>Let’s build it together.</h2><p>Open to embedded firmware, IoT engineering, applied AI projects and technical collaborations.</p></div>
+    <div class="contact-actions"><a class="button" href="mailto:marselinusalen@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>Send me an email <svg aria-hidden="true"><use href="#i-up"/></svg></a><button class="copy-email" id="copy-email" aria-label="Copy email address" title="Copy email address"><svg aria-hidden="true"><use href="#i-copy"/></svg><span id="copy-label" aria-live="polite">marselinusalen@gmail.com</span></button><div class="contact-socials"><a href="https://www.linkedin.com/in/marselinus-nugraha-699b29272/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://github.com/Marsel204" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://wa.me/62895343371256" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div></div>
+  </section>
+</main>
+<footer class="wrap footer"><span>© 2026 Marselinus Allen Nugraha</span><a href="#about">Back to top ↑</a></footer>
+
+<dialog class="dialog project-dialog" id="project-dialog" aria-labelledby="detail-title">
+  <div class="dialog-header"><div><p class="dialog-kicker" id="detail-stage"></p><h2 id="detail-title">Project overview</h2><p class="detail-lead" id="detail-summary"></p></div><button class="close-button" data-close aria-label="Close project details"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
+  <div class="dialog-body project-detail-body">
+    <div class="detail-intro">
+      <div class="detail-context">
+        <h3>What it does</h3><p id="detail-overview"></p>
+        <dl class="detail-story"><div><dt>The challenge</dt><dd id="detail-problem"></dd></div><div><dt>My contribution</dt><dd id="detail-contribution"></dd></div></dl>
       </div>
-      <div class="dialog-body">
-        <img class="dialog-image" id="detail-image" alt="" />
-        <div class="detail-grid">
-          <div>
-            <h3>The project</h3>
-            <p id="detail-problem"></p>
-          </div>
-          <div>
-            <h3>Engineering approach</h3>
-            <p id="detail-approach"></p>
-          </div>
-        </div>
-        <ul
-          class="tags"
-          id="detail-tags"
-          aria-label="Project technologies"
-        ></ul>
-        <a
-          class="button primary"
-          id="detail-repo"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Explore the repository
-          <svg aria-hidden="true"><use href="#i-up" /></svg
-        ></a>
+      <div class="detail-visual">
+        <button class="detail-image-button" id="detail-enlarge" aria-label="Enlarge project image"><img class="dialog-image" id="detail-image" alt=""><span class="image-hint">Enlarge screenshot ↗</span></button>
+        <p class="image-caption" id="detail-caption"></p>
+        <h3 class="detail-label">Technologies</h3><ul class="tags" id="detail-tags" aria-label="Project technologies"></ul>
       </div>
-    </dialog>
-    <dialog class="dialog" id="cv-dialog" aria-labelledby="cv-title">
+    </div>
+    <section class="detail-section" aria-labelledby="detail-features-title"><h3 id="detail-features-title">Key capabilities</h3><ul class="detail-features" id="detail-features"></ul></section>
+    <section class="detail-section" aria-labelledby="detail-workflow-title"><h3 id="detail-workflow-title">How it works</h3><ol class="detail-workflow" id="detail-workflow"></ol></section>
+    <dl class="detail-engineering"><div><dt>Engineering approach</dt><dd id="detail-approach"></dd></div><div><dt>Deliverable</dt><dd id="detail-outcome"></dd></div></dl>
+    <div class="detail-evidence"><h3 class="detail-label">Project evidence</h3><p id="detail-evidence"></p><a class="text-link" id="detail-source" target="_blank" rel="noopener noreferrer" hidden>Project documentation <svg aria-hidden="true"><use href="#i-up"/></svg></a></div>
+    <a class="button primary" id="detail-repo" target="_blank" rel="noopener noreferrer">Source code &amp; documentation <svg aria-hidden="true"><use href="#i-up"/></svg></a>
+  </div>
+</dialog>
+<dialog class="dialog" id="cv-dialog" aria-labelledby="cv-title">
       <div class="dialog-header">
         <h2 id="cv-title">Curriculum vitae</h2>
         <button class="close-button" data-close aria-label="Close CV options">
@@ -1199,25 +860,12 @@
         </div>
       </div>
     </dialog>
-    <dialog
-      class="dialog certificate-dialog"
-      id="certificate-dialog"
-      aria-labelledby="certificate-title"
-      aria-describedby="certificate-issuer"
-    >
-      <div class="dialog-header">
-        <div>
-          <h2 id="certificate-title">Certificate</h2>
-          <p id="certificate-issuer"></p>
-        </div>
-        <button class="close-button" data-close aria-label="Close certificate">
-          <svg aria-hidden="true"><use href="#i-close" /></svg>
-        </button>
-      </div>
-      <div class="dialog-body">
-        <img class="certificate-full" id="certificate-image" alt="" />
-      </div>
-    </dialog>
-    <script type="module" src="portfolio.js?v=20261009-gallery"></script>
-  </body>
+<dialog class="dialog image-dialog" id="image-dialog" aria-labelledby="image-title" aria-describedby="image-description">
+  <div class="dialog-header"><div><h2 id="image-title">Document</h2><p id="image-description"></p></div><button class="close-button" data-close aria-label="Close image viewer"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
+  <div class="image-toolbar"><button class="button" id="image-zoom" aria-pressed="false">Zoom in</button><a class="text-link" id="image-download" download>Save image <svg aria-hidden="true"><use href="#i-up"/></svg></a></div>
+  <div class="image-canvas" id="image-canvas" tabindex="0" aria-label="Image viewing area"><img id="viewer-image" alt=""></div>
+</dialog>
+<script id="project-data" type="application/json">{"deploy": {"id": "deploy", "title": "Adaptive Traffic Control", "category": "embedded ai", "domain": "Edge AI & control", "stage": "Thesis research · 2026", "alt": "Road camera calibration view from the adaptive traffic control project", "caption": "Traffic perception · road-camera calibration view", "summary": "Turning traffic measurements into adaptive signal decisions.", "problem": "How can a road camera feed drive adaptive traffic signal decisions on an edge device?", "contribution": "I developed the Jetson runtime connecting vehicle perception, adaptive inference and RS-485 actuation.", "approach": "YOLO11 and ByteTrack detect and track vehicles. Sugeno ANFIS supports adaptive control, with RS-485 linking the runtime to signal actuation.", "outcome": "A thesis runtime that connects traffic perception to signal actuation.", "evidence": "Runtime, calibration interface and implementation available in the repository.", "tags": ["Jetson Orin Nano", "YOLO11", "ByteTrack", "Sugeno ANFIS", "RS-485"], "flow": ["Camera", "Detection", "Inference", "Actuation"], "url": "https://github.com/Marsel204/DeploySkripsi", "overview": "An edge-device traffic control runtime that turns a road-camera feed into vehicle measurements and adaptive signal decisions. It connects computer vision, inference and physical signal actuation on NVIDIA Jetson.", "features": [["Vehicle perception", "YOLO11 detects vehicles; ByteTrack keeps their identities across frames."], ["Camera calibration", "A road-camera calibration view defines the scene used for traffic measurement."], ["Adaptive decisions", "Sugeno ANFIS connects measured traffic conditions to control decisions."], ["Signal actuation", "RS-485 connects the runtime to the signal control side."]], "workflowDetails": ["Read the road-camera feed.", "Detect and track vehicles in the calibrated scene.", "Use traffic measurements for adaptive inference.", "Send the resulting decision through RS-485."]}, "rca": {"id": "rca", "title": "Industrial Root Cause Analysis", "category": "ai industrial", "domain": "Applied AI & industry", "stage": "Development project · 2026", "alt": "IndustrialRCA telemetry and diagnostic workspace", "caption": "Diagnostic workspace · application screenshot", "summary": "Giving industrial telemetry a structured diagnostic workflow.", "problem": "How can equipment telemetry become a structured, traceable diagnostic workflow?", "contribution": "I built a diagnostic platform connecting Modbus telemetry, asset context and LangGraph agent workflows.", "approach": "LangGraph coordinates reasoning with retrieval and DeepSeek AI. ISA-95 asset hierarchies and ISO 14224 / FMEA taxonomies organize the diagnostic context.", "outcome": "A workspace bringing telemetry, equipment context and diagnostic reasoning together.", "evidence": "Application screenshot and implementation available in the repository.", "tags": ["LangGraph", "Python", "Modbus RTU", "RAG"], "flow": ["Telemetry", "Asset context", "Reasoning", "Diagnosis"], "url": "https://github.com/Marsel204/IndustrialRCA", "overview": "A diagnostic workspace connecting equipment telemetry, asset context and AI reasoning. Operators can inspect measurements, investigate faults and review findings before approving maintenance deliverables.", "features": [["Live monitoring", "Modbus telemetry and trend charts."], ["Structured diagnosis", "LangGraph investigation using topology and FMEA context."], ["Human review", "Approval gate for proposed remediation."], ["Maintenance documentation", "8D reports and SAP PM01 work-order preparation."]], "workflowDetails": ["Collect equipment measurements.", "Link measurements to equipment and failure context.", "Investigate anomalies and compare hypotheses.", "Review findings and prepare maintenance deliverables."], "additionalTags": ["FastAPI", "React", "DeepSeek", "ISA-95 / FMEA"], "source": "https://github.com/Marsel204/IndustrialRCA#readme"}, "fuzzy": {"id": "fuzzy", "title": "Food Freshness Touchscreen", "category": "embedded", "domain": "Embedded firmware", "stage": "Research prototype · 2026", "alt": "Food freshness prototype interface showing material selection and demo inspection results", "caption": "Interface demonstration · simulated readings", "summary": "Making fuzzy inference usable through a guided touchscreen.", "problem": "How can a food-quality research prototype make its inspection workflow understandable on a small touchscreen?", "contribution": "I developed the ESP32-S3 touchscreen workflow and paired it with C99 and Python fuzzy inference engines.", "approach": "A GUITION touchscreen guides material selection, inspection and repeat measurement. The research combines fuzzy inference with food-quality sensing inputs.", "outcome": "A prototype interface for material selection, inspection and repeat measurement.", "evidence": "Interface screenshot uses demonstration data.", "tags": ["ESP32-S3", "C99", "Python", "Fuzzy logic"], "flow": ["Inputs", "Fuzzy engine", "Assessment", "Touchscreen"], "url": "https://github.com/Marsel204/fuzzylogic-tft", "overview": "An ESP32-S3 food-quality research prototype with a touchscreen inspection workflow. It pairs fuzzy inference with a guided interface for choosing a material, inspecting readings and repeating a measurement.", "features": [["Material selection", "Choose the material before starting an inspection."], ["Fuzzy inference", "C99 and Python engines support the assessment logic."], ["Clear results", "The touchscreen presents the assessment in a guided workflow."], ["Repeat inspection", "Return to the measurement workflow for another inspection."]], "workflowDetails": ["Select a material and collect sensing inputs.", "Evaluate the inputs with fuzzy inference.", "Turn the inference output into an assessment.", "Display the result and offer a repeat measurement."]}, "suite": {"id": "suite", "title": "Embedded Engineering Suite", "category": "embedded ai", "domain": "Engineering tools", "stage": "Open-source framework", "alt": "Embedded Engineering Suite project artwork", "caption": "Project artwork · development framework", "summary": "Four connected workflows for microcontroller development.", "problem": "How can repeated schematic, firmware, calibration and debugging tasks be organized into a reusable engineering workflow?", "contribution": "I created a four-pillar microcontroller framework covering schematic generation, firmware builds, sensor calibration and crash triage.", "approach": "KiCad schematic generation, headless Arduino-CLI compilation, NVS sensor calibration and ESP32 crash diagnosis form the core workflows.", "outcome": "A reusable framework for embedded engineering tasks.", "evidence": "Framework documentation and source are available in the repository.", "tags": ["KiCad", "ESP32", "Arduino-CLI", "Python"], "flow": ["Schematic", "Firmware", "Calibration", "Debugging"], "url": "https://github.com/Marsel204/antigravity-embedded-suite", "overview": "A reusable framework for repeated microcontroller engineering tasks. Four connected workflows cover circuit documentation, firmware compilation, sensor calibration and ESP32 crash diagnosis.", "features": [["Schematic workflow", "Generate KiCad schematic documentation."], ["Firmware builds", "Compile firmware with a headless Arduino-CLI workflow."], ["Sensor calibration", "Organize calibration and NVS persistence tasks."], ["Crash triage", "Support diagnosis of ESP32 crash information."]], "workflowDetails": ["Create the circuit documentation in KiCad.", "Build the microcontroller firmware with Arduino-CLI.", "Calibrate sensors and persist settings in NVS.", "Investigate firmware crashes through the triage workflow."]}, "elevator": {"id": "elevator", "title": "PLC Elevator Controller", "category": "industrial", "domain": "Industrial automation", "stage": "Simulation · 2025", "alt": "Multi-floor elevator simulation in TIA Portal and Factory I/O", "caption": "Factory I/O · controller simulation", "summary": "Call sequencing, interlocks and motor control in a simulated elevator.", "problem": "How can a multi-floor elevator sequence calls while coordinating position feedback and interlocks?", "contribution": "I programmed the PLC ladder logic and connected it to a Factory I/O elevator simulation.", "approach": "Siemens TIA Portal handles call requests, position inputs, safety interlocks and motor direction within the simulation.", "outcome": "A multi-floor elevator controller demonstrated in a simulated environment.", "evidence": "Controller simulation shown in Factory I/O.", "tags": ["TIA Portal", "Factory I/O", "Ladder logic"], "flow": ["Call request", "PLC logic", "Interlocks", "Motor control"], "url": null, "overview": "A simulated multi-floor elevator controller built around PLC ladder logic. It coordinates call requests, position feedback, motor direction and interlocks in Siemens TIA Portal and Factory I/O.", "features": [["Call sequencing", "Organize requests across multiple floors."], ["Position feedback", "Use simulated position inputs to coordinate movement."], ["Interlocks", "Coordinate control conditions within the simulation."], ["Motor direction", "Connect the ladder logic to simulated elevator motion."]], "workflowDetails": ["Receive a floor call in the simulation.", "Evaluate requests and position inputs in ladder logic.", "Check the configured interlock conditions.", "Command the simulated motor direction."]}, "cad": {"id": "cad", "title": "DOL Motor Starter Panel", "category": "industrial", "domain": "Electrical CAD", "stage": "Design project · 2025", "alt": "AutoCAD Electrical motor-starter schematic and panel layout", "caption": "AutoCAD Electrical · schematic and layout", "summary": "From power and control circuits to a documented panel layout.", "problem": "How can a motor starter's power circuit, controls and component layout be documented as one coherent design?", "contribution": "I authored the DOL power and control schematics, panel layout and bill of materials in AutoCAD Electrical.", "approach": "The design covers contactor and thermal-overload sizing, terminal numbering, panel organization and component documentation.", "outcome": "A motor-starter design with schematics, panel layout and a bill of materials.", "evidence": "Schematic and panel layout shown in AutoCAD Electrical.", "tags": ["AutoCAD Electrical", "Panel layout", "DOL starter"], "flow": ["Power circuit", "Control circuit", "Panel layout", "BOM"], "url": null, "overview": "A documented direct-on-line motor starter design covering electrical schematics and physical panel organization. It connects the power circuit, control circuit, component sizing and bill of materials in AutoCAD Electrical.", "features": [["Power and control", "Document both circuits as a coordinated motor-starter design."], ["Component sizing", "Include contactor and thermal-overload selection."], ["Panel organization", "Plan component layout and terminal numbering."], ["Bill of materials", "Keep the component list alongside the design documentation."]], "workflowDetails": ["Document the motor-starter power path.", "Design the accompanying control circuit.", "Organize components and terminal numbering.", "Compile the component documentation and bill of materials."]}, "visionlab": {"id": "visionlab", "title": "VisionLab Annotation Studio", "category": "ai software", "domain": "Computer vision & datasets", "stage": "Desktop application", "alt": "VisionLab desktop studio screenshot from the repository, showing image annotation and object inspection", "caption": "Repository screenshot · VisionLab studio overview", "summary": "Multi-model detection, human review and dataset export in one desktop studio.", "problem": "How can AI-generated labels be reviewed and organized into usable computer vision datasets?", "contribution": "I developed an annotation platform connecting a React and Tauri studio to Python services for label fusion, review prioritization and dataset management.", "approach": "The project integrates YOLO11, Grounding DINO, SAM 2 and Florence-2. Python services fuse detections and rank difficult frames, while the studio supports human review and dataset export.", "outcome": "A desktop annotation workspace with model-assisted labeling, object inspection and export workflows.", "evidence": "Shows Python service design, React and TypeScript interfaces, multi-model integration and dataset tooling. The screenshot comes from the repository; fusion and active-learning implementations are available in the source.", "tags": ["Python", "React", "TypeScript", "Tauri", "Label fusion"], "flow": ["Model proposals", "Label fusion", "Human review", "Dataset export"], "url": "https://github.com/Marsel204/VisionLabs", "overview": "A desktop workspace for turning AI-generated labels into reviewed computer vision datasets. It combines several vision models with an interactive studio, label fusion and review prioritization.", "features": [["Model-assisted labels", "Combine YOLO11, Grounding DINO, SAM 2 and Florence-2 proposals."], ["Label fusion", "Python services consolidate model detections for review."], ["Human inspection", "Inspect objects and prioritize difficult frames in the studio."], ["Dataset export", "Move reviewed annotations into a dataset export workflow."]], "workflowDetails": ["Generate candidate labels using vision models.", "Consolidate detections through label-fusion services.", "Inspect annotations and prioritize difficult frames.", "Export the reviewed dataset for downstream use."]}, "biometric": {"id": "biometric", "title": "ESP32-CAM Safe Controller", "category": "embedded ai", "domain": "Firmware & device control", "stage": "Firmware prototype", "alt": "Illustrated ESP32-CAM firmware pipeline from camera capture through local face recognition to actuator control and event logging", "caption": "Pipeline illustration · based on the firmware source", "summary": "Local face recognition connected to actuator control and a browser-based admin interface.", "problem": "How can a camera-equipped microcontroller coordinate face recognition, actuator control and local administration?", "contribution": "I implemented an ESP32-CAM firmware prototype with face enrollment, local recognition, relay or servo control and access-event logging.", "approach": "An OV2640 camera feeds the esp-face recognition pipeline. A FreeRTOS task runs the biometric workflow, mutexes coordinate shared state with HTTP handlers, and the firmware logs events to a microSD card.", "outcome": "An Arduino firmware project combining camera processing, device I/O and a local HTTP administration interface.", "evidence": "Shows C++, FreeRTOS task coordination, camera integration and hardware control. The repository includes the main sketch, HTTP handlers, camera pin map and wiring notes; the image is an explanatory diagram.", "tags": ["C++", "ESP32-CAM", "FreeRTOS", "OV2640", "Device I/O"], "flow": ["Camera capture", "Face recognition", "Actuator control", "Event log"], "url": "https://github.com/Marsel204/IoT-Face-Detection-Sytem", "overview": "A camera-equipped microcontroller prototype combining face enrollment, recognition and device control. Its local administration interface and event log connect the biometric workflow to practical hardware I/O.", "features": [["Camera integration", "Capture frames through the OV2640 camera and esp-face pipeline."], ["Face enrollment", "Enroll faces and run local recognition on the ESP32-CAM."], ["Coordinated device I/O", "A FreeRTOS task and mutexes coordinate actuator and HTTP state."], ["Administration and logs", "Manage the device over HTTP and record events on microSD."]], "workflowDetails": ["Capture a camera frame on the ESP32-CAM.", "Run the enrollment or recognition pipeline.", "Coordinate relay or servo control with shared state.", "Record access events on the microSD card."]}, "fis": {"id": "fis", "title": "Mamdani Fuzzy Inference Engine", "category": "ai", "domain": "Inference & control algorithms", "stage": "Python library", "alt": "Illustration of triangular membership functions and a Mamdani inference pipeline ending in centroid defuzzification", "caption": "Algorithm illustration · membership functions and inference stages", "summary": "A modular Python engine for membership functions, fuzzy rules and centroid output.", "problem": "How can fuzzy inference be implemented as reusable, understandable components rather than a single hard-coded calculation?", "contribution": "I implemented a modular Mamdani-style engine with linguistic variables, reusable membership functions, rule evaluation and numerical centroid defuzzification.", "approach": "Triangular, trapezoidal and Gaussian functions map crisp inputs to membership values. Rules use minimum for AND, maximum for consequent aggregation, and a sampled centroid converts the aggregated output to a crisp value.", "outcome": "A pure-Python fuzzy inference library with separate fuzzification, inference and defuzzification modules and an example application.", "evidence": "Shows object-oriented Python, numerical reasoning and algorithm implementation. Membership, rule and centroid implementations can be inspected directly in the repository; the image illustrates the algorithm rather than a hardware application.", "tags": ["Python", "Mamdani", "OOP", "Centroid"], "flow": ["Crisp inputs", "Fuzzification", "Rule evaluation", "Centroid output"], "url": "https://github.com/Marsel204/Fuzzy-Inference-System", "overview": "A pure-Python Mamdani inference library built from reusable components. Linguistic variables, membership functions, rule evaluation and numerical centroid output are separated into understandable modules.", "features": [["Membership functions", "Use triangular, trapezoidal and Gaussian input functions."], ["Linguistic variables", "Represent inputs and outputs with reusable fuzzy sets."], ["Max–min inference", "Evaluate AND with minimum and aggregate consequents with maximum."], ["Centroid output", "Convert the aggregated output to a crisp numerical value."]], "workflowDetails": ["Provide crisp numerical input values.", "Map inputs to their membership values.", "Evaluate rules and aggregate the consequences.", "Calculate a sampled centroid for the crisp output."]}, "linguaplay": {"id": "linguaplay", "title": "LinguaPlay for YouTube", "category": "ai software", "domain": "Language tools & applied AI", "stage": "Browser extension", "alt": "Repository screenshot of the LinguaPlay extension with clickable Japanese subtitles and a word analysis drawer on YouTube", "caption": "Repository screenshot · LinguaPlay on a YouTube watch page", "summary": "Clickable Japanese subtitles, contextual AI tutoring and Anki cards inside YouTube.", "problem": "How can a learner inspect unfamiliar Japanese words, ask contextual questions and save useful vocabulary without leaving a video?", "contribution": "I built a Manifest V3 extension connecting subtitle interaction, Japanese parser requests, configurable AI tutoring and Anki card export.", "approach": "Plain JavaScript integrates with YouTube through a page bridge and content scripts. A parser client supports contextual readings, configurable providers power explanations and chat, and AnkiConnect or an offline collection handles vocabulary review.", "outcome": "A YouTube learning extension with reading modes, a contextual word drawer, AI assistance and flashcard workflows.", "evidence": "Shows JavaScript, browser extension architecture, language-processing integration and API workflows. The current extension README, manifest and parser client support the description; the screenshot is supplied by the repository.", "tags": ["JavaScript", "Manifest V3", "NLP", "AI APIs", "AnkiConnect"], "flow": ["Video subtitles", "Word parsing", "Context & AI", "Vocabulary review"], "url": "https://github.com/Marsel204/LangPlayeExt", "overview": "A YouTube learning extension that keeps Japanese language tools beside the video. Learners can inspect subtitle words, request contextual explanations and save vocabulary for later review.", "features": [["Interactive subtitles", "Click unfamiliar Japanese words while watching a video."], ["Contextual readings", "Request word parsing and readings through the parser client."], ["AI assistance", "Use configurable providers for explanations and contextual chat."], ["Vocabulary review", "Export to AnkiConnect or keep an offline vocabulary collection."]], "workflowDetails": ["Read subtitles through the YouTube page integration.", "Inspect a word with the Japanese parser client.", "Request context or help from the configured AI provider.", "Save useful vocabulary for flashcard review."]}, "agentic": {"id": "agentic", "title": "Agentic Engineering Kit", "category": "software", "domain": "AI development tooling", "stage": "Workflow integration kit", "alt": "Illustration of specification, planning, testing, building, reviewing and shipping stages supported by the agentic engineering kit", "caption": "Workflow illustration · integrated engineering stages and tools", "summary": "Reusable engineering workflows with an installer, MCP configuration and isolated Git worktrees.", "problem": "How can AI-assisted development follow a repeatable engineering process across projects and machines?", "contribution": "I assembled a reusable workflow kit that packages staged engineering skills, installation scripts, MCP integrations and Git worktree tooling.", "approach": "The Bash installer copies the skill bundle, configures memory and context MCP services, and integrates Worktrunk. The bundled workflows cover specification, planning, testing, implementation, review and release preparation.", "outcome": "An installable engineering workflow bundle with reusable skills, architecture tooling and development-environment integrations.", "evidence": "Shows Bash automation, workflow design, Git tooling and integration of existing developer tools. The README and installer document the package and integrations; the diagram illustrates the workflow.", "tags": ["Bash", "SDLC", "MCP", "Git worktrees", "TDD"], "flow": ["Specify & plan", "Test & build", "Review", "Prepare release"], "url": "https://github.com/Marsel204/antigravity-agentic-kit", "overview": "An installable bundle for repeatable AI-assisted development workflows. It brings staged engineering skills, setup automation, MCP configuration and Git worktree tools into a reusable project environment.", "features": [["Engineering stages", "Reusable skills cover specification through release preparation."], ["Setup automation", "A Bash installer copies the bundle and configures integrations."], ["Context services", "Integrate memory and context through MCP configuration."], ["Isolated checkouts", "Integrate Worktrunk and Git worktrees into the workflow."]], "workflowDetails": ["Define the requirements and implementation plan.", "Test and implement the requested change.", "Review the resulting code and behavior.", "Prepare the verified change for release."]}}</script>
+<script type="module" src="portfolio.js?v=20261010-project-overviews"></script>
+</body>
 </html>

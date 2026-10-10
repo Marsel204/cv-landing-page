@@ -8,33 +8,28 @@ const articles = [...html.matchAll(/<article\b([^>]*)>([\s\S]*?)<\/article>/g)];
 const hasClass = (attributes, name) =>
   new RegExp(`class="[^"]*\\b${name}\\b[^"]*"`).test(attributes);
 const projects = articles
-  .filter(([_, attributes]) => hasClass(attributes, "project"))
+  .filter(([_, attributes]) => hasClass(attributes, "project-card"))
   .map(([_, attributes, body]) => ({
     categories: attributes.match(/data-category="([^"]+)"/)[1].split(" "),
-    more: /\bdata-more\b/.test(attributes),
     key: body.match(/data-project="([^"]+)"/)[1],
   }));
 
-test("Selected projects show three entries; expanding reveals all six in order", () => {
-  assert.equal(projects.length, 6);
+test("All eleven approved projects are available in the carousel in portfolio order", () => {
+  assert.equal(projects.length, 11);
   assert.deepEqual(
     selectProjects(projects).map((project) => project.key),
-    ["deploy", "rca", "fuzzy"],
-  );
-  assert.deepEqual(
-    selectProjects(projects, "all", true).map((project) => project.key),
-    ["deploy", "rca", "fuzzy", "suite", "elevator", "cad"],
+    ["deploy", "rca", "fuzzy", "visionlab", "biometric", "elevator", "cad", "suite", "fis", "linguaplay", "agentic"],
   );
 });
 
-test("Category filters include matching additional projects without needing expansion", () => {
+test("Category filters include every relevant project and the software category", () => {
   assert.deepEqual(
     selectProjects(projects, "embedded").map((project) => project.key),
-    ["deploy", "fuzzy", "suite"],
+    ["deploy", "fuzzy", "biometric", "suite"],
   );
   assert.deepEqual(
     selectProjects(projects, "ai").map((project) => project.key),
-    ["deploy", "rca", "suite"],
+    ["deploy", "rca", "visionlab", "biometric", "suite", "fis", "linguaplay"],
   );
   assert.deepEqual(
     selectProjects(projects, "industrial").map((project) => project.key),
@@ -42,16 +37,36 @@ test("Category filters include matching additional projects without needing expa
   );
   assert.deepEqual(selectProjects(projects, "unknown"), []);
   assert.deepEqual(
+    selectProjects(projects, "software").map((project) => project.key),
+    ["visionlab", "linguaplay", "agentic"],
+  );
+  assert.deepEqual(
     [...html.matchAll(/data-filter="([^"]+)"/g)].map((match) => match[1]),
-    ["all", "embedded", "ai", "industrial"],
+    ["all", "embedded", "ai", "industrial", "software"],
   );
 });
 
 test("Filtering preserves project data and returns an independent result", () => {
   const snapshot = structuredClone(projects);
-  const result = selectProjects(projects, "all", true);
+  const result = selectProjects(projects);
   result.pop();
   assert.deepEqual(projects, snapshot);
+});
+
+test("Every project has a complete overview with aligned workflow steps and valid links", () => {
+  const data = JSON.parse(html.match(/<script id="project-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
+  assert.deepEqual(Object.keys(data).sort(), projects.map(project => project.key).sort());
+  for (const project of Object.values(data)) {
+    for (const field of ["title", "summary", "overview", "problem", "contribution", "approach", "outcome", "evidence", "alt", "caption"])
+      assert.ok(typeof project[field] === "string" && project[field].trim().length > 0, `${project.id}: ${field}`);
+    assert.equal(project.features.length, 4);
+    assert.ok(project.features.every(feature => feature.length === 2 && feature.every(value => typeof value === "string" && value.trim())));
+    assert.equal(project.flow.length, project.workflowDetails.length);
+    assert.ok(project.workflowDetails.every(value => typeof value === "string" && value.trim()));
+    assert.ok(project.tags.length > 0);
+    if (project.url) assert.ok(project.url.startsWith("https://github.com/Marsel204/"));
+    if (project.source) assert.ok(project.source.startsWith("https://github.com/Marsel204/"));
+  }
 });
 
 test("Certificates are on display, including four distinct laboratory appointments", () => {
