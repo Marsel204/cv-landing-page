@@ -1,0 +1,688 @@
+{
+  "ui": {
+    "Skip to content": "Langsung ke konten",
+    "Marsel, back to about": "Marsel, kembali ke bagian tentang saya",
+    "Main navigation": "Navigasi utama",
+    "About": "Tentang",
+    "Projects": "Proyek",
+    "Skills": "Keahlian",
+    "Experience": "Pengalaman",
+    "Credentials": "Sertifikat",
+    "Contact": "Kontak",
+    "Language": "Bahasa",
+    "Language changed to English.": "Bahasa diubah ke Bahasa Indonesia.",
+    "View CV": "Lihat CV",
+    "Open navigation": "Buka navigasi",
+    "Close navigation": "Tutup navigasi",
+    "Electrical engineering · UPNVJ": "Teknik Elektro · UPNVJ",
+    "Electrical Engineering · UPNVJ": "Teknik Elektro · UPNVJ",
+    "Embedded systems, IoT & applied AI.": "Sistem tertanam, IoT & AI terapan.",
+    "Electrical Engineering student at UPN “Veteran” Jakarta, building firmware, industrial automation, and edge AI systems.": "Mahasiswa Teknik Elektro di UPN “Veteran” Jakarta yang mengembangkan firmware, otomasi industri, dan sistem edge AI.",
+    "View projects": "Lihat proyek",
+    "Let’s connect": "Mari terhubung",
+    "Open for collaboration": "Terbuka untuk kolaborasi",
+    "Hardware meets software.": "Perangkat keras bertemu perangkat lunak.",
+    "Engineering with purpose.": "Rekayasa dengan tujuan.",
+    "3.82 / 4.00 GPA": "3,82 / 4,00 IPK",
+    "Chairman, KSM IoT": "Ketua KSM IoT",
+    "Leading 3 departments & 9 divisions": "Memimpin 3 departemen & 9 divisi",
+    "Certified lab assistant": "Asisten laboratorium bersertifikat",
+    "Physics, circuits, digital & electronics": "Fisika, rangkaian, sistem digital & elektronika",
+    "01 / Projects": "01 / Proyek",
+    "Built across hardware and software.": "Dari perangkat keras hingga perangkat lunak.",
+    "Selected systems and tools. Open a project to explore the work behind it.": "Pilihan sistem dan alat yang saya kembangkan. Buka proyek untuk melihat proses di baliknya.",
+    "GitHub repositories": "Repositori GitHub",
+    "Filter projects": "Filter proyek",
+    "All projects": "Semua proyek",
+    "Embedded & IoT": "Sistem tertanam & IoT",
+    "AI & Vision": "AI & visi komputer",
+    "Industrial": "Industri",
+    "Software & tools": "Perangkat lunak & alat",
+    "{count} projects": "{count} proyek",
+    "Engineering projects": "Proyek rekayasa",
+    "Auto-scrolls left. Swipe or use the arrows to browse.": "Bergeser otomatis ke kiri. Geser atau gunakan panah untuk menjelajah.",
+    "All {count} projects in view.": "Semua {count} proyek ditampilkan.",
+    "Pause scrolling": "Jeda pergeseran",
+    "Resume scrolling": "Lanjutkan pergeseran",
+    "Previous project": "Proyek sebelumnya",
+    "Next project": "Proyek berikutnya",
+    "Project cards. Swipe or use the arrow controls to browse.": "Kartu proyek. Geser atau gunakan tombol panah untuk menjelajah.",
+    "slide": "kartu proyek",
+    "{index} of {count}": "{index} dari {count}",
+    "View project": "Lihat proyek",
+    "View {title} project overview": "Lihat ringkasan proyek {title}",
+    "View {title} project details": "Lihat detail proyek {title}",
+    "Selected technologies": "Teknologi pilihan",
+    "Fuzzy logic": "Logika fuzzy",
+    "Ladder logic": "Logika ladder",
+    "Panel layout": "Tata letak panel",
+    "DOL starter": "Starter DOL",
+    "Label fusion": "Penggabungan label",
+    "Device I/O": "I/O perangkat",
+    "AI APIs": "API AI",
+    "Git worktrees": "Worktree Git",
+    "02 / Connected capabilities": "02 / Keahlian yang saling terhubung",
+    "Hardware, software, and the space between.": "Perangkat keras, perangkat lunak, dan penghubungnya.",
+    "Three connected disciplines, grounded in the projects above.": "Tiga bidang yang saling terhubung, diterapkan dalam proyek-proyek di atas.",
+    "01 / SENSE & CONNECT": "01 / DETEKSI & KONEKSI",
+    "Embedded systems & IoT": "Sistem tertanam & IoT",
+    "Firmware, sensor integration and communication between devices.": "Firmware, integrasi sensor, dan komunikasi antarperangkat.",
+    "Explore embedded work": "Lihat proyek sistem tertanam",
+    "02 / PERCEIVE & REASON": "02 / PERSEPSI & PENALARAN",
+    "Applied AI & software": "AI terapan & perangkat lunak",
+    "Computer vision, inference and structured diagnostic workflows.": "Visi komputer, inferensi, dan alur diagnosis yang terstruktur.",
+    "Explore AI work": "Lihat proyek AI",
+    "03 / CONTROL & ACTUATE": "03 / KONTROL & AKTUASI",
+    "Industrial automation": "Otomasi industri",
+    "Control logic and documented electrical systems.": "Logika kontrol dan sistem kelistrikan yang terdokumentasi.",
+    "PLC ladder logic": "Logika ladder PLC",
+    "Panel wiring": "Pengawatan panel",
+    "Electrical CAD": "CAD kelistrikan",
+    "UPNVJ emblem": "Lambang UPNVJ",
+    "Explore automation work": "Lihat proyek otomasi",
+    "03 / Experience & education": "03 / Pengalaman & pendidikan",
+    "Building. Teaching. Leading.": "Membangun. Mengajar. Memimpin.",
+    "Engineering practice alongside academic and organizational work.": "Praktik rekayasa bersama kegiatan akademik dan organisasi.",
+    "Full experience in CV": "Pengalaman lengkap di CV",
+    "Jan 2026 — Present": "Jan 2026 — Sekarang",
+    "Chairman": "Ketua",
+    "Leading organizational initiatives across 3 departments and 9 divisions, coordinating engineering teams and internal project development.": "Memimpin kegiatan organisasi di 3 departemen dan 9 divisi, mengoordinasikan tim rekayasa serta pengembangan proyek internal.",
+    "Aug 2024 — Present": "Agu 2024 — Sekarang",
+    "Laboratory Assistant": "Asisten Laboratorium",
+    "Electrical Engineering Laboratories": "Laboratorium Teknik Elektro",
+    "Electrical Engineering Program": "Program Studi Teknik Elektro",
+    "Electrical Engineering Laboratories · UPNVJ": "Laboratorium Teknik Elektro · UPNVJ",
+    "Supporting practical experiments, preparing equipment, and assisting students with circuits, digital systems, physics, and electronics.": "Mendampingi praktikum, menyiapkan peralatan, serta membantu mahasiswa dalam rangkaian listrik, sistem digital, fisika, dan elektronika.",
+    "Jan — Dec 2025": "Jan — Des 2025",
+    "Firmware Division Staff": "Staf Divisi Firmware",
+    "Developed ESP32 and ESP8266 firmware, integrated sensors and MQTT telemetry, and contributed to engineering competition projects.": "Mengembangkan firmware ESP32 dan ESP8266, mengintegrasikan sensor serta telemetri MQTT, dan berkontribusi pada proyek kompetisi rekayasa.",
+    "More organizational experience": "Pengalaman organisasi lainnya",
+    "Research & Development Staff · HMTE UPNVJ": "Staf Riset & Pengembangan · HMTE UPNVJ",
+    "Jan — Dec 2025 · Project Officer of Propel KTI and division leadership for Electrolympic and Propel Software.": "Jan — Des 2025 · Project Officer Propel KTI serta memimpin divisi pada Electrolympic dan Propel Software.",
+    "Vice President · Musicasa, SMAN 12 Tangerang": "Wakil Ketua · Musicasa, SMAN 12 Tangerang",
+    "Jan 2020 — Dec 2022 · Coordinated school music productions and organizational programs.": "Jan 2020 — Des 2022 · Mengoordinasikan produksi musik sekolah dan program organisasi.",
+    "Education": "Pendidikan",
+    "Bachelor of Electrical Engineering (S.T.)": "Sarjana Teknik Elektro (S.T.)",
+    "Aug 2023 — Jan 2027 (expected)": "Agu 2023 — Jan 2027 (perkiraan lulus)",
+    "Cumulative GPA": "IPK kumulatif",
+    "3.82 / 4.00": "3,82 / 4,00",
+    "Science track · Graduated 2023": "Jurusan IPA · Lulus 2023",
+    "04 / Credentials": "04 / Sertifikat",
+    "Learning, with the evidence to show it.": "Pembelajaran dengan bukti nyata.",
+    "Technical training, four laboratory appointments, and academic committee work. Select any document to view it in detail.": "Pelatihan teknis, penugasan di empat laboratorium, dan kepanitiaan akademik. Pilih dokumen untuk melihat detailnya.",
+    "8 documents": "8 dokumen",
+    "Technical training": "Pelatihan teknis",
+    "AI, Python & electrical CAD": "AI, Python & CAD kelistrikan",
+    "AI training": "Pelatihan AI",
+    "Python training": "Pelatihan Python",
+    "Oct 2025": "Okt 2025",
+    "Jul 2025": "Jul 2025",
+    "View certificate": "Lihat sertifikat",
+    "Verify credential": "Verifikasi sertifikat",
+    "Enlarge {title} certificate": "Perbesar sertifikat {title}",
+    "{title} certificate awarded to Marselinus Allen Nugraha": "Sertifikat {title} atas nama Marselinus Allen Nugraha",
+    "{title} laboratory appointment certificate awarded to Marselinus Allen Nugraha": "Sertifikat penugasan asisten laboratorium {title} atas nama Marselinus Allen Nugraha",
+    "Laboratory appointments": "Penugasan asisten laboratorium",
+    "Electrical Engineering Laboratories · UPN “Veteran” Jakarta": "Laboratorium Teknik Elektro · UPN “Veteran” Jakarta",
+    "4 core courses · 2025": "4 mata kuliah inti · 2025",
+    "Academic appointment": "Penugasan akademik",
+    "Basic Physics": "Fisika Dasar",
+    "Digital Systems": "Sistem Digital",
+    "Electric Circuits": "Rangkaian Listrik",
+    "Basic Electronics": "Elektronika Dasar",
+    "Laboratory Assistant — Basic Physics": "Asisten Laboratorium — Fisika Dasar",
+    "Laboratory Assistant — Digital Systems": "Asisten Laboratorium — Sistem Digital",
+    "Laboratory Assistant — Electric Circuits": "Asisten Laboratorium — Rangkaian Listrik",
+    "Laboratory Assistant — Basic Electronics": "Asisten Laboratorium — Elektronika Dasar",
+    "Academic committee work": "Kepanitiaan akademik",
+    "Program contribution": "Kontribusi pada program",
+    "Organizing committee": "Panitia pelaksana",
+    "Electrical Engineering Program · UPNVJ": "Program Studi Teknik Elektro · UPNVJ",
+    "05 / Let’s connect": "05 / Mari terhubung",
+    "Have a system in mind?": "Punya ide untuk sebuah sistem?",
+    "Let’s build it together.": "Mari kita wujudkan bersama.",
+    "Open to embedded firmware, IoT engineering, applied AI projects and technical collaborations.": "Terbuka untuk pengembangan firmware, rekayasa IoT, proyek AI terapan, dan kolaborasi teknis.",
+    "Send me an email": "Kirim email",
+    "Copy email address": "Salin alamat email",
+    "Email copied": "Email tersalin",
+    "Back to top ↑": "Kembali ke atas ↑",
+    "Project overview": "Ringkasan proyek",
+    "Close project details": "Tutup detail proyek",
+    "What it does": "Tentang proyek",
+    "The challenge": "Tantangan",
+    "My contribution": "Kontribusi saya",
+    "Enlarge project image": "Perbesar gambar proyek",
+    "Enlarge {title} image": "Perbesar gambar {title}",
+    "Enlarge screenshot ↗": "Perbesar tangkapan layar ↗",
+    "Enlarge diagram ↗": "Perbesar diagram ↗",
+    "Technologies": "Teknologi",
+    "Project technologies": "Teknologi proyek",
+    "Key capabilities": "Fitur utama",
+    "How it works": "Cara kerja",
+    "Engineering approach": "Pendekatan rekayasa",
+    "Deliverable": "Hasil pengembangan",
+    "Project evidence": "Bukti proyek",
+    "Project documentation": "Dokumentasi proyek",
+    "Source code & documentation": "Kode sumber & dokumentasi",
+    "Curriculum vitae": "Daftar riwayat hidup",
+    "Close CV options": "Tutup pilihan CV",
+    "Choose a language to read the full CV or open the PDF.": "Pilih bahasa untuk membaca CV lengkap atau membuka PDF.",
+    "English": "English",
+    "Experience, education, and technical skills.": "Pengalaman, pendidikan, dan keahlian teknis.",
+    "Read English CV": "Baca CV Inggris",
+    "Open PDF · English": "Buka PDF · Inggris",
+    "Document": "Dokumen",
+    "Close image viewer": "Tutup penampil gambar",
+    "Zoom in": "Perbesar",
+    "Zoom out": "Perkecil",
+    "Save image": "Simpan gambar",
+    "Image viewing area": "Area tampilan gambar",
+    "Marselinus Allen Nugraha — embedded firmware, IoT, industrial automation and applied AI.": "Marselinus Allen Nugraha — firmware sistem tertanam, IoT, otomasi industri, dan AI terapan.",
+    "IBM SkillsBuild · Oct 2025": "IBM SkillsBuild · Okt 2025",
+    "Enlarge Code Generation & Optimization Using IBM Granite certificate": "Perbesar sertifikat Code Generation & Optimization Using IBM Granite",
+    "Code Generation & Optimization Using IBM Granite certificate awarded to Marselinus Allen Nugraha": "Sertifikat Code Generation & Optimization Using IBM Granite atas nama Marselinus Allen Nugraha",
+    "Enlarge Python for Data Science, AI & Development certificate": "Perbesar sertifikat Python for Data Science, AI & Development",
+    "Python for Data Science, AI & Development certificate awarded to Marselinus Allen Nugraha": "Sertifikat Python for Data Science, AI & Development atas nama Marselinus Allen Nugraha",
+    "Enlarge AutoCAD Electrical Training certificate": "Perbesar sertifikat AutoCAD Electrical Training",
+    "AutoCAD Electrical Training certificate awarded to Marselinus Allen Nugraha": "Sertifikat AutoCAD Electrical Training atas nama Marselinus Allen Nugraha",
+    "Electrical Engineering Laboratories · UPNVJ · Semester Genap · 2025": "Laboratorium Teknik Elektro · UPNVJ · Semester Genap · 2025",
+    "Enlarge Basic Physics certificate": "Perbesar sertifikat Fisika Dasar",
+    "Basic Physics laboratory appointment certificate awarded to Marselinus Allen Nugraha": "Sertifikat penugasan asisten laboratorium Fisika Dasar atas nama Marselinus Allen Nugraha",
+    "Enlarge Digital Systems certificate": "Perbesar sertifikat Sistem Digital",
+    "Digital Systems laboratory appointment certificate awarded to Marselinus Allen Nugraha": "Sertifikat penugasan asisten laboratorium Sistem Digital atas nama Marselinus Allen Nugraha",
+    "Electrical Engineering Laboratories · UPNVJ · Semester Ganjil · 2025": "Laboratorium Teknik Elektro · UPNVJ · Semester Ganjil · 2025",
+    "Enlarge Electric Circuits certificate": "Perbesar sertifikat Rangkaian Listrik",
+    "Electric Circuits laboratory appointment certificate awarded to Marselinus Allen Nugraha": "Sertifikat penugasan asisten laboratorium Rangkaian Listrik atas nama Marselinus Allen Nugraha",
+    "Enlarge Basic Electronics certificate": "Perbesar sertifikat Elektronika Dasar",
+    "Basic Electronics laboratory appointment certificate awarded to Marselinus Allen Nugraha": "Sertifikat penugasan asisten laboratorium Elektronika Dasar atas nama Marselinus Allen Nugraha",
+    "Electrical Engineering Program · UPNVJ · Sep 2025": "Program Studi Teknik Elektro · UPNVJ · Sep 2025",
+    "Enlarge Adjunct Professor Program Committee certificate": "Perbesar sertifikat Adjunct Professor Program Committee",
+    "Adjunct Professor Program Committee certificate awarded to Marselinus Allen Nugraha": "Sertifikat Adjunct Professor Program Committee atas nama Marselinus Allen Nugraha"
+  },
+  "projects": {
+    "deploy": {
+      "title": "Kontrol Lalu Lintas Adaptif",
+      "domain": "Edge AI & kontrol",
+      "stage": "Riset skripsi · 2026",
+      "alt": "Tampilan kalibrasi kamera jalan pada proyek kontrol lalu lintas adaptif",
+      "caption": "Persepsi lalu lintas · tampilan kalibrasi kamera jalan",
+      "summary": "Mengubah pengukuran lalu lintas menjadi keputusan sinyal yang adaptif.",
+      "problem": "Bagaimana rekaman kamera jalan dapat digunakan untuk menentukan sinyal lalu lintas adaptif pada perangkat edge?",
+      "contribution": "Saya mengembangkan runtime Jetson yang menghubungkan persepsi kendaraan, inferensi adaptif, dan aktuasi melalui RS-485.",
+      "approach": "YOLO11 dan ByteTrack mendeteksi serta melacak kendaraan. Sugeno ANFIS mendukung kontrol adaptif, sementara RS-485 menghubungkan runtime dengan aktuasi sinyal.",
+      "outcome": "Runtime skripsi yang menghubungkan persepsi lalu lintas dengan aktuasi sinyal.",
+      "evidence": "Runtime, antarmuka kalibrasi, dan implementasinya tersedia di repositori.",
+      "overview": "Runtime kontrol lalu lintas pada perangkat edge yang mengolah rekaman kamera jalan menjadi pengukuran kendaraan dan keputusan sinyal adaptif. Sistem ini menghubungkan visi komputer, inferensi, dan aktuasi sinyal fisik pada NVIDIA Jetson.",
+      "features": [
+        [
+          "Persepsi kendaraan",
+          "YOLO11 mendeteksi kendaraan; ByteTrack mempertahankan identitasnya antar-frame."
+        ],
+        [
+          "Kalibrasi kamera",
+          "Tampilan kalibrasi kamera jalan menentukan area pengukuran lalu lintas."
+        ],
+        [
+          "Keputusan adaptif",
+          "Sugeno ANFIS menghubungkan kondisi lalu lintas terukur dengan keputusan kontrol."
+        ],
+        [
+          "Aktuasi sinyal",
+          "RS-485 menghubungkan runtime dengan sisi kontrol sinyal."
+        ]
+      ],
+      "flow": [
+        "Kamera",
+        "Deteksi",
+        "Inferensi",
+        "Aktuasi"
+      ],
+      "workflowDetails": [
+        "Baca rekaman dari kamera jalan.",
+        "Deteksi dan lacak kendaraan pada area yang telah dikalibrasi.",
+        "Gunakan pengukuran lalu lintas untuk inferensi adaptif.",
+        "Kirim keputusan yang dihasilkan melalui RS-485."
+      ]
+    },
+    "rca": {
+      "title": "Analisis Akar Masalah Industri",
+      "domain": "AI terapan & industri",
+      "stage": "Proyek pengembangan · 2026",
+      "alt": "Ruang kerja telemetri dan diagnosis IndustrialRCA",
+      "caption": "Ruang kerja diagnosis · tangkapan layar aplikasi",
+      "summary": "Mengolah telemetri industri melalui alur diagnosis yang terstruktur.",
+      "problem": "Bagaimana telemetri peralatan dapat diubah menjadi alur diagnosis yang terstruktur dan dapat ditelusuri?",
+      "contribution": "Saya membangun platform diagnosis yang menghubungkan telemetri Modbus, konteks aset, dan alur agen LangGraph.",
+      "approach": "LangGraph mengoordinasikan penalaran dengan retrieval dan DeepSeek AI. Hierarki aset ISA-95 serta taksonomi ISO 14224 / FMEA menata konteks diagnosis.",
+      "outcome": "Ruang kerja yang menyatukan telemetri, konteks peralatan, dan penalaran diagnosis.",
+      "evidence": "Tangkapan layar aplikasi dan implementasinya tersedia di repositori.",
+      "overview": "Ruang kerja diagnosis yang menghubungkan telemetri peralatan, konteks aset, dan penalaran AI. Operator dapat memeriksa pengukuran, menyelidiki gangguan, dan meninjau temuan sebelum menyetujui dokumen pemeliharaan.",
+      "features": [
+        [
+          "Pemantauan langsung",
+          "Telemetri Modbus dan grafik tren."
+        ],
+        [
+          "Diagnosis terstruktur",
+          "Investigasi LangGraph menggunakan konteks topologi dan FMEA."
+        ],
+        [
+          "Tinjauan manusia",
+          "Tahap persetujuan untuk usulan tindakan perbaikan."
+        ],
+        [
+          "Dokumentasi pemeliharaan",
+          "Laporan 8D dan persiapan perintah kerja SAP PM01."
+        ]
+      ],
+      "flow": [
+        "Telemetri",
+        "Konteks aset",
+        "Penalaran",
+        "Diagnosis"
+      ],
+      "workflowDetails": [
+        "Kumpulkan pengukuran peralatan.",
+        "Hubungkan pengukuran dengan konteks peralatan dan kegagalan.",
+        "Selidiki anomali dan bandingkan hipotesis.",
+        "Tinjau temuan dan siapkan dokumen pemeliharaan."
+      ]
+    },
+    "fuzzy": {
+      "title": "Layar Sentuh Kesegaran Pangan",
+      "domain": "Firmware sistem tertanam",
+      "stage": "Prototipe riset · 2026",
+      "alt": "Antarmuka prototipe kesegaran pangan dengan pemilihan bahan dan hasil pemeriksaan demo",
+      "caption": "Demonstrasi antarmuka · pembacaan simulasi",
+      "summary": "Menerapkan inferensi fuzzy melalui alur layar sentuh yang mudah diikuti.",
+      "problem": "Bagaimana alur pemeriksaan pada prototipe riset kualitas pangan dapat dipahami melalui layar sentuh kecil?",
+      "contribution": "Saya mengembangkan alur layar sentuh ESP32-S3 dan menghubungkannya dengan mesin inferensi fuzzy C99 serta Python.",
+      "approach": "Layar sentuh GUITION memandu pemilihan bahan, pemeriksaan, dan pengukuran ulang. Riset ini menggabungkan inferensi fuzzy dengan masukan sensor kualitas pangan.",
+      "outcome": "Antarmuka prototipe untuk pemilihan bahan, pemeriksaan, dan pengukuran ulang.",
+      "evidence": "Tangkapan layar antarmuka menggunakan data demonstrasi.",
+      "overview": "Prototipe riset kualitas pangan berbasis ESP32-S3 dengan alur pemeriksaan melalui layar sentuh. Inferensi fuzzy dipadukan dengan antarmuka yang memandu pemilihan bahan, pemeriksaan pembacaan, dan pengukuran ulang.",
+      "features": [
+        [
+          "Pemilihan bahan",
+          "Pilih bahan sebelum memulai pemeriksaan."
+        ],
+        [
+          "Inferensi fuzzy",
+          "Mesin C99 dan Python mendukung logika penilaian."
+        ],
+        [
+          "Hasil yang jelas",
+          "Layar sentuh menyajikan penilaian melalui alur terpandu."
+        ],
+        [
+          "Pemeriksaan ulang",
+          "Kembali ke alur pengukuran untuk pemeriksaan berikutnya."
+        ]
+      ],
+      "flow": [
+        "Masukan",
+        "Mesin fuzzy",
+        "Penilaian",
+        "Layar sentuh"
+      ],
+      "workflowDetails": [
+        "Pilih bahan dan kumpulkan masukan sensor.",
+        "Evaluasi masukan menggunakan inferensi fuzzy.",
+        "Ubah keluaran inferensi menjadi penilaian.",
+        "Tampilkan hasil dan tawarkan pengukuran ulang."
+      ]
+    },
+    "visionlab": {
+      "title": "VisionLab Annotation Studio",
+      "domain": "Visi komputer & dataset",
+      "stage": "Aplikasi desktop",
+      "alt": "Tangkapan layar studio desktop VisionLab dari repositori, menampilkan anotasi gambar dan pemeriksaan objek",
+      "caption": "Tangkapan layar repositori · ringkasan studio VisionLab",
+      "summary": "Deteksi multimodel, tinjauan manusia, dan ekspor dataset dalam satu studio desktop.",
+      "problem": "Bagaimana label yang dihasilkan AI dapat ditinjau dan ditata menjadi dataset visi komputer yang siap digunakan?",
+      "contribution": "Saya mengembangkan platform anotasi yang menghubungkan studio React dan Tauri dengan layanan Python untuk penggabungan label, prioritas tinjauan, serta pengelolaan dataset.",
+      "approach": "Proyek ini mengintegrasikan YOLO11, Grounding DINO, SAM 2, dan Florence-2. Layanan Python menggabungkan deteksi dan memberi peringkat pada frame sulit, sementara studio mendukung tinjauan manusia serta ekspor dataset.",
+      "outcome": "Ruang kerja anotasi desktop dengan pelabelan berbantuan model, pemeriksaan objek, dan alur ekspor.",
+      "evidence": "Menunjukkan desain layanan Python, antarmuka React dan TypeScript, integrasi multimodel, serta alat pengelolaan dataset. Tangkapan layar berasal dari repositori; implementasi penggabungan label dan active learning tersedia pada kode sumber.",
+      "overview": "Ruang kerja desktop untuk mengubah label yang dihasilkan AI menjadi dataset visi komputer yang telah ditinjau. Proyek ini menggabungkan beberapa model visi dengan studio interaktif, penggabungan label, dan penentuan prioritas tinjauan.",
+      "features": [
+        [
+          "Label berbantuan model",
+          "Gabungkan usulan dari YOLO11, Grounding DINO, SAM 2, dan Florence-2."
+        ],
+        [
+          "Penggabungan label",
+          "Layanan Python menyatukan deteksi model untuk ditinjau."
+        ],
+        [
+          "Pemeriksaan manusia",
+          "Periksa objek dan prioritaskan frame sulit di studio."
+        ],
+        [
+          "Ekspor dataset",
+          "Masukkan anotasi yang telah ditinjau ke dalam alur ekspor dataset."
+        ]
+      ],
+      "flow": [
+        "Usulan model",
+        "Penggabungan label",
+        "Tinjauan manusia",
+        "Ekspor dataset"
+      ],
+      "workflowDetails": [
+        "Hasilkan kandidat label menggunakan model visi.",
+        "Satukan deteksi melalui layanan penggabungan label.",
+        "Periksa anotasi dan prioritaskan frame sulit.",
+        "Ekspor dataset yang telah ditinjau untuk penggunaan berikutnya."
+      ]
+    },
+    "biometric": {
+      "title": "Kontrol Brankas ESP32-CAM",
+      "domain": "Firmware & kontrol perangkat",
+      "stage": "Prototipe firmware",
+      "alt": "Ilustrasi alur firmware ESP32-CAM dari pengambilan gambar hingga pengenalan wajah lokal, kontrol aktuator, dan pencatatan kejadian",
+      "caption": "Ilustrasi alur · berdasarkan kode sumber firmware",
+      "summary": "Pengenalan wajah lokal yang terhubung dengan kontrol aktuator dan antarmuka admin berbasis browser.",
+      "problem": "Bagaimana mikrokontroler berkamera dapat mengoordinasikan pengenalan wajah, kontrol aktuator, dan administrasi lokal?",
+      "contribution": "Saya mengimplementasikan prototipe firmware ESP32-CAM dengan pendaftaran wajah, pengenalan lokal, kontrol relay atau servo, serta pencatatan kejadian akses.",
+      "approach": "Kamera OV2640 memasok gambar ke alur pengenalan esp-face. Task FreeRTOS menjalankan alur biometrik, mutex mengoordinasikan state bersama dengan handler HTTP, dan firmware mencatat kejadian pada kartu microSD.",
+      "outcome": "Proyek firmware Arduino yang menggabungkan pemrosesan kamera, I/O perangkat, dan antarmuka administrasi HTTP lokal.",
+      "evidence": "Menunjukkan C++, koordinasi task FreeRTOS, integrasi kamera, dan kontrol perangkat keras. Repositori memuat sketch utama, handler HTTP, peta pin kamera, serta catatan pengawatan; gambar merupakan diagram penjelas.",
+      "overview": "Prototipe mikrokontroler berkamera yang menggabungkan pendaftaran wajah, pengenalan, dan kontrol perangkat. Antarmuka administrasi lokal serta log kejadian menghubungkan alur biometrik dengan I/O perangkat keras.",
+      "features": [
+        [
+          "Integrasi kamera",
+          "Ambil gambar melalui kamera OV2640 dan alur esp-face."
+        ],
+        [
+          "Pendaftaran wajah",
+          "Daftarkan wajah dan jalankan pengenalan lokal pada ESP32-CAM."
+        ],
+        [
+          "Koordinasi I/O perangkat",
+          "Task FreeRTOS dan mutex mengoordinasikan state aktuator serta HTTP."
+        ],
+        [
+          "Administrasi dan log",
+          "Kelola perangkat melalui HTTP dan catat kejadian pada microSD."
+        ]
+      ],
+      "flow": [
+        "Pengambilan gambar",
+        "Pengenalan wajah",
+        "Kontrol aktuator",
+        "Log kejadian"
+      ],
+      "workflowDetails": [
+        "Ambil satu frame kamera pada ESP32-CAM.",
+        "Jalankan alur pendaftaran atau pengenalan wajah.",
+        "Koordinasikan kontrol relay atau servo dengan state bersama.",
+        "Catat kejadian akses pada kartu microSD."
+      ]
+    },
+    "elevator": {
+      "title": "Kontrol Lift Berbasis PLC",
+      "domain": "Otomasi industri",
+      "stage": "Simulasi · 2025",
+      "alt": "Simulasi lift beberapa lantai pada TIA Portal dan Factory I/O",
+      "caption": "Factory I/O · simulasi kontrol",
+      "summary": "Urutan panggilan, interlock, dan kontrol motor pada simulasi lift.",
+      "problem": "Bagaimana lift beberapa lantai dapat mengurutkan panggilan sambil mengoordinasikan umpan balik posisi dan interlock?",
+      "contribution": "Saya memprogram logika ladder PLC dan menghubungkannya dengan simulasi lift Factory I/O.",
+      "approach": "Siemens TIA Portal menangani permintaan panggilan, masukan posisi, interlock keselamatan, dan arah motor dalam simulasi.",
+      "outcome": "Kontrol lift beberapa lantai yang didemonstrasikan dalam lingkungan simulasi.",
+      "evidence": "Simulasi kontrol ditampilkan pada Factory I/O.",
+      "overview": "Simulasi kontrol lift beberapa lantai yang dibangun dengan logika ladder PLC. Sistem ini mengoordinasikan permintaan panggilan, umpan balik posisi, arah motor, dan interlock pada Siemens TIA Portal serta Factory I/O.",
+      "features": [
+        [
+          "Urutan panggilan",
+          "Atur permintaan dari beberapa lantai."
+        ],
+        [
+          "Umpan balik posisi",
+          "Gunakan masukan posisi simulasi untuk mengoordinasikan gerakan."
+        ],
+        [
+          "Interlock",
+          "Koordinasikan kondisi kontrol dalam simulasi."
+        ],
+        [
+          "Arah motor",
+          "Hubungkan logika ladder dengan gerakan lift simulasi."
+        ]
+      ],
+      "flow": [
+        "Permintaan panggilan",
+        "Logika PLC",
+        "Interlock",
+        "Kontrol motor"
+      ],
+      "workflowDetails": [
+        "Terima panggilan lantai dalam simulasi.",
+        "Evaluasi permintaan dan masukan posisi pada logika ladder.",
+        "Periksa kondisi interlock yang dikonfigurasi.",
+        "Perintahkan arah motor pada simulasi."
+      ]
+    },
+    "cad": {
+      "title": "Panel Starter Motor DOL",
+      "domain": "CAD kelistrikan",
+      "stage": "Proyek desain · 2025",
+      "alt": "Skema starter motor dan tata letak panel pada AutoCAD Electrical",
+      "caption": "AutoCAD Electrical · skema dan tata letak",
+      "summary": "Dari rangkaian daya dan kontrol hingga tata letak panel yang terdokumentasi.",
+      "problem": "Bagaimana rangkaian daya, kontrol, dan tata letak komponen starter motor dapat didokumentasikan sebagai satu desain yang terpadu?",
+      "contribution": "Saya membuat skema daya dan kontrol DOL, tata letak panel, serta daftar material pada AutoCAD Electrical.",
+      "approach": "Desain mencakup pemilihan kontaktor dan thermal overload, penomoran terminal, penataan panel, serta dokumentasi komponen.",
+      "outcome": "Desain starter motor dengan skema, tata letak panel, dan daftar material.",
+      "evidence": "Skema dan tata letak panel ditampilkan pada AutoCAD Electrical.",
+      "overview": "Desain starter motor direct-on-line yang terdokumentasi, mencakup skema kelistrikan dan penataan fisik panel. Rangkaian daya, rangkaian kontrol, pemilihan komponen, dan daftar material disatukan pada AutoCAD Electrical.",
+      "features": [
+        [
+          "Daya dan kontrol",
+          "Dokumentasikan kedua rangkaian sebagai desain starter motor yang terpadu."
+        ],
+        [
+          "Pemilihan komponen",
+          "Sertakan pemilihan kontaktor dan thermal overload."
+        ],
+        [
+          "Penataan panel",
+          "Rencanakan tata letak komponen dan penomoran terminal."
+        ],
+        [
+          "Daftar material",
+          "Simpan daftar komponen bersama dokumentasi desain."
+        ]
+      ],
+      "flow": [
+        "Rangkaian daya",
+        "Rangkaian kontrol",
+        "Tata letak panel",
+        "Daftar material"
+      ],
+      "workflowDetails": [
+        "Dokumentasikan jalur daya starter motor.",
+        "Desain rangkaian kontrol pendampingnya.",
+        "Tata komponen dan penomoran terminal.",
+        "Susun dokumentasi komponen dan daftar material."
+      ]
+    },
+    "suite": {
+      "title": "Embedded Engineering Suite",
+      "domain": "Alat rekayasa",
+      "stage": "Framework sumber terbuka",
+      "alt": "Ilustrasi proyek Embedded Engineering Suite",
+      "caption": "Ilustrasi proyek · framework pengembangan",
+      "summary": "Empat alur kerja yang saling terhubung untuk pengembangan mikrokontroler.",
+      "problem": "Bagaimana tugas skema, firmware, kalibrasi, dan debugging yang berulang dapat ditata menjadi alur rekayasa yang dapat digunakan kembali?",
+      "contribution": "Saya membuat framework mikrokontroler dengan empat pilar: pembuatan skema, kompilasi firmware, kalibrasi sensor, dan analisis crash.",
+      "approach": "Alur inti mencakup pembuatan skema KiCad, kompilasi Arduino-CLI tanpa antarmuka grafis, kalibrasi sensor dengan NVS, dan diagnosis crash ESP32.",
+      "outcome": "Framework yang dapat digunakan kembali untuk tugas rekayasa sistem tertanam.",
+      "evidence": "Dokumentasi framework dan kode sumber tersedia di repositori.",
+      "overview": "Framework yang dapat digunakan kembali untuk tugas rekayasa mikrokontroler yang berulang. Empat alur terhubung mencakup dokumentasi rangkaian, kompilasi firmware, kalibrasi sensor, dan diagnosis crash ESP32.",
+      "features": [
+        [
+          "Alur skema",
+          "Hasilkan dokumentasi skema KiCad."
+        ],
+        [
+          "Kompilasi firmware",
+          "Kompilasi firmware melalui alur Arduino-CLI tanpa antarmuka grafis."
+        ],
+        [
+          "Kalibrasi sensor",
+          "Tata tugas kalibrasi dan penyimpanan pada NVS."
+        ],
+        [
+          "Analisis crash",
+          "Dukung diagnosis informasi crash ESP32."
+        ]
+      ],
+      "flow": [
+        "Skema",
+        "Firmware",
+        "Kalibrasi",
+        "Debugging"
+      ],
+      "workflowDetails": [
+        "Buat dokumentasi rangkaian pada KiCad.",
+        "Kompilasi firmware mikrokontroler dengan Arduino-CLI.",
+        "Kalibrasi sensor dan simpan pengaturan pada NVS.",
+        "Selidiki crash firmware melalui alur analisis."
+      ]
+    },
+    "fis": {
+      "title": "Mesin Inferensi Fuzzy Mamdani",
+      "domain": "Algoritma inferensi & kontrol",
+      "stage": "Pustaka Python",
+      "alt": "Ilustrasi fungsi keanggotaan segitiga dan alur inferensi Mamdani yang berakhir dengan defuzzifikasi centroid",
+      "caption": "Ilustrasi algoritma · fungsi keanggotaan dan tahap inferensi",
+      "summary": "Mesin Python modular untuk fungsi keanggotaan, aturan fuzzy, dan keluaran centroid.",
+      "problem": "Bagaimana inferensi fuzzy dapat diimplementasikan sebagai komponen yang mudah dipahami dan digunakan kembali, bukan satu perhitungan dengan nilai tetap?",
+      "contribution": "Saya mengimplementasikan mesin Mamdani modular dengan variabel linguistik, fungsi keanggotaan yang dapat digunakan kembali, evaluasi aturan, dan defuzzifikasi centroid numerik.",
+      "approach": "Fungsi segitiga, trapesium, dan Gaussian memetakan masukan tegas ke nilai keanggotaan. Aturan menggunakan minimum untuk AND dan maksimum untuk agregasi konsekuen, lalu centroid tersampel mengubah keluaran agregasi menjadi nilai tegas.",
+      "outcome": "Pustaka inferensi fuzzy berbasis Python murni dengan modul fuzzifikasi, inferensi, dan defuzzifikasi yang terpisah, serta contoh aplikasi.",
+      "evidence": "Menunjukkan Python berorientasi objek, penalaran numerik, dan implementasi algoritma. Implementasi keanggotaan, aturan, dan centroid dapat diperiksa langsung di repositori; gambar menjelaskan algoritma, bukan aplikasi perangkat keras.",
+      "overview": "Pustaka inferensi Mamdani berbasis Python murni yang dibangun dari komponen yang dapat digunakan kembali. Variabel linguistik, fungsi keanggotaan, evaluasi aturan, dan keluaran centroid numerik dipisahkan ke dalam modul yang mudah dipahami.",
+      "features": [
+        [
+          "Fungsi keanggotaan",
+          "Gunakan fungsi masukan segitiga, trapesium, dan Gaussian."
+        ],
+        [
+          "Variabel linguistik",
+          "Representasikan masukan dan keluaran dengan himpunan fuzzy yang dapat digunakan kembali."
+        ],
+        [
+          "Inferensi max–min",
+          "Evaluasi AND dengan minimum dan agregasikan konsekuen dengan maksimum."
+        ],
+        [
+          "Keluaran centroid",
+          "Ubah keluaran agregasi menjadi nilai numerik tegas."
+        ]
+      ],
+      "flow": [
+        "Masukan tegas",
+        "Fuzzifikasi",
+        "Evaluasi aturan",
+        "Keluaran centroid"
+      ],
+      "workflowDetails": [
+        "Berikan nilai masukan numerik tegas.",
+        "Petakan masukan ke nilai keanggotaannya.",
+        "Evaluasi aturan dan agregasikan konsekuennya.",
+        "Hitung centroid tersampel untuk memperoleh keluaran tegas."
+      ]
+    },
+    "linguaplay": {
+      "title": "LinguaPlay untuk YouTube",
+      "domain": "Alat bahasa & AI terapan",
+      "stage": "Ekstensi browser",
+      "alt": "Tangkapan layar LinguaPlay dari repositori dengan subtitel Jepang yang dapat diklik dan panel analisis kata di YouTube",
+      "caption": "Tangkapan layar repositori · LinguaPlay pada halaman video YouTube",
+      "summary": "Subtitel Jepang interaktif, tutor AI kontekstual, dan kartu Anki di dalam YouTube.",
+      "problem": "Bagaimana pelajar dapat memeriksa kata Jepang yang belum dikenal, bertanya sesuai konteks, dan menyimpan kosakata tanpa meninggalkan video?",
+      "contribution": "Saya membangun ekstensi Manifest V3 yang menghubungkan interaksi subtitel, permintaan parser Jepang, tutor AI yang dapat dikonfigurasi, dan ekspor kartu Anki.",
+      "approach": "JavaScript mengintegrasikan ekstensi dengan YouTube melalui penghubung halaman dan content script. Klien parser menyediakan pembacaan kontekstual, penyedia AI yang dapat dikonfigurasi memberi penjelasan dan chat, sementara AnkiConnect atau koleksi offline mendukung peninjauan kosakata.",
+      "outcome": "Ekstensi belajar di YouTube dengan mode pembacaan, panel kata kontekstual, bantuan AI, dan alur kartu belajar.",
+      "evidence": "Menunjukkan JavaScript, arsitektur ekstensi browser, integrasi pemrosesan bahasa, dan alur API. README, manifest, serta klien parser mendukung deskripsi ini; tangkapan layar disediakan oleh repositori.",
+      "overview": "Ekstensi belajar di YouTube yang menempatkan alat bahasa Jepang di samping video. Pelajar dapat memeriksa kata dalam subtitel, meminta penjelasan kontekstual, dan menyimpan kosakata untuk ditinjau kembali.",
+      "features": [
+        [
+          "Subtitel interaktif",
+          "Klik kata Jepang yang belum dikenal saat menonton video."
+        ],
+        [
+          "Pembacaan kontekstual",
+          "Minta analisis kata dan cara baca melalui klien parser."
+        ],
+        [
+          "Bantuan AI",
+          "Gunakan penyedia yang dapat dikonfigurasi untuk penjelasan dan chat kontekstual."
+        ],
+        [
+          "Peninjauan kosakata",
+          "Ekspor ke AnkiConnect atau simpan koleksi kosakata offline."
+        ]
+      ],
+      "flow": [
+        "Subtitel video",
+        "Analisis kata",
+        "Konteks & AI",
+        "Peninjauan kosakata"
+      ],
+      "workflowDetails": [
+        "Baca subtitel melalui integrasi halaman YouTube.",
+        "Periksa kata dengan klien parser Jepang.",
+        "Minta konteks atau bantuan dari penyedia AI yang dikonfigurasi.",
+        "Simpan kosakata yang berguna untuk ditinjau melalui kartu belajar."
+      ]
+    },
+    "agentic": {
+      "title": "Agentic Engineering Kit",
+      "domain": "Alat pengembangan AI",
+      "stage": "Paket integrasi alur kerja",
+      "alt": "Ilustrasi tahap spesifikasi, perencanaan, pengujian, implementasi, tinjauan, dan rilis yang didukung Agentic Engineering Kit",
+      "caption": "Ilustrasi alur kerja · tahap rekayasa dan alat yang terintegrasi",
+      "summary": "Alur rekayasa yang dapat digunakan kembali dengan installer, konfigurasi MCP, dan worktree Git terpisah.",
+      "problem": "Bagaimana pengembangan berbantuan AI dapat mengikuti proses rekayasa yang berulang secara konsisten pada berbagai proyek dan mesin?",
+      "contribution": "Saya menyusun paket alur kerja yang dapat digunakan kembali, berisi keahlian rekayasa bertahap, skrip instalasi, integrasi MCP, dan alat worktree Git.",
+      "approach": "Installer Bash menyalin paket keahlian, mengonfigurasi layanan MCP untuk memori dan konteks, serta mengintegrasikan Worktrunk. Alurnya mencakup spesifikasi, perencanaan, pengujian, implementasi, tinjauan, dan persiapan rilis.",
+      "outcome": "Paket alur rekayasa yang dapat diinstal, dengan keahlian yang dapat digunakan kembali, alat arsitektur, dan integrasi lingkungan pengembangan.",
+      "evidence": "Menunjukkan otomasi Bash, desain alur kerja, alat Git, serta integrasi alat pengembangan yang sudah ada. README dan installer mendokumentasikan paket serta integrasinya; diagram menjelaskan alur kerja.",
+      "overview": "Paket yang dapat diinstal untuk alur pengembangan berbantuan AI yang konsisten. Keahlian rekayasa bertahap, otomasi pengaturan, konfigurasi MCP, dan alat worktree Git disatukan dalam lingkungan proyek yang dapat digunakan kembali.",
+      "features": [
+        [
+          "Tahap rekayasa",
+          "Keahlian yang dapat digunakan kembali mencakup spesifikasi hingga persiapan rilis."
+        ],
+        [
+          "Otomasi pengaturan",
+          "Installer Bash menyalin paket dan mengonfigurasi integrasi."
+        ],
+        [
+          "Layanan konteks",
+          "Integrasikan memori dan konteks melalui konfigurasi MCP."
+        ],
+        [
+          "Checkout terpisah",
+          "Integrasikan Worktrunk dan worktree Git ke dalam alur kerja."
+        ]
+      ],
+      "flow": [
+        "Spesifikasi & rencana",
+        "Uji & implementasi",
+        "Tinjauan",
+        "Persiapan rilis"
+      ],
+      "workflowDetails": [
+        "Tentukan kebutuhan dan rencana implementasi.",
+        "Uji dan implementasikan perubahan yang diminta.",
+        "Tinjau kode dan perilaku yang dihasilkan.",
+        "Siapkan perubahan yang telah diverifikasi untuk rilis."
+      ]
+    }
+  }
+}

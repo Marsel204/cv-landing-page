@@ -4,7 +4,7 @@
 [![Printable CV (HTML)](https://img.shields.io/badge/CV_Mahasiswa-HTML_View-0f172a?style=for-the-badge)](https://marsel204.github.io/cv-landing-page/cv-mahasiswa.html)
 [![Download CV (PDF)](https://img.shields.io/badge/Download_CV-PDF-248a3d?style=for-the-badge)](https://marsel204.github.io/cv-landing-page/CV_Marselinus_Allen_Nugraha.pdf)
 
-Official Web Portfolio and Curriculum Vitae of **Marselinus Allen Nugraha** (**NIM: 2310314001**), Undergraduate in **Electrical Engineering** at **Universitas Pembangunan Nasional "Veteran" Jakarta (UPNVJ)** (GPA **3.82 / 4.00**).
+Official Web Portfolio and Curriculum Vitae of **Marselinus Allen Nugraha**, Undergraduate in **Electrical Engineering** at **Universitas Pembangunan Nasional "Veteran" Jakarta (UPNVJ)** (GPA **3.82 / 4.00**).
 
 - **Live Web Portfolio**: [https://marsel204.github.io/cv-landing-page/](https://marsel204.github.io/cv-landing-page/)
 - **Printable Student CV (HTML)**: [https://marsel204.github.io/cv-landing-page/cv-mahasiswa.html](https://marsel204.github.io/cv-landing-page/cv-mahasiswa.html)
@@ -17,6 +17,10 @@ Official Web Portfolio and Curriculum Vitae of **Marselinus Allen Nugraha** (**N
 The landing page shows eleven projects in a continuous carousel with category filters, swipe and arrow controls, and an explicit pause button. Scrolling starts automatically when the cards enter view and resumes after manual browsing; visitors who prefer reduced motion can browse without automatic motion. Select a project image or “View project” to read its purpose, contribution, capabilities, workflow, technologies and deliverable, then enlarge its screenshot or diagram from the overview.
 
 The original introduction, public experience and education section, and eight certificate previews remain available. Select a certificate to view it at full size. The CV dialog provides both English and Indonesian HTML and PDF versions. Project cards and details use local assets and do not require a GitHub API request.
+
+The header's EN / ID buttons switch the complete portfolio between English and Indonesian without reloading. This includes project cards and their detailed overviews, experience, education, certificate controls, navigation and accessibility labels. English is the initial language; an explicit choice is remembered in local storage when available. Switching preserves the active project category and the carousel's pause preference. Original certificate images, screenshots and official training names remain as issued.
+
+Indonesian copy is maintained in `locales.json`; English messages and project narratives remain in `index.html`. After editing the dictionary, run `npm run locales:sync` to update the embedded data, then `npm test`. `i18n.js` contains the shared language and fallback helpers. Serving the page requires no translation API or build service.
 
 The site is plain HTML, CSS, and JavaScript; no build step or runtime dependencies are required. GitHub Pages publishes from the root of `main`.
 

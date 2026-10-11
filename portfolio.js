@@ -1,9 +1,12 @@
+import { normalizeLanguage, translate, localizeProject } from './i18n.js?v=20261011-bilingual';
+
 export function selectProjects(projects, category = 'all') {
   return projects.filter(project => category === 'all' || project.categories.includes(category));
 }
 
 function initPortfolio() {
   'use strict';
+
   const $ = (s) => document.querySelector(s);
   const $$ = (s) => [...document.querySelectorAll(s)];
   const legacySections = { '#hero': '#about', '#certifications': '#credentials' };
@@ -13,8 +16,17 @@ function initPortfolio() {
     document.querySelector(legacySection).scrollIntoView();
   }
   const projects = JSON.parse($('#project-data').textContent);
+  const locales = JSON.parse($('#locale-data').textContent);
+  let language = 'en';
+  try { language = normalizeLanguage(window.localStorage.getItem('marsel-portfolio-language')); } catch { /* The preview also works when storage is unavailable. */ }
+  const t = (message, parameters) => translate(language, locales.ui, message, parameters);
+  const projectInLanguage = id => localizeProject(projects[id], language, locales.projects);
+  const originalTitle = document.title;
+  const originalDescription = $('meta[name="description"]').content;
+  let emailCopied = false;
   const track = $('#project-track');
   const cards = $$('#project-track .project-card');
+  cards.forEach(card => card.querySelectorAll('.project-technologies li').forEach(tag => { tag.dataset.technology = tag.textContent; }));
   const projectDialog = $('#project-dialog');
   const imageDialog = $('#image-dialog');
   let currentProject;
@@ -76,8 +88,8 @@ function initPortfolio() {
     userPaused = paused;
     if (!paused) interactionUntil = 0;
     playButton.dataset.paused = String(paused);
-    playButton.setAttribute('aria-label', paused ? 'Resume scrolling' : 'Pause scrolling');
-    playButton.querySelector('span').textContent = paused ? 'Resume scrolling' : 'Pause scrolling';
+    playButton.setAttribute('aria-label', t(paused ? 'Resume scrolling' : 'Pause scrolling'));
+    playButton.querySelector('span').textContent = t(paused ? 'Resume scrolling' : 'Pause scrolling');
     position.setAttribute('aria-live', paused ? 'polite' : 'off');
     scheduleAutoplay();
   }
@@ -112,8 +124,8 @@ function initPortfolio() {
     track.style.scrollSnapType = 'none';
     track.replaceChildren(...matchingCards);
     matchingCards.forEach((card,index) => {
-      card.setAttribute('aria-roledescription', 'slide');
-      card.setAttribute('aria-label', `${index + 1} of ${matchingCards.length}`);
+      card.setAttribute('aria-roledescription', t('slide'));
+      card.setAttribute('aria-label', t('{index} of {count}', {index:index + 1, count:matchingCards.length}));
     });
     const width = matchingCards[0]?.getBoundingClientRect().width || 0;
     const gap = parseFloat(getComputedStyle(track).gap) || 0;
@@ -130,7 +142,7 @@ function initPortfolio() {
     currentIndex = Math.max(0, matchingCards.findIndex(card => card.id === keepId));
     track.scrollTo({left:start + currentIndex * step, behavior:'instant'});
     $('#carousel-controls').hidden = !scrollable;
-    $('#carousel-hint').textContent = scrollable ? 'Auto-scrolls left. Swipe or use the arrows to browse.' : `All ${matchingCards.length} projects in view.`;
+    $('#carousel-hint').textContent = scrollable ? t('Auto-scrolls left. Swipe or use the arrows to browse.') : t('All {count} projects in view.', {count:matchingCards.length});
     updatePosition();
     requestAnimationFrame(() => {
       track.style.scrollSnapType = '';
@@ -147,7 +159,7 @@ function initPortfolio() {
       card, categories: card.dataset.category.split(' ')
     })), category).map(project => project.card);
     $$('.filter').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === filter)));
-    $('#project-count').textContent = `${matchingCards.length} projects`;
+    $('#project-count').textContent = t('{count} projects', {count:matchingCards.length});
     buildCarousel();
   }
   $$('.filter').forEach(button => button.addEventListener('click', () => selectFilter(button.dataset.filter)));
@@ -198,8 +210,8 @@ function initPortfolio() {
   selectFilter('all');
 
   function getProjectImage(id) { return cards.find(card => card.id === `project-${id}`).querySelector('.project-reference'); }
-  function showProject(id) {
-    const p = projects[id];
+  function renderProject(id) {
+    const p = projectInLanguage(id);
     currentProject = id;
     $('#detail-title').textContent = p.title;
     $('#detail-stage').textContent = p.domain + ' · ' + p.stage;
@@ -209,8 +221,8 @@ function initPortfolio() {
     $('#detail-image').src = image.src;
     $('#detail-image').alt = p.alt;
     $('#detail-caption').textContent = p.caption;
-    $('#detail-enlarge').setAttribute('aria-label', 'Enlarge ' + p.title + ' image');
-    $('#detail-enlarge .image-hint').textContent = p.caption.toLowerCase().includes('illustration') ? 'Enlarge diagram ↗' : 'Enlarge screenshot ↗';
+    $('#detail-enlarge').setAttribute('aria-label', t('Enlarge {title} image', {title:p.title}));
+    $('#detail-enlarge .image-hint').textContent = t(projects[id].caption.toLowerCase().includes('illustration') ? 'Enlarge diagram ↗' : 'Enlarge screenshot ↗');
     for (const field of ['problem', 'contribution', 'approach', 'outcome', 'evidence']) $('#detail-' + field).textContent = p[field];
     $('#detail-features').replaceChildren(...p.features.map(([title, description]) => {
       const li = document.createElement('li');
@@ -234,11 +246,14 @@ function initPortfolio() {
       li.append(number, heading, text);
       return li;
     }));
-    $('#detail-tags').replaceChildren(...[...p.tags, ...(p.additionalTags || [])].map(tag => { const li = document.createElement('li'); li.textContent = tag; return li; }));
+    $('#detail-tags').replaceChildren(...[...p.tags, ...(p.additionalTags || [])].map(tag => { const li = document.createElement('li'); li.textContent = t(tag); return li; }));
     $('#detail-source').hidden = !p.source;
     if (p.source) $('#detail-source').href = p.source;
     $('#detail-repo').hidden = !p.url;
     if (p.url) $('#detail-repo').href = p.url;
+  }
+  function showProject(id) {
+    renderProject(id);
     projectDialog.showModal();
     projectDialog.scrollTop = 0;
     scheduleAutoplay();
@@ -259,7 +274,7 @@ function initPortfolio() {
     $('#image-download').download = filename;
     $('#image-canvas').classList.remove('is-zoomed');
     $('#image-zoom').setAttribute('aria-pressed', 'false');
-    $('#image-zoom').textContent = 'Zoom in';
+    $('#image-zoom').textContent = t('Zoom in');
     imageDialog.showModal();
     scheduleAutoplay();
     imageDialog.scrollTop = 0;
@@ -267,7 +282,7 @@ function initPortfolio() {
     $('#image-canvas').scrollTop = 0;
   }
   function showProjectImage(id) {
-    const p = projects[id], image = getProjectImage(id);
+    const p = projectInLanguage(id), image = getProjectImage(id);
     const extension = new URL(image.src).pathname.split('.').pop().toLowerCase();
     showImage(image.src, p.alt, p.title, p.caption, id + '-project-image.' + extension);
   }
@@ -279,7 +294,7 @@ function initPortfolio() {
   $('#image-zoom').addEventListener('click', () => {
     const zoomed = $('#image-canvas').classList.toggle('is-zoomed');
     $('#image-zoom').setAttribute('aria-pressed', String(zoomed));
-    $('#image-zoom').textContent = zoomed ? 'Zoom out' : 'Zoom in';
+    $('#image-zoom').textContent = t(zoomed ? 'Zoom out' : 'Zoom in');
     $('#image-canvas').scrollLeft = 0;
     $('#image-canvas').scrollTop = 0;
   });
@@ -297,13 +312,13 @@ function initPortfolio() {
   function closeMenu() {
     navigation.classList.remove('is-open');
     menu.setAttribute('aria-expanded', 'false');
-    menu.setAttribute('aria-label', 'Open navigation');
+    menu.setAttribute('aria-label', t('Open navigation'));
   }
   menu.addEventListener('click', () => {
     const open = menu.getAttribute('aria-expanded') !== 'true';
     navigation.classList.toggle('is-open', open);
     menu.setAttribute('aria-expanded', String(open));
-    menu.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+    menu.setAttribute('aria-label', t(open ? 'Close navigation' : 'Open navigation'));
   });
   navigation.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
   document.addEventListener('keydown', event => {
@@ -311,7 +326,7 @@ function initPortfolio() {
       closeMenu(); menu.focus();
     }
   });
-  window.matchMedia('(max-width: 920px)').addEventListener('change', closeMenu);
+  window.matchMedia('(max-width: 1120px)').addEventListener('change', closeMenu);
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {
       const entry = entries.find(e => e.isIntersecting);
@@ -336,10 +351,55 @@ function initPortfolio() {
         const copied = document.execCommand('copy'); field.remove();
         if (!copied) throw new Error('Unavailable');
       }
-      $('#copy-label').textContent = 'Email copied';
+      emailCopied = true;
+      $('#copy-label').textContent = t('Email copied');
     } catch { $('#copy-label').textContent = email; }
-    setTimeout(() => { $('#copy-label').textContent = email; }, 3000);
+    setTimeout(() => { emailCopied = false; $('#copy-label').textContent = email; }, 3000);
   });
+
+  function applyLanguage(value, announce = false) {
+    const keepId = matchingCards[currentIndex]?.id;
+    language = normalizeLanguage(value);
+    document.documentElement.lang = language;
+    document.title = language === 'id' ? 'Marselinus Allen Nugraha | Teknik Elektro, IoT & AI Terapan' : originalTitle;
+    $('meta[name="description"]').content = language === 'id' ? t('Marselinus Allen Nugraha — embedded firmware, IoT, industrial automation and applied AI.') : originalDescription;
+    // Explicit hooks let text change without replacing icons, links or documents.
+    $$('[data-i18n]').forEach(element => { element.textContent = t(element.dataset.i18n); });
+    $$('*').forEach(element => {
+      for (const attribute of [...element.attributes]) {
+        if (attribute.name.startsWith('data-i18n-')) element.setAttribute(attribute.name.slice('data-i18n-'.length), t(attribute.value));
+      }
+    });
+    cards.forEach(card => {
+      const id = card.id.replace('project-', ''), p = projectInLanguage(id);
+      card.querySelector('h3').textContent = p.title;
+      card.querySelector('.project-kicker').textContent = p.domain;
+      card.querySelector('.project-stage').textContent = p.stage.split('·')[0].trim();
+      card.querySelector('.project-summary').textContent = p.summary;
+      card.querySelector('.project-reference').alt = p.alt;
+      card.querySelector('.project-image-button').setAttribute('aria-label', t('View {title} project overview', {title:p.title}));
+      const button = card.querySelector('[data-project]');
+      button.setAttribute('aria-label', t('View {title} project details', {title:p.title}));
+      // Filtered-out originals are detached from the document and need the same update.
+      card.querySelectorAll('[data-i18n]').forEach(element => { element.textContent = t(element.dataset.i18n); });
+      card.querySelector('.project-technologies').setAttribute('aria-label', t('Selected technologies'));
+      card.querySelectorAll('.project-technologies li').forEach(tag => { tag.textContent = t(tag.dataset.technology); });
+    });
+    $$('[data-language]').forEach(button => { button.setAttribute('aria-pressed', String(button.dataset.language === language)); });
+    menu.setAttribute('aria-label', t(menu.getAttribute('aria-expanded') === 'true' ? 'Close navigation' : 'Open navigation'));
+    $('#project-count').textContent = t('{count} projects', {count:matchingCards.length});
+    $('#image-zoom').textContent = t($('#image-canvas').classList.contains('is-zoomed') ? 'Zoom out' : 'Zoom in');
+    if (emailCopied) $('#copy-label').textContent = t('Email copied');
+    if (projectDialog.open) renderProject(currentProject);
+    setPaused(userPaused);
+    buildCarousel(keepId);
+    if (announce) {
+      $('#language-announcement').textContent = t('Language changed to English.');
+      try { window.localStorage.setItem('marsel-portfolio-language', language); } catch { /* Selection remains active for this visit. */ }
+    }
+  }
+  $$('[data-language]').forEach(button => button.addEventListener('click', () => applyLanguage(button.dataset.language, true)));
+  applyLanguage(language);
 }
 
 if (typeof document !== 'undefined') initPortfolio();

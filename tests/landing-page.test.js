@@ -49,16 +49,16 @@ test('TDD: AutoCAD Electrical and IBM certificate images are tightly cropped and
   assert.equal(ibmDim.height, 1238, 'assets/cert_ibm.png must have its 37px bottom blank margin cropped');
 });
 
-test('TDD: Printable CV Mahasiswa document (cv-mahasiswa.html & PDF) follows all 7 Komponen CV Mahasiswa sections with NIM 2310314001', () => {
+test('TDD: Printable CV Mahasiswa document (cv-mahasiswa.html & PDF) follows all 7 Komponen CV Mahasiswa sections without a student ID', () => {
   const cvHtmlPath = path.join(rootDir, 'cv-mahasiswa.html');
   const cvPdfPath = path.join(rootDir, 'CV_Marselinus_Allen_Nugraha.pdf');
 
   assert.ok(fs.existsSync(cvHtmlPath), 'cv-mahasiswa.html must exist in repository root for GitHub maintainability');
   const cvHtml = fs.readFileSync(cvHtmlPath, 'utf-8');
 
-  // 1. Header & NIM 2310314001
+  // 1. Professional header and contact details, without a student ID.
   assert.ok(cvHtml.includes('Marselinus Allen Nugraha'), 'Must include full name');
-  assert.ok(cvHtml.includes('2310314001'), 'Must include NIM 2310314001');
+  assert.doesNotMatch(cvHtml, /\b(?:NIM|Student ID)\b|(?<!\d)\d{10}(?!\d)/i, 'Indonesian CV must omit student ID from content and metadata');
   assert.ok(cvHtml.includes('0895343371256'), 'Must include active WhatsApp/phone number');
   assert.ok(cvHtml.includes('marselinusalen@gmail.com'), 'Must include email');
   assert.ok(cvHtml.includes('Tangerang'), 'Must include domisili city');
@@ -152,11 +152,11 @@ test('TDD: English CV document (cv-english.html & CV_Marselinus_Allen_Nugraha_EN
   const cvIdHtml = fs.readFileSync(path.join(rootDir, 'cv-mahasiswa.html'), 'utf-8');
   const currentHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf-8');
 
-  // 1. cv-english.html must exist with all 7 sections and NIM 2310314001 in English
+  // 1. The English CV retains all sections and omits the student ID.
   assert.ok(fs.existsSync(cvEnHtmlPath), 'cv-english.html must exist in repository root');
   const cvEnHtml = fs.readFileSync(cvEnHtmlPath, 'utf-8');
   assert.ok(cvEnHtml.includes('Marselinus Allen Nugraha'), 'English CV must include full name');
-  assert.ok(cvEnHtml.includes('2310314001'), 'English CV must include NIM 2310314001');
+  assert.doesNotMatch(cvEnHtml, /\b(?:NIM|Student ID)\b|(?<!\d)\d{10}(?!\d)/i, 'English CV must omit student ID from content and metadata');
   assert.ok(cvEnHtml.includes('id="cv-summary"'), 'English CV must include #cv-summary');
   assert.ok(cvEnHtml.includes('id="cv-education"'), 'English CV must include #cv-education');
   assert.ok(cvEnHtml.includes('id="cv-organizations"'), 'English CV must include #cv-organizations');

@@ -99,7 +99,8 @@ test("Native section navigation resolves to unique destinations and puts project
   for (const [_, destination] of html.matchAll(/href="#([^"]+)"/g))
     assert.ok(ids.includes(destination), destination);
   assert.ok(html.indexOf('id="projects"') < html.indexOf('id="skills"'));
-  assert.match(html, /<a[^>]+href="#main"[^>]*>Skip to content<\/a>/);
+  const skipLink = html.match(/<a[^>]+href="#main"[^>]*>([\s\S]*?)<\/a>/)[1];
+  assert.equal(skipLink.replace(/<[^>]+>/g, '').trim(), 'Skip to content');
 });
 
 test("Dialogs have accessible titles and explicit close controls", () => {
