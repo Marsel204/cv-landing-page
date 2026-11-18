@@ -1,4 +1,5 @@
 import { normalizeLanguage, translate, localizeProject } from './i18n.js?v=20261011-bilingual';
+import { getStackProgress, getStackFrame } from './stacked-scroll.js?v=20261118-stacked';
 
 export function selectProjects(projects, category = 'all') {
   return projects.filter(project => category === 'all' || project.categories.includes(category));
@@ -32,126 +33,119 @@ function initPortfolio() {
   let currentProject;
   let filter = 'all';
   const carousel = $('#project-carousel');
-  const playButton = $('#carousel-play');
+  const stage = $('#project-sticky');
   const position = $('#carousel-position');
+  const previousButton = $('#carousel-previous');
+  const nextButton = $('#carousel-next');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let userPaused = reducedMotion.matches;
-  let inView = false;
-  let rebuilding = false;
-  let keyboardFocus = false;
-  let pointerActive = false;
-  let interactionUntil = 0;
-  let autoFrame = null, lastFrame = 0, rollingPosition = 0;
-  let settleTimer, resumeTimer;
-  const rollSpeed = 30; // Pixels per second, independent of the display refresh rate.
   let matchingCards = cards;
-  let step = 0, start = 0, loopWidth = 0, currentIndex = 0;
-  let scrollable = false;
-  let trackWidth = 0;
+  let currentIndex = 0;
+  let stacked = false;
+  let step = 1, scrollStart = 0, scrollTravel = 0, trackWidth = 0;
+  let renderFrame = null, navigationIndex = null, settleTimer;
+  let inView = true;
+  let lastProgress = null;
 
-  function canPlay() {
-    return scrollable && !userPaused && !keyboardFocus && !pointerActive && performance.now() >= interactionUntil && inView && !document.hidden && !rebuilding && !document.querySelector('dialog[open]');
+  function updatePosition(index) {
+    const changed = currentIndex !== index;
+    currentIndex = index;
+    const active = matchingCards[index];
+    position.textContent = matchingCards.length ? `${String(index + 1).padStart(2, '0')} / ${String(matchingCards.length).padStart(2, '0')}` : '00 / 00';
+    carousel.dataset.currentProject = active?.id.replace('project-', '') || '';
+    previousButton.disabled = index === 0;
+    nextButton.disabled = index >= matchingCards.length - 1;
+    if (stacked && changed && track.contains(document.activeElement)) {
+      const focusedCard = document.activeElement.closest('.project-card');
+      if (focusedCard && focusedCard !== active) track.focus({preventScroll:true});
+    }
+    matchingCards.forEach(card => {
+      const inactive = stacked && card !== active;
+      card.inert = inactive;
+      if (inactive) card.setAttribute('aria-hidden', 'true');
+      else card.removeAttribute('aria-hidden');
+    });
   }
-  function stopRolling() {
-    if (autoFrame !== null) cancelAnimationFrame(autoFrame);
-    autoFrame = null;
-    lastFrame = 0;
+  function renderStack() {
+    renderFrame = null;
+    if (!stacked) {
+      updatePosition(Math.round(getStackProgress(track.scrollLeft, step, matchingCards.length)));
+      return;
+    }
+    const progress = getStackProgress(window.scrollY - scrollStart, step, matchingCards.length);
+    if (progress === lastProgress) return;
+    lastProgress = progress;
+    matchingCards.forEach((card, index) => {
+      const frame = getStackFrame(index, progress);
+      card.style.transform = frame.transform;
+      card.style.opacity = frame.opacity;
+      card.style.visibility = frame.visible ? 'visible' : 'hidden';
+      card.style.zIndex = index === Math.round(progress) ? matchingCards.length + 1 : matchingCards.length - index;
+    });
+    carousel.style.setProperty('--stack-progress', matchingCards.length > 1 ? progress / (matchingCards.length - 1) : 0);
+    updatePosition(Math.round(progress));
   }
-  function roll(timestamp) {
-    autoFrame = null;
-    if (!canPlay()) { scheduleAutoplay(); return; }
-    if (lastFrame) rollingPosition += Math.min(timestamp - lastFrame, 64) * rollSpeed / 1000;
-    lastFrame = timestamp;
-    if (rollingPosition >= start + loopWidth) rollingPosition -= loopWidth;
-    else if (rollingPosition < start) rollingPosition += loopWidth;
-    track.scrollTo({left:rollingPosition, behavior:'instant'});
-    updatePosition();
-    autoFrame = requestAnimationFrame(roll);
+  function requestRender() {
+    if (renderFrame === null && inView && !document.hidden) renderFrame = requestAnimationFrame(renderStack);
   }
-  function scheduleAutoplay() {
-    clearTimeout(resumeTimer);
-    const playing = canPlay();
-    carousel.dataset.autoplay = playing ? 'playing' : 'paused';
-    if (playing && autoFrame === null) {
-      rollingPosition = track.scrollLeft;
-      lastFrame = 0;
-      autoFrame = requestAnimationFrame(roll);
-    } else if (!playing) stopRolling();
-    const remaining = interactionUntil - performance.now();
-    if (!userPaused && remaining > 0) resumeTimer = setTimeout(scheduleAutoplay, remaining + 20);
+  function resetNavigation() {
+    navigationIndex = null;
+    position.setAttribute('aria-live', 'off');
   }
-  function pauseForInteraction(milliseconds = 1800) {
-    interactionUntil = performance.now() + milliseconds;
-    scheduleAutoplay();
-  }
-  function setPaused(paused) {
-    userPaused = paused;
-    if (!paused) interactionUntil = 0;
-    playButton.dataset.paused = String(paused);
-    playButton.setAttribute('aria-label', t(paused ? 'Resume scrolling' : 'Pause scrolling'));
-    playButton.querySelector('span').textContent = t(paused ? 'Resume scrolling' : 'Pause scrolling');
-    position.setAttribute('aria-live', paused ? 'polite' : 'off');
-    scheduleAutoplay();
-  }
-  function updatePosition() {
-    if (!step || !matchingCards.length || Math.abs(track.clientWidth - trackWidth) > 1) return;
-    currentIndex = ((Math.round((track.scrollLeft - start) / step) % matchingCards.length) + matchingCards.length) % matchingCards.length;
-    position.textContent = `${String(currentIndex + 1).padStart(2, '0')} / ${String(matchingCards.length).padStart(2, '0')}`;
-    carousel.dataset.currentProject = matchingCards[currentIndex].id.replace('project-', '');
-  }
-  function settleScroll() {
-    clearTimeout(settleTimer);
-    if (autoFrame !== null || rebuilding || !scrollable || Math.abs(track.clientWidth - trackWidth) > 1) return;
-    // Identical edge copies let the loop continue left, with no backwards sweep.
-    if (track.scrollLeft >= start + loopWidth - 1) track.scrollTo({left:track.scrollLeft - loopWidth, behavior:'instant'});
-    else if (track.scrollLeft < start - 1) track.scrollTo({left:track.scrollLeft + loopWidth, behavior:'instant'});
-    updatePosition();
-    scheduleAutoplay();
-  }
-  function copyCard(card) {
-    const copy = card.cloneNode(true);
-    copy.removeAttribute('id');
-    copy.dataset.copy = 'true';
-    copy.setAttribute('aria-hidden', 'true');
-    copy.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
-    copy.querySelectorAll('button,a,[tabindex]').forEach(el => el.tabIndex = -1);
-    return copy;
-  }
-  function buildCarousel(keepId) {
-    rebuilding = true;
-    clearTimeout(settleTimer);
-    stopRolling();
-    track.style.scrollSnapType = 'none';
+  function buildCarousel(keepId, preserveProgress = false) {
+    const rootRect = carousel.getBoundingClientRect();
+    const rootTop = rootRect.top + window.scrollY;
+    const stickyTop = document.querySelector('.site-header').offsetHeight + 16;
+    const wasPinned = stacked && window.scrollY >= scrollStart && window.scrollY <= scrollStart + scrollTravel;
+    const wasStacked = stacked;
+    const wasVisible = rootRect.top < window.innerHeight && rootRect.bottom > stickyTop;
+    const retainedProgress = preserveProgress && stacked ? getStackProgress(window.scrollY - scrollStart, step, matchingCards.length) : null;
+    currentIndex = Math.max(0, matchingCards.findIndex(card => card.id === keepId));
+    resetNavigation();
     track.replaceChildren(...matchingCards);
-    matchingCards.forEach((card,index) => {
+    matchingCards.forEach((card, index) => {
+      card.style.removeProperty('transform');
+      card.style.removeProperty('opacity');
+      card.style.removeProperty('visibility');
+      card.style.removeProperty('z-index');
+      card.inert = false;
+      card.removeAttribute('aria-hidden');
       card.setAttribute('aria-roledescription', t('slide'));
       card.setAttribute('aria-label', t('{index} of {count}', {index:index + 1, count:matchingCards.length}));
     });
-    const width = matchingCards[0]?.getBoundingClientRect().width || 0;
-    const gap = parseFloat(getComputedStyle(track).gap) || 0;
-    step = width + gap;
+    carousel.style.setProperty('--stack-top', `${stickyTop}px`);
+    $('#carousel-controls').hidden = matchingCards.length < 2;
+    $('#carousel-hint').textContent = t(!reducedMotion.matches && matchingCards.length > 1 ? 'Scroll to explore. Use the arrows to jump.' : 'Swipe or use the arrows to browse.');
+    // Measure the complete sticky surface before opting in. Zoom and short
+    // landscape screens must never leave project actions outside the viewport.
+    carousel.dataset.stacked = String(!reducedMotion.matches && matchingCards.length > 1);
+    const stageHeight = stage.offsetHeight;
+    stacked = !reducedMotion.matches && matchingCards.length > 1 && stageHeight <= window.innerHeight - stickyTop - 16;
+    carousel.dataset.stacked = String(stacked);
     trackWidth = track.clientWidth;
-    scrollable = matchingCards.length * step - gap > trackWidth + 1;
-    const copies = scrollable ? Math.min(matchingCards.length, Math.ceil(trackWidth / step) + 1) : 0;
-    if (copies) {
-      track.prepend(...matchingCards.slice(-copies).map(copyCard));
-      track.append(...matchingCards.slice(0, copies).map(copyCard));
+    step = stacked ? Math.max(300, Math.min(window.innerHeight * 0.7, 700)) : matchingCards[0]?.offsetWidth + (parseFloat(getComputedStyle(track).gap) || 0) || 1;
+    scrollStart = rootTop - stickyTop;
+    scrollTravel = Math.max(0, matchingCards.length - 1) * step;
+    carousel.style.setProperty('--stack-height', `${stageHeight}px`);
+    carousel.style.setProperty('--stack-travel', `${scrollTravel}px`);
+    $('#carousel-hint').textContent = t(stacked ? 'Scroll to explore. Use the arrows to jump.' : 'Swipe or use the arrows to browse.');
+    track.setAttribute('aria-label', t(stacked ? 'Project cards. Scroll or use the arrow keys to browse.' : 'Project cards. Swipe or use the arrow controls to browse.'));
+    if (stacked) track.scrollTo({left:0, behavior:'instant'});
+    else track.scrollTo({left:currentIndex * step, behavior:'instant'});
+    if (wasPinned || (keepId && !wasStacked && stacked && currentIndex > 0 && wasVisible)) {
+      const progress = retainedProgress ?? currentIndex;
+      window.scrollTo({top:stacked ? scrollStart + progress * step : rootTop - stickyTop, behavior:'instant'});
     }
-    start = copies * step;
-    loopWidth = matchingCards.length * step;
-    currentIndex = Math.max(0, matchingCards.findIndex(card => card.id === keepId));
-    track.scrollTo({left:start + currentIndex * step, behavior:'instant'});
-    $('#carousel-controls').hidden = !scrollable;
-    $('#carousel-hint').textContent = scrollable ? t('Auto-scrolls left. Swipe or use the arrows to browse.') : t('All {count} projects in view.', {count:matchingCards.length});
-    updatePosition();
-    requestAnimationFrame(() => {
-      track.style.scrollSnapType = '';
-      rebuilding = false;
-      scheduleAutoplay();
-    });
+    lastProgress = null;
+    renderStack();
+  }
+  function navigateTo(index) {
+    navigationIndex = Math.max(0, Math.min(matchingCards.length - 1, index));
+    position.setAttribute('aria-live', 'polite');
+    if (stacked) window.scrollTo({top:scrollStart + navigationIndex * step, behavior:'smooth'});
+    else track.scrollTo({left:navigationIndex * step, behavior:reducedMotion.matches ? 'instant' : 'smooth'});
   }
   function advance(direction) {
-    if (scrollable) track.scrollTo({left:start + (currentIndex + direction) * step, behavior:reducedMotion.matches ? 'instant' : 'smooth'});
+    navigateTo((navigationIndex ?? currentIndex) + direction);
   }
   function selectFilter(category) {
     filter = category;
@@ -164,49 +158,34 @@ function initPortfolio() {
   }
   $$('.filter').forEach(button => button.addEventListener('click', () => selectFilter(button.dataset.filter)));
   $$('[data-skill-filter]').forEach(link => link.addEventListener('click', () => selectFilter(link.dataset.skillFilter)));
-  playButton.addEventListener('click', () => setPaused(!userPaused));
-  $('#carousel-previous').addEventListener('click', () => { pauseForInteraction(); advance(-1); });
-  $('#carousel-next').addEventListener('click', () => { pauseForInteraction(); advance(1); });
-  track.addEventListener('pointerdown', () => { pointerActive = true; pauseForInteraction(); }, {passive:true});
-  const endPointerInteraction = () => {
-    if (!pointerActive) return;
-    pointerActive = false;
-    pauseForInteraction();
-  };
-  window.addEventListener('pointerup', endPointerInteraction, {passive:true});
-  window.addEventListener('pointercancel', endPointerInteraction, {passive:true});
-  track.addEventListener('wheel', () => pauseForInteraction(), {passive:true});
-  function updateKeyboardFocus() {
-    keyboardFocus = track.matches(':focus-visible') || Boolean(track.querySelector(':focus-visible'));
-    scheduleAutoplay();
-  }
-  track.addEventListener('focusin', updateKeyboardFocus);
-  track.addEventListener('focusout', () => queueMicrotask(updateKeyboardFocus));
+  previousButton.addEventListener('click', () => advance(-1));
+  nextButton.addEventListener('click', () => advance(1));
+  track.addEventListener('pointerdown', resetNavigation, {passive:true});
+  window.addEventListener('wheel', resetNavigation, {passive:true});
   track.addEventListener('keydown', event => {
-    if (event.target !== track || !['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
-    event.preventDefault(); pauseForInteraction();
-    if (event.key === 'Home' || event.key === 'End') track.scrollTo({left:start + (event.key === 'End' ? matchingCards.length - 1 : 0) * step, behavior:'instant'});
-    else advance(event.key === 'ArrowRight' ? 1 : -1);
+    if (event.target !== track || !['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(event.key)) return;
+    event.preventDefault();
+    if (event.key === 'Home' || event.key === 'End') navigateTo(event.key === 'End' ? matchingCards.length - 1 : 0);
+    else advance(['ArrowRight','ArrowDown'].includes(event.key) ? 1 : -1);
   });
-  track.addEventListener('scroll', () => {
-    if (rebuilding) return;
-    updatePosition();
-    if (autoFrame !== null) return;
+  function onScroll() {
+    requestRender();
     clearTimeout(settleTimer);
-    settleTimer = setTimeout(settleScroll, 160);
-  }, {passive:true});
-  track.addEventListener('scrollend', settleScroll);
-  document.addEventListener('visibilitychange', scheduleAutoplay);
-  reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) setPaused(true); });
+    settleTimer = setTimeout(resetNavigation, 160);
+  }
+  window.addEventListener('scroll', () => { if (stacked) onScroll(); }, {passive:true});
+  track.addEventListener('scroll', () => { if (!stacked) onScroll(); }, {passive:true});
+  window.addEventListener('resize', () => buildCarousel(matchingCards[currentIndex]?.id, true));
+  reducedMotion.addEventListener('change', () => buildCarousel(matchingCards[currentIndex]?.id));
+  document.addEventListener('visibilitychange', requestRender);
   if ('IntersectionObserver' in window) new IntersectionObserver(entries => {
     inView = entries[0].isIntersecting;
-    scheduleAutoplay();
-  }, {threshold:0}).observe(track);
-  else inView = true;
-  new ResizeObserver(() => {
-    if (Math.abs(track.clientWidth - trackWidth) > 1) buildCarousel(matchingCards[currentIndex]?.id);
+    if (inView) requestRender();
+  }, {rootMargin:'200px'}).observe(carousel);
+  if ('ResizeObserver' in window) new ResizeObserver(() => {
+    if (Math.abs(track.clientWidth - trackWidth) > 1) buildCarousel(matchingCards[currentIndex]?.id, true);
   }).observe(track);
-  setPaused(userPaused);
+  document.fonts?.ready.then(() => buildCarousel(matchingCards[currentIndex]?.id));
   selectFilter('all');
 
   function getProjectImage(id) { return cards.find(card => card.id === `project-${id}`).querySelector('.project-reference'); }
@@ -256,14 +235,13 @@ function initPortfolio() {
     renderProject(id);
     projectDialog.showModal();
     projectDialog.scrollTop = 0;
-    scheduleAutoplay();
   }
   track.addEventListener('click', event => {
     const button = event.target.closest('button[data-project],button[data-image]');
     if (!button || !track.contains(button)) return;
     showProject(button.dataset.project || button.dataset.image);
   });
-  $$('[data-open-cv]').forEach(button => button.addEventListener('click', () => { $('#cv-dialog').showModal(); scheduleAutoplay(); }));
+  $$('[data-open-cv]').forEach(button => button.addEventListener('click', () => { $('#cv-dialog').showModal(); }));
 
   function showImage(src, alt, title, description, filename) {
     $('#viewer-image').src = src;
@@ -276,7 +254,6 @@ function initPortfolio() {
     $('#image-zoom').setAttribute('aria-pressed', 'false');
     $('#image-zoom').textContent = t('Zoom in');
     imageDialog.showModal();
-    scheduleAutoplay();
     imageDialog.scrollTop = 0;
     $('#image-canvas').scrollLeft = 0;
     $('#image-canvas').scrollTop = 0;
@@ -299,7 +276,6 @@ function initPortfolio() {
     $('#image-canvas').scrollTop = 0;
   });
   $$('.dialog').forEach(dialog => {
-    dialog.addEventListener('close', scheduleAutoplay);
     dialog.querySelector('[data-close]').addEventListener('click', () => dialog.close());
     dialog.addEventListener('click', event => {
       if (event.target !== dialog) return;
@@ -391,7 +367,6 @@ function initPortfolio() {
     $('#image-zoom').textContent = t($('#image-canvas').classList.contains('is-zoomed') ? 'Zoom out' : 'Zoom in');
     if (emailCopied) $('#copy-label').textContent = t('Email copied');
     if (projectDialog.open) renderProject(currentProject);
-    setPaused(userPaused);
     buildCarousel(keepId);
     if (announce) {
       $('#language-announcement').textContent = t('Language changed to English.');

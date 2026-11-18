@@ -40,10 +40,6 @@
     "Software & tools": "Perangkat lunak & alat",
     "{count} projects": "{count} proyek",
     "Engineering projects": "Proyek rekayasa",
-    "Auto-scrolls left. Swipe or use the arrows to browse.": "Bergeser otomatis ke kiri. Geser atau gunakan panah untuk menjelajah.",
-    "All {count} projects in view.": "Semua {count} proyek ditampilkan.",
-    "Pause scrolling": "Jeda pergeseran",
-    "Resume scrolling": "Lanjutkan pergeseran",
     "Previous project": "Proyek sebelumnya",
     "Next project": "Proyek berikutnya",
     "Project cards. Swipe or use the arrow controls to browse.": "Kartu proyek. Geser atau gunakan tombol panah untuk menjelajah.",
@@ -197,7 +193,11 @@
     "Basic Electronics laboratory appointment certificate awarded to Marselinus Allen Nugraha": "Sertifikat penugasan asisten laboratorium Elektronika Dasar atas nama Marselinus Allen Nugraha",
     "Electrical Engineering Program · UPNVJ · Sep 2025": "Program Studi Teknik Elektro · UPNVJ · Sep 2025",
     "Enlarge Adjunct Professor Program Committee certificate": "Perbesar sertifikat Adjunct Professor Program Committee",
-    "Adjunct Professor Program Committee certificate awarded to Marselinus Allen Nugraha": "Sertifikat Adjunct Professor Program Committee atas nama Marselinus Allen Nugraha"
+    "Adjunct Professor Program Committee certificate awarded to Marselinus Allen Nugraha": "Sertifikat Adjunct Professor Program Committee atas nama Marselinus Allen Nugraha",
+    "Scroll to explore. Use the arrows to jump.": "Gulir untuk menjelajah. Gunakan panah untuk berpindah.",
+    "Swipe or use the arrows to browse.": "Geser atau gunakan panah untuk menjelajah.",
+    "Continue to skills": "Lanjut ke keahlian",
+    "Project cards. Scroll or use the arrow keys to browse.": "Kartu proyek. Gulir atau gunakan tombol panah untuk menjelajah."
   },
   "projects": {
     "deploy": {
